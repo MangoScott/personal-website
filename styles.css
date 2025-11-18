@@ -41,8 +41,8 @@ body {
 
 /* Header */
 header {
-    padding: 48px 0;
-    border-bottom: 1px solid var(--border);
+    padding: 32px 0;
+    border-bottom: none;
     background: var(--background);
 }
 
@@ -80,7 +80,7 @@ nav {
 
 /* Hero Section */
 .hero {
-    padding: 120px 0 80px;
+    padding: 100px 0 100px;
 }
 
 .hero-content {
@@ -162,17 +162,17 @@ section:last-of-type {
 }
 
 h2 {
-    font-size: 32px;
+    font-size: 40px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin-bottom: 32px;
+    margin-bottom: 40px;
 }
 
 .section-intro {
-    font-size: 18px;
+    font-size: 20px;
     color: var(--secondary);
     line-height: 1.6;
-    margin-bottom: 48px;
+    margin-bottom: 56px;
 }
 
 /* About Section */
@@ -371,15 +371,7 @@ h2 {
 
 /* Publications */
 .publication {
-    margin-bottom: 48px;
-    padding-bottom: 48px;
-    border-bottom: 1px solid var(--border);
-}
-
-.publication:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
+    margin-bottom: 56px;
 }
 
 .publication-title {
@@ -408,70 +400,59 @@ h2 {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
     text-decoration: none;
     color: var(--accent);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
-    transition: all 0.2s;
-    margin-top: 8px;
+    transition: opacity 0.2s;
+    margin-top: 12px;
 }
 
 .publication-link:hover {
-    border-color: var(--accent);
-    background: #F0F7FF;
+    opacity: 0.7;
 }
 
 /* Education Items */
 .education-item {
-    padding: 24px;
-    background: var(--light-bg);
-    border-radius: 8px;
-    margin-bottom: 16px;
-}
-
-.education-item:last-child {
-    margin-bottom: 0;
+    margin-bottom: 32px;
 }
 
 .education-item h3 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 8px;
 }
 
 .education-item p {
-    font-size: 15px;
+    font-size: 16px;
     color: var(--secondary);
+    line-height: 1.6;
 }
 
 /* Speaking Page */
 .speaking-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 32px;
-    margin-top: 48px;
+    gap: 48px;
+    margin-top: 56px;
 }
 
 .tedx-talks {
     display: grid;
-    gap: 32px;
-    margin-bottom: 48px;
+    gap: 48px;
+    margin-bottom: 0;
 }
 
 .talk-card {
-    padding: 32px;
+    padding: 40px;
     border: 1px solid var(--border);
-    border-radius: 12px;
-    transition: all 0.2s;
+    border-radius: 8px;
+    transition: opacity 0.2s;
     background: var(--background);
 }
 
 .talk-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    opacity: 0.95;
 }
 
 .talk-card h3 {
@@ -498,31 +479,24 @@ h2 {
 
 .topics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 48px 64px;
 }
 
 .topic {
-    padding: 24px;
-    background: var(--light-bg);
-    border-radius: 8px;
-    transition: all 0.2s;
-}
-
-.topic:hover {
-    background: var(--accent-light);
+    padding: 0;
 }
 
 .topic h3 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .topic p {
-    font-size: 14px;
+    font-size: 16px;
     color: var(--secondary);
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .venues-list {
@@ -532,17 +506,16 @@ h2 {
 }
 
 .venue-tag {
-    padding: 8px 16px;
-    background: #F3F4F6;
-    border-radius: 20px;
-    font-size: 14px;
+    padding: 10px 18px;
+    background: var(--light-bg);
+    border-radius: 6px;
+    font-size: 15px;
     color: var(--secondary);
-    transition: all 0.2s;
+    transition: opacity 0.2s;
 }
 
 .venue-tag:hover {
-    background: var(--accent-light);
-    color: var(--accent);
+    opacity: 0.7;
 }
 
 .speaking-cta {
@@ -553,50 +526,44 @@ h2 {
 .cta-button {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 14px 28px;
+    gap: 10px;
+    padding: 16px 32px;
     background: var(--primary);
     color: var(--background);
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 16px;
     font-weight: 600;
-    transition: all 0.2s;
+    transition: opacity 0.2s;
 }
 
 .cta-button:hover {
-    background: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    opacity: 0.85;
 }
 
 /* Talks Grid (Home page) */
 .talks-grid {
     display: grid;
-    gap: 24px;
+    gap: 32px;
 }
 
 .talk {
-    padding: 24px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    transition: all 0.2s;
-    background: var(--background);
+    padding: 0;
+    transition: opacity 0.2s;
 }
 
 .talk:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    opacity: 0.85;
 }
 
 .talk h3 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 8px;
 }
 
 .talk-location {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--secondary);
 }
 
@@ -611,10 +578,10 @@ h2 {
 .contact-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
+    gap: 10px;
+    padding: 14px 28px;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 6px;
     text-decoration: none;
     color: var(--primary);
     font-size: 15px;
@@ -623,20 +590,18 @@ h2 {
 }
 
 .contact-link:hover {
-    border-color: var(--accent);
-    background: var(--accent);
+    border-color: var(--primary);
+    background: var(--primary);
     color: var(--background);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
 /* Footer */
 footer {
-    padding: 48px 0;
+    padding: 60px 0;
     text-align: center;
     color: var(--secondary);
     font-size: 14px;
-    border-top: 1px solid var(--border);
+    border-top: none;
 }
 
 /* Responsive Design */
@@ -658,11 +623,11 @@ footer {
 
 @media (max-width: 768px) {
     h1 {
-        font-size: 36px;
+        font-size: 40px;
     }
 
     h2 {
-        font-size: 28px;
+        font-size: 32px;
     }
 
     .hero {

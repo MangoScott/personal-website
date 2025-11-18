@@ -164,9 +164,17 @@
             const ctx = canvas.getContext('2d');
 
             // Set canvas size
+            let previousMobileState = window.innerWidth <= 768;
             function resizeCanvas() {
                 canvas.width = canvas.offsetWidth;
                 canvas.height = canvas.offsetHeight;
+
+                // Reinitialize particles if switching between mobile/desktop
+                const currentMobileState = window.innerWidth <= 768;
+                if (currentMobileState !== previousMobileState) {
+                    init();
+                    previousMobileState = currentMobileState;
+                }
             }
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
@@ -201,8 +209,14 @@
                     this.speedX = Math.random() * 0.5 - 0.25;
                     this.speedY = Math.random() * 0.5 - 0.25;
 
-                    // Google blue color variations
-                    const blueShades = [
+                    // Google blue color variations - more subtle on mobile
+                    const isMobile = window.innerWidth <= 768;
+                    const blueShades = isMobile ? [
+                        'rgba(66, 133, 244, 0.3)',   // Google Blue - more subtle
+                        'rgba(66, 133, 244, 0.25)',  // Google Blue lighter
+                        'rgba(100, 155, 245, 0.2)',  // Lighter blue
+                        'rgba(130, 177, 255, 0.15)'  // Light blue
+                    ] : [
                         'rgba(66, 133, 244, 0.6)',   // Google Blue
                         'rgba(66, 133, 244, 0.5)',   // Google Blue lighter
                         'rgba(100, 155, 245, 0.4)',  // Lighter blue
@@ -251,12 +265,13 @@
                 }
             }
 
-            // Create particle array
-            const particleCount = 100;
+            // Create particle array - fewer particles on mobile
+            const isMobile = () => window.innerWidth <= 768;
             const particlesArray = [];
 
             function init() {
                 particlesArray.length = 0;
+                const particleCount = isMobile() ? 40 : 100;
                 for (let i = 0; i < particleCount; i++) {
                     particlesArray.push(new Particle());
                 }
@@ -264,6 +279,7 @@
 
             // Connect particles with lines
             function connect() {
+                const lineOpacity = isMobile() ? 0.1 : 0.2;
                 for (let a = 0; a < particlesArray.length; a++) {
                     for (let b = a + 1; b < particlesArray.length; b++) {
                         const dx = particlesArray[a].x - particlesArray[b].x;
@@ -272,7 +288,7 @@
 
                         if (distance < 120) {
                             const opacity = 1 - distance / 120;
-                            ctx.strokeStyle = `rgba(66, 133, 244, ${opacity * 0.2})`;
+                            ctx.strokeStyle = `rgba(66, 133, 244, ${opacity * lineOpacity})`;
                             ctx.lineWidth = 0.5;
                             ctx.beginPath();
                             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);

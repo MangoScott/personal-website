@@ -1,16 +1,19 @@
-<svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="180" height="44" viewBox="0 0 180 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular background for SG monogram -->
+  <circle cx="22" cy="22" r="18" fill="currentColor" opacity="0.08"/>
+
   <!-- S -->
-  <path d="M8.5 12.5C8.5 11.1193 9.61929 10 11 10H17C18.3807 10 19.5 11.1193 19.5 12.5V14.5C19.5 15.8807 18.3807 17 17 17H11C9.61929 17 8.5 18.1193 8.5 19.5V21.5C8.5 22.8807 9.61929 24 11 24H17C18.3807 24 19.5 25.1193 19.5 26.5V28.5C19.5 29.8807 18.3807 31 17 31H11C9.61929 31 8.5 29.8807 8.5 28.5V27" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M16 14C16 13.4477 16.4477 13 17 13H21C21.5523 13 22 13.4477 22 14V15.5C22 16.0523 21.5523 16.5 21 16.5H17.5C16.6716 16.5 16 17.1716 16 18V19C16 19.8284 16.6716 20.5 17.5 20.5H21C21.5523 20.5 22 20.9477 22 21.5V23C22 23.5523 21.5523 24 21 24H17.5C16.6716 24 16 24.6716 16 25.5V26.5C16 27.0523 16.4477 27.5 17 27.5H21C21.5523 27.5 22 27.9477 22 28.5V30C22 30.5523 21.5523 31 21 31H17C16.4477 31 16 30.5523 16 30V29" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
 
   <!-- G -->
-  <path d="M34.5 12.5C34.5 11.1193 35.6193 10 37 10H46.5M34.5 12.5V28.5C34.5 29.8807 35.6193 31 37 31H43C44.3807 31 45.5 29.8807 45.5 28.5V23.5M34.5 12.5V28.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M39.5 23.5H45.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M24 14C24 13.4477 24.4477 13 25 13H29M24 14V30C24 30.5523 24.4477 31 25 31H28C28.5523 31 29 30.5523 29 30V25M24 14V30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M26 25H29" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
 
-  <!-- Divider Line -->
-  <line x1="60" y1="14" x2="60" y2="27" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+  <!-- Refined divider with gradient effect -->
+  <line x1="48" y1="15" x2="48" y2="29" stroke="currentColor" stroke-width="1.8" opacity="0.25"/>
 
-  <!-- Text: Scott Glasgow -->
-  <text x="68" y="25" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="600" fill="currentColor" letter-spacing="-0.01em">
+  <!-- Text: Scott Glasgow with improved spacing -->
+  <text x="57" y="28" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="600" fill="currentColor" letter-spacing="-0.02em">
     Scott Glasgow
   </text>
 </svg>

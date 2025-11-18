@@ -247,7 +247,7 @@ h2 {
 
 .project-image-container {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 1 / 1;
     border-radius: 8px;
     overflow: hidden;
     background: var(--light-bg);

@@ -29,7 +29,7 @@ body {
 .container {
     max-width: 720px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 28px;
 }
 
 /* Wider container for desktop */
@@ -41,7 +41,7 @@ body {
 
 /* Header */
 header {
-    padding: 32px 0;
+    padding: 28px 0;
     border-bottom: none;
     background: var(--background);
 }
@@ -58,6 +58,14 @@ nav {
     letter-spacing: -0.02em;
     text-decoration: none;
     color: var(--primary);
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 36px;
+    width: auto;
+    display: block;
 }
 
 .nav-links {
@@ -689,16 +697,20 @@ footer {
     }
 
     .hero {
-        padding: 80px 0 60px;
+        padding: 60px 0 40px;
     }
 
     section {
-        padding: 60px 0;
+        padding: 0 0 60px 0;
     }
 
     /* Mobile Navigation */
     .mobile-menu-toggle {
         display: block;
+    }
+
+    .logo img {
+        height: 34px;
     }
 
     .nav-links {
@@ -779,19 +791,19 @@ footer {
 
     .hero-subtitle,
     .page-subtitle {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .container {
-        padding: 0 20px;
+        padding: 0 24px;
     }
 
     header {
-        padding: 32px 0;
+        padding: 20px 0;
     }
 
-    .logo {
-        font-size: 16px;
+    .logo img {
+        height: 30px;
     }
 
     .nav-links {
@@ -802,10 +814,18 @@ footer {
         font-size: 14px;
     }
 
-    .profile-image,
-    .profile-image-placeholder {
-        width: 220px;
+    .profile-image {
+        width: 280px;
         height: auto;
+    }
+
+    .profile-image-placeholder {
+        width: 200px;
+        height: 200px;
+    }
+
+    .hero-content {
+        gap: 40px;
     }
 
     .talk-card {

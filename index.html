@@ -201,14 +201,14 @@
                     this.speedX = Math.random() * 0.5 - 0.25;
                     this.speedY = Math.random() * 0.5 - 0.25;
 
-                    // Orange color variations
-                    const orangeShades = [
-                        'rgba(255, 140, 0, 0.6)',   // #FF8C00
-                        'rgba(255, 165, 0, 0.5)',   // #FFA500
-                        'rgba(255, 180, 50, 0.4)',  // #FFB432
-                        'rgba(255, 200, 100, 0.3)'  // #FFC864
+                    // Google blue color variations
+                    const blueShades = [
+                        'rgba(66, 133, 244, 0.6)',   // Google Blue
+                        'rgba(66, 133, 244, 0.5)',   // Google Blue lighter
+                        'rgba(100, 155, 245, 0.4)',  // Lighter blue
+                        'rgba(130, 177, 255, 0.3)'   // Light blue
                     ];
-                    this.color = orangeShades[Math.floor(Math.random() * orangeShades.length)];
+                    this.color = blueShades[Math.floor(Math.random() * blueShades.length)];
                 }
 
                 draw() {
@@ -272,7 +272,7 @@
 
                         if (distance < 120) {
                             const opacity = 1 - distance / 120;
-                            ctx.strokeStyle = `rgba(255, 140, 0, ${opacity * 0.2})`;
+                            ctx.strokeStyle = `rgba(66, 133, 244, ${opacity * 0.2})`;
                             ctx.lineWidth = 0.5;
                             ctx.beginPath();
                             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);

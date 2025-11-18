@@ -32,9 +32,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="menu-overlay"></div>
     <header>
         <nav class="container">
             <a href="index.html" class="logo">Scott Glasgow</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="publications.html">Publications</a></li>
@@ -64,8 +70,8 @@
         <section id="about">
             <div class="container">
                 <h2>About</h2>
-                <p class="section-intro">I solve complex problems at the intersection of technology and human well-being. My work focuses on making systems more effective, inclusive, and accessible to those who need them most. 2x TEDx speaker (Togo, Brazil) who believes in bold simplicity over conventional complexity.</p>
-                <p class="section-intro">Outside of work, you can find me on the tennis court (former NCAA athlete), playing basketball, or exploring new countries.</p>
+                <p class="section-intro">I build technology that helps people thrive. My focus is on creating systems that are more effective and accessible to those who need them most—whether that's through financial tools, AI applications, or new ways of thinking about social problems. I've shared these ideas as a TEDx speaker in Togo and Brazil, and I'm a firm believer that the best solutions are usually the simplest ones.</p>
+                <p class="section-intro">When I'm not working, I'm competing on the tennis court (former NCAA athlete), playing pickup basketball, or traveling to places I've never been.</p>
             </div>
         </section>
 
@@ -116,3 +122,44 @@
         <div class="container">
             <p>© 2025 Scott Glasgow. Built with intention.</p>
    
+   
+   
+
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        const body = document.body;
+
+        function toggleMenu() {
+            mobileMenuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking nav links
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    </script>
+</body>
+</html>

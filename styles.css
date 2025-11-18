@@ -188,6 +188,7 @@ h1 {
     color: var(--secondary);
     line-height: 1.5;
     max-width: 600px;
+    margin-top: 32px;
 }
 
 .page-header {
@@ -331,6 +332,13 @@ h2 {
     gap: 16px;
     margin-bottom: 16px;
     flex-wrap: wrap;
+}
+
+.project-card h2 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
 }
 
 .project h2,

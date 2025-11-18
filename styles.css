@@ -794,6 +794,14 @@ footer {
         font-size: 17px;
     }
 
+    .section-intro {
+        font-size: 17px;
+    }
+
+    .page-header {
+        padding: 60px 0 30px;
+    }
+
     .container {
         padding: 0 24px;
     }

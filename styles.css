@@ -224,11 +224,19 @@ h2 {
 
 .project-image-container {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 12px;
+    aspect-ratio: 1 / 1;
+    max-width: 200px;
+    border-radius: 16px;
     overflow: hidden;
     background: var(--light-bg);
     border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.project-image-container:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
 }
 
 .project-image {
@@ -239,7 +247,7 @@ h2 {
 }
 
 .project-image:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
 }
 
 .project-image-placeholder {
@@ -252,9 +260,10 @@ h2 {
 }
 
 .project-image-placeholder svg {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     color: var(--secondary);
+    opacity: 0.6;
 }
 
 .project-header {
@@ -643,8 +652,9 @@ footer {
     }
 
     .project-card {
-        grid-template-columns: 300px 1fr;
+        grid-template-columns: 200px 1fr;
         gap: 32px;
+        align-items: start;
     }
 }
 

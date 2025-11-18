@@ -5,267 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publications - Scott Glasgow</title>
     <meta name="description" content="Academic research, publications, and thought leadership by Scott Glasgow.">
-    
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scottglasgow.com/publications.html">
+    <meta property="og:title" content="Publications - Scott Glasgow">
+    <meta property="og:description" content="Academic research, thought leadership, and contributions to evidence-based approaches in financial literacy, health education, and public policy.">
+    <meta property="og:image" content="https://scottglasgow.com/images/profile/profile.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://scottglasgow.com/publications.html">
+    <meta property="twitter:title" content="Publications - Scott Glasgow">
+    <meta property="twitter:description" content="Academic research, thought leadership, and contributions to evidence-based approaches in financial literacy, health education, and public policy.">
+    <meta property="twitter:image" content="https://scottglasgow.com/images/profile/profile.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        :root {
-            --primary: #000000;
-            --secondary: #6B7280;
-            --accent: #2563EB;
-            --background: #FFFFFF;
-            --border: #E5E7EB;
-        }
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: var(--primary);
-            background: var(--background);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        header {
-            padding: 48px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 18px;
-            letter-spacing: -0.02em;
-            text-decoration: none;
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--secondary);
-            text-decoration: none;
-            font-size: 15px;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary);
-        }
-
-        .page-header {
-            padding: 80px 0 60px;
-        }
-
-        h1 {
-            font-size: 48px;
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-        }
-
-        .page-subtitle {
-            font-size: 20px;
-            color: var(--secondary);
-            line-height: 1.5;
-        }
-
-        section {
-            padding: 60px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        section:last-of-type {
-            border-bottom: none;
-        }
-
-        h2 {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 32px;
-        }
-
-        .publication {
-            margin-bottom: 48px;
-            padding-bottom: 48px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .publication:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .publication-title {
-            font-size: 20px;
-            font-weight: 600;
-            line-height: 1.4;
-            margin-bottom: 8px;
-            color: var(--primary);
-        }
-
-        .publication-authors {
-            font-size: 15px;
-            color: var(--secondary);
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-
-        .publication-venue {
-            font-size: 15px;
-            color: var(--secondary);
-            font-style: italic;
-            margin-bottom: 12px;
-        }
-
-        .publication-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            text-decoration: none;
-            color: var(--accent);
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s;
-            margin-top: 8px;
-        }
-
-        .publication-link:hover {
-            border-color: var(--accent);
-            background: #F0F7FF;
-        }
-
-        .education-item {
-            padding: 24px;
-            background: #F9FAFB;
-            border-radius: 8px;
-            margin-bottom: 16px;
-        }
-
-        .education-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .education-item h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .education-item p {
-            font-size: 15px;
-            color: var(--secondary);
-        }
-
-        footer {
-            padding: 48px 0;
-            text-align: center;
-            color: var(--secondary);
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 36px;
-            }
-
-            h2 {
-                font-size: 28px;
-            }
-
-            .page-header {
-                padding: 60px 0 40px;
-            }
-
-            section {
-                padding: 40px 0;
-            }
-
-            .nav-links {
-                gap: 24px;
-            }
-
-            .publication {
-                margin-bottom: 40px;
-                padding-bottom: 40px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 32px;
-            }
-
-            .page-subtitle {
-                font-size: 18px;
-            }
-
-            .container {
-                padding: 0 20px;
-            }
-
-            header {
-                padding: 32px 0;
-            }
-
-            .logo {
-                font-size: 16px;
-            }
-
-            .nav-links {
-                gap: 16px;
-            }
-
-            .nav-links a {
-                font-size: 14px;
-            }
-
-            .publication-title {
-                font-size: 18px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav class="container">
-            <a href="index.html" class="logo">Scott Glasgow</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
                 <li><a href="publications.html" class="active">Publications</a></li>
                 <li><a href="speaking.html">Speaking</a></li>
                 <li><a href="index.html#contact">Contact</a></li>

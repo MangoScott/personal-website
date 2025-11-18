@@ -3,346 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scott Glasgow</title>
+    <title>Scott Glasgow - Building Products That Improve Human Well-Being at Scale</title>
     <meta name="description" content="Building products that improve human well-being at scale. Founder of FinMango, currently building Fresho.">
-    
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scottglasgow.com/">
+    <meta property="og:title" content="Scott Glasgow - Building Products That Improve Human Well-Being at Scale">
+    <meta property="og:description" content="Entrepreneur and world speaker focused on financial inclusion, technology, and systems change. Founder of FinMango, currently building Fresho.">
+    <meta property="og:image" content="https://scottglasgow.com/images/profile/profile.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://scottglasgow.com/">
+    <meta property="twitter:title" content="Scott Glasgow - Building Products That Improve Human Well-Being at Scale">
+    <meta property="twitter:description" content="Entrepreneur and world speaker focused on financial inclusion, technology, and systems change. Founder of FinMango, currently building Fresho.">
+    <meta property="twitter:image" content="https://scottglasgow.com/images/profile/profile.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        :root {
-            --primary: #000000;
-            --secondary: #6B7280;
-            --accent: #2563EB;
-            --background: #FFFFFF;
-            --border: #E5E7EB;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: var(--primary);
-            background: var(--background);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header */
-        header {
-            padding: 48px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 18px;
-            letter-spacing: -0.02em;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--secondary);
-            text-decoration: none;
-            font-size: 15px;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 120px 0 80px;
-        }
-
-        h1 {
-            font-size: 48px;
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 24px;
-        }
-
-        .hero-subtitle {
-            font-size: 20px;
-            color: var(--secondary);
-            line-height: 1.5;
-            max-width: 600px;
-        }
-
-        /* Section Styles */
-        section {
-            padding: 80px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        section:last-of-type {
-            border-bottom: none;
-        }
-
-        h2 {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 32px;
-        }
-
-        .section-intro {
-            font-size: 18px;
-            color: var(--secondary);
-            line-height: 1.6;
-            margin-bottom: 48px;
-        }
-
-        /* About Section */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 32px;
-            margin-top: 48px;
-        }
-
-        .stat {
-            padding: 24px 0;
-        }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 15px;
-            color: var(--secondary);
-        }
-
-        /* Projects Section */
-        .project {
-            margin-bottom: 64px;
-        }
-
-        .project:last-child {
-            margin-bottom: 0;
-        }
-
-        .project-header {
-            display: flex;
-            align-items: baseline;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .project h3 {
-            font-size: 24px;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-        }
-
-        .project-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            background: #F3F4F6;
-            border-radius: 16px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--secondary);
-        }
-
-        .project p {
-            font-size: 16px;
-            color: var(--secondary);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        .project-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            font-size: 14px;
-            color: var(--secondary);
-            margin-top: 16px;
-        }
-
-        .project-meta span {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Talks Section */
-        .talks-grid {
-            display: grid;
-            gap: 24px;
-        }
-
-        .talk {
-            padding: 24px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: border-color 0.2s;
-        }
-
-        .talk:hover {
-            border-color: var(--secondary);
-        }
-
-        .talk h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .talk-location {
-            font-size: 14px;
-            color: var(--secondary);
-        }
-
-        /* Contact Section */
-        .contact-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin-top: 32px;
-        }
-
-        .contact-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--primary);
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .contact-link:hover {
-            border-color: var(--primary);
-            background: var(--primary);
-            color: var(--background);
-        }
-
-        /* Footer */
-        footer {
-            padding: 48px 0;
-            text-align: center;
-            color: var(--secondary);
-            font-size: 14px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 36px;
-            }
-
-            h2 {
-                font-size: 28px;
-            }
-
-            .hero {
-                padding: 80px 0 60px;
-            }
-
-            section {
-                padding: 60px 0;
-            }
-
-            .nav-links {
-                gap: 24px;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .contact-links {
-                flex-direction: column;
-            }
-
-            .contact-link {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 32px;
-            }
-
-            .hero-subtitle {
-                font-size: 18px;
-            }
-
-            .container {
-                padding: 0 20px;
-            }
-
-            header {
-                padding: 32px 0;
-            }
-
-            .logo {
-                font-size: 16px;
-            }
-
-            .nav-links {
-                gap: 16px;
-            }
-
-            .nav-links a {
-                font-size: 14px;
-            }
-        }
-
-        /* Subtle animations */
-        @media (prefers-reduced-motion: no-preference) {
-            a, .talk {
-                transition: all 0.2s ease;
-            }
-        }
-    </style>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <nav class="container">
-            <div class="logo">Scott Glasgow</div>
+            <a href="index.html" class="logo">Scott Glasgow</a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="projects.html">Projects</a></li>
@@ -357,8 +49,23 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="container">
-                <h1>Building products that improve human well-being at scale</h1>
-                <p class="hero-subtitle">Entrepreneur and world speaker focused on financial inclusion, technology, and systems change. Founder of FinMango, currently building Fresho.</p>
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Building products that improve human well-being at scale</h1>
+                        <p class="hero-subtitle">Entrepreneur and world speaker focused on financial inclusion, technology, and systems change. Founder of FinMango, currently building Fresho.</p>
+                    </div>
+                    <div class="hero-image">
+                        <!-- Profile image will be displayed here when added to images/profile/profile.jpg -->
+                        <div class="profile-image-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <!-- Uncomment below and comment out placeholder above when you add your profile image -->
+                        <!-- <img src="images/profile/profile.jpg" alt="Scott Glasgow" class="profile-image"> -->
+                    </div>
+                </div>
             </div>
         </section>
 

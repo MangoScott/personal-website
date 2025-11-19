@@ -511,6 +511,19 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
+
+    /* Fix fixed positioning context issue caused by backdrop-filter */
+    header {
+        backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.98);
+        /* Solid background for mobile */
+    }
+
+    .hero {
+        padding: 40px 0 40px;
+        /* Reduced padding */
+    }
+
     .hero-content {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -518,25 +531,23 @@ footer {
     }
 
     .hero-text {
-        padding-left: 0;
-        /* Remove line spacing on mobile if desired, or keep it */
-        /* Let's keep the line but adjust padding */
         padding-left: 24px;
         text-align: left;
     }
 
     .hero-text::before {
-        /* Adjust line for mobile */
         left: 0;
     }
 
     .hero-text h1 {
         font-size: 40px;
+        margin-bottom: 16px;
+        /* Reduced margin */
     }
 
     .hero-subtitle {
-        margin: 0 0 32px;
-        /* Align left */
+        margin: 0 0 24px;
+        /* Reduced margin */
     }
 
     .mobile-menu-toggle {
@@ -545,20 +556,39 @@ footer {
 
     .nav-links {
         position: fixed;
-        top: 0;
-        right: -100%;
-        width: 280px;
-        height: 100vh;
+        top: 80px;
+        /* Below header (approx) */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px);
         background: white;
         flex-direction: column;
-        padding: 80px 32px;
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-        transition: right 0.3s ease;
-        z-index: 1000;
+        padding: 32px;
+        box-shadow: none;
+        transform: translateX(100%);
+        /* Use transform instead of right/left */
+        transition: transform 0.3s ease;
+        z-index: 999;
+        border-top: 1px solid var(--border);
+        gap: 24px;
+        align-items: center;
     }
 
     .nav-links.active {
+        transform: translateX(0);
         right: 0;
+        /* Reset for safety */
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        font-size: 20px;
+        display: block;
+        padding: 12px;
     }
 
     .speaking-stats {

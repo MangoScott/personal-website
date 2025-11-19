@@ -1,23 +1,26 @@
 /* Google-inspired Design System */
 :root {
     /* Colors */
-    --primary: #202124;      /* Google Dark Grey */
-    --secondary: #5F6368;    /* Google Grey */
-    --accent: #1A73E8;       /* Google Blue */
+    --primary: #202124;
+    /* Google Dark Grey */
+    --secondary: #5F6368;
+    /* Google Grey */
+    --accent: #1A73E8;
+    /* Google Blue */
     --background: #FFFFFF;
     --surface: #F8F9FA;
     --border: #DADCE0;
-    
+
     /* Typography */
     --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    
+
     /* Spacing */
     --container-width: 1200px;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 24px;
-    --shadow-sm: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-    --shadow-md: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+    --shadow-sm: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    --shadow-md: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
 }
 
 * {
@@ -40,8 +43,13 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Google Sans', var(--font-sans); /* Fallback to Inter if Google Sans isn't loaded */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Google Sans', var(--font-sans);
     color: var(--primary);
     line-height: 1.2;
     font-weight: 600;
@@ -114,7 +122,8 @@ nav {
 .logo {
     font-weight: 600;
     font-size: 20px;
-    color: var(--secondary);
+    color: var(--primary);
+    /* Darker text for logo */
     display: flex;
     align-items: center;
     gap: 12px;
@@ -123,10 +132,12 @@ nav {
 .logo img {
     height: 32px;
     width: auto;
+    border-radius: 4px;
+    /* Slight rounding if it's square */
 }
 
 .logo:hover {
-    color: var(--primary);
+    opacity: 0.8;
 }
 
 .nav-links {
@@ -229,7 +240,8 @@ nav {
     align-items: center;
     justify-content: center;
     padding: 12px 24px;
-    border-radius: 24px; /* Pill shape */
+    border-radius: 24px;
+    /* Pill shape */
     font-weight: 500;
     font-size: 16px;
     transition: all 0.2s ease;
@@ -246,7 +258,7 @@ nav {
 .btn-primary:hover {
     background: #174EA6;
     color: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .btn-outline {
@@ -264,7 +276,7 @@ nav {
 /* Cards (Projects, Talks) */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 32px;
 }
 
@@ -281,22 +293,32 @@ nav {
 }
 
 .card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
     border-color: #DADCE0;
 }
 
 .card-image-container {
     width: 100%;
-    aspect-ratio: 16/9;
+    aspect-ratio: 1 / 1;
+    /* Square images as requested */
     overflow: hidden;
     border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image {
+    transform: scale(1.05);
 }
 
 .card-content {
@@ -306,7 +328,8 @@ nav {
     flex-direction: column;
 }
 
-.card h3, .card h2 {
+.card h3,
+.card h2 {
     font-size: 20px;
     margin-bottom: 8px;
     color: var(--primary);
@@ -339,6 +362,17 @@ nav {
 .publication-item {
     padding: 32px 0;
     border-bottom: 1px solid var(--border);
+    transition: background-color 0.2s ease;
+}
+
+.publication-item:hover {
+    background-color: #FAFAFA;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: -16px;
+    margin-right: -16px;
+    border-radius: 8px;
+    border-bottom-color: transparent;
 }
 
 .publication-item:last-child {
@@ -356,6 +390,19 @@ nav {
 .pub-meta {
     font-size: 14px;
     color: var(--secondary);
+}
+
+/* Tweet styling */
+.tweet-container {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 550px;
+    margin: 48px auto;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    justify-content: center;
 }
 
 /* Speaking Page Specifics */
@@ -412,7 +459,7 @@ footer {
     .hero-text h1 {
         font-size: 40px;
     }
-    
+
     .hero-subtitle {
         margin: 0 auto 32px;
     }
@@ -430,7 +477,7 @@ footer {
         background: white;
         flex-direction: column;
         padding: 80px 32px;
-        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
         transition: right 0.3s ease;
         z-index: 1000;
     }
@@ -438,7 +485,7 @@ footer {
     .nav-links.active {
         right: 0;
     }
-    
+
     .speaking-stats {
         grid-template-columns: 1fr;
         gap: 32px;
@@ -446,6 +493,14 @@ footer {
 }
 
 /* Utilities */
-.text-center { text-align: center; }
-.mt-4 { margin-top: 32px; }
-.mb-4 { margin-bottom: 32px; }
+.text-center {
+    text-align: center;
+}
+
+.mt-4 {
+    margin-top: 32px;
+}
+
+.mb-4 {
+    margin-bottom: 32px;
+}

@@ -43,8 +43,8 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.6;
-            /* Subtle effect */
+            opacity: 1.0;
+            /* Increased from 0.6 */
         }
     </style>
 </head>
@@ -204,10 +204,10 @@
         let particles = [];
 
         // Configuration
-        const particleCount = 50; // Number of nodes
-        const connectionDistance = 150; // Max distance to connect nodes
-        const mouseDistance = 200; // Interaction radius
-        
+        const particleCount = 80; // Increased from 50
+        const connectionDistance = 150;
+        const mouseDistance = 200;
+
         // Mouse position
         let mouse = { x: null, y: null };
 
@@ -230,7 +230,7 @@
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5; // Slow velocity
+                this.vx = (Math.random() - 0.5) * 0.5;
                 this.vy = (Math.random() - 0.5) * 0.5;
                 this.size = Math.random() * 2 + 1;
             }
@@ -263,7 +263,7 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(32, 33, 36, 0.1)'; // Dark grey dots
+                ctx.fillStyle = 'rgba(32, 33, 36, 0.3)'; // Increased opacity from 0.1
                 ctx.fill();
             }
         }
@@ -278,7 +278,7 @@
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            
+
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
@@ -291,7 +291,7 @@
 
                     if (distance < connectionDistance) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(26, 115, 232, ${0.15 - distance/connectionDistance * 0.15})`; // Blue connections fading out
+                        ctx.strokeStyle = `rgba(26, 115, 232, ${0.35 - distance / connectionDistance * 0.35})`; // Increased opacity from 0.15
                         ctx.lineWidth = 1;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);

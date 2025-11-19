@@ -104,7 +104,8 @@ header {
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1001;
+    /* Increased to be above overlay */
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s;
 }
@@ -163,7 +164,8 @@ nav {
     border: none;
     cursor: pointer;
     padding: 8px;
-    z-index: 1001;
+    z-index: 1002;
+    /* Highest priority */
 }
 
 .hamburger-line {
@@ -183,7 +185,8 @@ nav {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 1000;
+    /* Below header but above content */
     opacity: 0;
     transition: opacity 0.3s ease;
 }

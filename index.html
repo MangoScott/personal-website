@@ -37,22 +37,19 @@
     <style>
         /* Canvas Styles for Particle Network */
         #particle-canvas {
-            position: fixed;
+            position: absolute;
+            /* Changed from fixed */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 1.0;
-            /* Increased from 0.6 */
+            /* Opacity handled in JS for mobile responsiveness */
         }
     </style>
 </head>
 
 <body>
-    <!-- Background Animation -->
-    <canvas id="particle-canvas"></canvas>
-
     <div class="menu-overlay"></div>
     <header>
         <nav class="container">
@@ -76,7 +73,10 @@
 
     <main>
         <!-- Hero Section -->
-        <section class="hero">
+        <section class="hero" id="hero-section">
+            <!-- Background Animation moved inside hero -->
+            <canvas id="particle-canvas"></canvas>
+
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
@@ -199,21 +199,26 @@
 
         // Advanced Particle Network Animation
         const canvas = document.getElementById('particle-canvas');
+        const heroSection = document.getElementById('hero-section'); // Get hero section
         const ctx = canvas.getContext('2d');
         let width, height;
         let particles = [];
 
         // Configuration
-        const particleCount = 80; // Increased from 50
-        const connectionDistance = 150;
-        const mouseDistance = 200;
+        let particleCount = 80;
+        let connectionDistance = 150;
+        let mouseDistance = 200;
+        let particleOpacity = 0.3;
+        let lineOpacity = 0.35;
 
         // Mouse position
         let mouse = { x: null, y: null };
 
+        // Adjust mouse coordinates relative to canvas
         window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
         });
 
         window.addEventListener('mouseleave', () => {
@@ -222,8 +227,21 @@
         });
 
         function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+            width = canvas.width = heroSection.offsetWidth;
+            height = canvas.height = heroSection.offsetHeight;
+
+            // Adjust for mobile
+            if (window.innerWidth < 768) {
+                particleCount = 30; // Reduced from 80
+                particleOpacity = 0.15; // More subtle
+                lineOpacity = 0.2; // More subtle
+                connectionDistance = 100;
+            } else {
+                particleCount = 80;
+                particleOpacity = 0.3;
+                lineOpacity = 0.35;
+                connectionDistance = 150;
+            }
         }
 
         class Particle {
@@ -263,7 +281,7 @@
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(32, 33, 36, 0.3)'; // Increased opacity from 0.1
+                ctx.fillStyle = `rgba(32, 33, 36, ${particleOpacity})`;
                 ctx.fill();
             }
         }
@@ -291,7 +309,7 @@
 
                     if (distance < connectionDistance) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(26, 115, 232, ${0.35 - distance / connectionDistance * 0.35})`; // Increased opacity from 0.15
+                        ctx.strokeStyle = `rgba(26, 115, 232, ${lineOpacity - distance / connectionDistance * lineOpacity})`;
                         ctx.lineWidth = 1;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);

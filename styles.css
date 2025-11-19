@@ -131,9 +131,8 @@ nav {
 
 .logo img {
     height: 32px;
-    width: auto;
+    width: 32px;
     border-radius: 4px;
-    /* Slight rounding if it's square */
 }
 
 .logo:hover {
@@ -197,7 +196,9 @@ nav {
 /* Hero Section */
 .hero {
     padding: 120px 0 80px;
-    background: var(--background);
+    background: transparent;
+    position: relative;
+    z-index: 1;
 }
 
 .hero-content {
@@ -205,6 +206,24 @@ nav {
     grid-template-columns: 1fr 1fr;
     gap: 80px;
     align-items: center;
+}
+
+.hero-text {
+    position: relative;
+    padding-left: 32px;
+    /* Space for the blue line */
+}
+
+/* The Blue Line */
+.hero-text::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 4px;
+    background: var(--accent);
+    border-radius: 4px;
 }
 
 .hero-text h1 {
@@ -232,6 +251,48 @@ nav {
     box-shadow: var(--shadow-md);
     display: block;
     margin: 0 auto;
+}
+
+/* Background Animation */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.gradient-blob {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(26, 115, 232, 0.08) 0%, rgba(255, 255, 255, 0) 50%);
+    animation: rotate 20s linear infinite;
+    transform-origin: center;
+}
+
+.gradient-blob:nth-child(2) {
+    top: -30%;
+    left: -30%;
+    width: 160%;
+    height: 160%;
+    background: radial-gradient(circle at center, rgba(32, 33, 36, 0.03) 0%, rgba(255, 255, 255, 0) 50%);
+    animation: rotate 25s linear infinite reverse;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Buttons */
@@ -301,7 +362,7 @@ nav {
 .card-image-container {
     width: 100%;
     aspect-ratio: 1 / 1;
-    /* Square images as requested */
+    /* Square images */
     overflow: hidden;
     border-bottom: 1px solid var(--border);
     background: var(--surface);
@@ -456,12 +517,26 @@ footer {
         text-align: center;
     }
 
+    .hero-text {
+        padding-left: 0;
+        /* Remove line spacing on mobile if desired, or keep it */
+        /* Let's keep the line but adjust padding */
+        padding-left: 24px;
+        text-align: left;
+    }
+
+    .hero-text::before {
+        /* Adjust line for mobile */
+        left: 0;
+    }
+
     .hero-text h1 {
         font-size: 40px;
     }
 
     .hero-subtitle {
-        margin: 0 auto 32px;
+        margin: 0 0 32px;
+        /* Align left */
     }
 
     .mobile-menu-toggle {

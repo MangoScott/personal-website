@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Scott Glasgow</title>
-    <meta name="description" content="Projects by Scott Glasgow - from global financial health initiatives to AI experiments.">
+    <meta name="description"
+        content="Projects by Scott Glasgow - from global financial health initiatives to AI experiments.">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -17,7 +19,8 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://scottglasgow.com/projects.html">
     <meta property="twitter:title" content="Projects - Scott Glasgow">
-    <meta property="twitter:description" content="Building products and systems that improve human well-being at scale.">
+    <meta property="twitter:description"
+        content="Building products and systems that improve human well-being at scale.">
     <meta property="twitter:image" content="https://scottglasgow.com/images/profile/profile.jpg">
 
     <!-- Favicon -->
@@ -25,16 +28,17 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="menu-overlay"></div>
     <header>
         <nav class="container">
-            <a href="index.html" class="logo"><img src="logo.svg" alt="Scott Glasgow"></a>
+            <a href="index.html" class="logo"><img src="logo.svg" alt="Scott Glasgow"> Scott Glasgow</a>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -50,161 +54,132 @@
     </header>
 
     <main>
-        <div class="page-header">
+        <section style="padding-bottom: 40px;">
             <div class="container">
                 <h1>Projects</h1>
-                <p class="page-subtitle">Building products and systems that improve human well-being at scale.</p>
+                <p class="hero-subtitle">Building products and systems that improve human well-being at scale.</p>
             </div>
-        </div>
+        </section>
 
-        <section>
+        <section style="padding-top: 0;">
             <div class="container">
                 <div class="projects-grid">
-                <!-- Fresho -->
-                <div class="project-card">
-                    <div class="project-image-container">
-                        <img src="images/fresho.jpg" alt="Fresho" class="project-image">
-                    </div>
-                    <div>
-                        <div class="project-header">
-                            <h2>Fresho</h2>
-                            <span class="project-tag active">Active</span>
+                    <!-- Fresho -->
+                    <div class="card">
+                        <div class="card-image-container">
+                            <img src="images/fresho.jpg" alt="Fresho" class="card-image">
                         </div>
-                        <p class="project-description">Launch and automate personalized advertising quickly without third-party cookies. Building the future of privacy-first digital marketing.</p>
-                        <a href="https://getfresho.com" target="_blank" rel="noopener" class="project-link">
-                            Visit Fresho
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- FinMango -->
-                <div class="project-card">
-                    <div class="project-image-container">
-                        <img src="images/finmango.jpg" alt="FinMango" class="project-image">
-                    </div>
-                    <div>
-                        <div class="project-header">
-                            <h2>FinMango</h2>
-                            <span class="project-tag active">Active</span>
+                        <div class="card-content">
+                            <span class="tag">Active</span>
+                            <h3>Fresho</h3>
+                            <p>Launch and automate personalized advertising quickly without third-party cookies.
+                                Building the future of privacy-first digital marketing.</p>
+                            <a href="https://getfresho.com" target="_blank" rel="noopener"
+                                style="font-weight: 500;">Visit Fresho &rarr;</a>
                         </div>
-                        <p class="project-description">Global organization solving complex problems that endanger the financial health of young adults in transition.</p>
-                        <a href="https://finmango.org" target="_blank" rel="noopener" class="project-link">
-                            Visit FinMango
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
                     </div>
-                </div>
 
-                <!-- Raging Robot Radio -->
-                <div class="project-card">
-                    <div class="project-image-container">
-                        <img src="images/robot-radio.jpg" alt="Raging Robot Radio" class="project-image">
-                    </div>
-                    <div>
-                        <div class="project-header">
-                            <h2>Raging Robot Radio</h2>
-                            <span class="project-tag active">Active</span>
+                    <!-- FinMango -->
+                    <div class="card">
+                        <div class="card-image-container">
+                            <img src="images/finmango.jpg" alt="FinMango" class="card-image">
                         </div>
-                        <p class="project-description">The world's first fully AI-powered DJ radio station featuring C-3PO's voice. Exploring how AI creates entertaining audio experiences.</p>
-                        <a href="https://ragingrobot.app/" target="_blank" rel="noopener" class="project-link">
-                            Visit Raging Robot Radio
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Axel Adventure Books -->
-                <div class="project-card">
-                    <div class="project-image-container">
-                        <img src="images/axel-books.jpg" alt="Axel Adventure Books" class="project-image">
-                    </div>
-                    <div>
-                        <div class="project-header">
-                            <h2>Axel Adventure Books</h2>
-                            <span class="project-tag">Archived</span>
+                        <div class="card-content">
+                            <span class="tag">Active</span>
+                            <h3>FinMango</h3>
+                            <p>Global organization solving complex problems that endanger the financial health of young
+                                adults in transition.</p>
+                            <a href="https://finmango.org" target="_blank" rel="noopener"
+                                style="font-weight: 500;">Visit FinMango &rarr;</a>
                         </div>
-                        <p class="project-description">A children's book series teaching friendship, courage, and environmental stewardship through engaging adventure stories.</p>
-                        <a href="https://a.co/d/2aTl6yg" target="_blank" rel="noopener" class="project-link">
-                            View on Amazon
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
                     </div>
-                </div>
 
-                <!-- Open Data Project -->
-                <div class="project-card">
-                    <div class="project-image-container">
-                        <img src="images/covid-data.jpg" alt="COVID-19 Open Data Project" class="project-image">
-                    </div>
-                    <div>
-                        <div class="project-header">
-                            <h2>COVID-19 Open Data Project</h2>
-                            <span class="project-tag">Archived</span>
+                    <!-- Raging Robot Radio -->
+                    <div class="card">
+                        <div class="card-image-container">
+                            <img src="images/robot-radio.jpg" alt="Raging Robot Radio" class="card-image">
                         </div>
-                        <p class="project-description">Built the world's most comprehensive COVID-19 dataset in collaboration with Google Health and a volunteer network.</p>
-                        <a href="https://www.finmango.org/covid-19-open-data-project" target="_blank" rel="noopener" class="project-link">
-                            Learn More
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- EZ Workout -->
-                <div class="project-card">
-                    <div class="project-image-container">
-                        <img src="images/ez-workout.jpg" alt="EZ Workout" class="project-image">
-                    </div>
-                    <div>
-                        <div class="project-header">
-                            <h2>EZ Workout</h2>
-                            <span class="project-tag">Archived</span>
+                        <div class="card-content">
+                            <span class="tag">Active</span>
+                            <h3>Raging Robot Radio</h3>
+                            <p>The world's first fully AI-powered DJ radio station featuring C-3PO's voice. Exploring
+                                how AI creates entertaining audio experiences.</p>
+                            <a href="https://ragingrobot.app/" target="_blank" rel="noopener"
+                                style="font-weight: 500;">Visit Raging Robot Radio &rarr;</a>
                         </div>
-                        <p class="project-description">An app that procedurally generates custom workouts based on available equipment. Making fitness accessible anywhere.</p>
-                        <a href="https://ez-workout.web.app/" target="_blank" rel="noopener" class="project-link">
-                            Visit EZ Workout
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
-                        </a>
                     </div>
-                </div>
 
+                    <!-- Axel Adventure Books -->
+                    <div class="card">
+                        <div class="card-image-container">
+                            <img src="images/axel-books.jpg" alt="Axel Adventure Books" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <span class="tag archived">Archived</span>
+                            <h3>Axel Adventure Books</h3>
+                            <p>A children's book series teaching friendship, courage, and environmental stewardship
+                                through engaging adventure stories.</p>
+                            <a href="https://a.co/d/2aTl6yg" target="_blank" rel="noopener"
+                                style="font-weight: 500;">View on Amazon &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Open Data Project -->
+                    <div class="card">
+                        <div class="card-image-container">
+                            <img src="images/covid-data.jpg" alt="COVID-19 Open Data Project" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <span class="tag archived">Archived</span>
+                            <h3>COVID-19 Open Data Project</h3>
+                            <p>Built the world's most comprehensive COVID-19 dataset in collaboration with Google Health
+                                and a volunteer network.</p>
+                            <a href="https://www.finmango.org/covid-19-open-data-project" target="_blank" rel="noopener"
+                                style="font-weight: 500;">Learn More &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- EZ Workout -->
+                    <div class="card">
+                        <div class="card-image-container">
+                            <img src="images/ez-workout.jpg" alt="EZ Workout" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <span class="tag archived">Archived</span>
+                            <h3>EZ Workout</h3>
+                            <p>An app that procedurally generates custom workouts based on available equipment. Making
+                                fitness accessible anywhere.</p>
+                            <a href="https://ez-workout.web.app/" target="_blank" rel="noopener"
+                                style="font-weight: 500;">Visit EZ Workout &rarr;</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Global Impact Section -->
-        <section id="global-impact">
+        <section id="global-impact" style="background: var(--surface);">
             <div class="container">
-                <h2>Global Impact</h2>
-                <p class="section-intro">My work has been featured internationally or used by organizations such as Google Health, WHO, the World Bank, Harvard Research, USAID, and Verily. I have a published paper in the Journal of Health Education and have shared ideas on TEDx stages in Brazil and Togo.</p>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h2>Global Impact</h2>
+                    <p style="font-size: 18px; line-height: 1.8;">My work has been featured internationally or used by
+                        organizations such as Google Health, WHO, the World Bank, Harvard Research, USAID, and Verily. I
+                        have a published paper in the Journal of Health Education and have shared ideas on TEDx stages
+                        in Brazil and Togo.</p>
 
-                <!-- Embedded Tweet -->
-                <div style="margin-top: 48px;">
-                    <blockquote class="twitter-tweet"><p lang="en" dir="ltr">We're partnering with FinMango to help schools reopen safely during COVID-19. Together, we're building the most comprehensive school-level COVID data tracker to inform decision-making. Learn more: <a href="https://t.co/vz7e0KR5qJ">https://t.co/vz7e0KR5qJ</a></p>&mdash; Google.org (@Googleorg) <a href="https://twitter.com/Googleorg/status/1299104929743765505?ref_src=twsrc%5Etfw">August 27, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    <!-- Embedded Tweet -->
+                    <div style="margin-top: 48px; display: flex; justify-content: center;">
+                        <blockquote class="twitter-tweet">
+                            <p lang="en" dir="ltr">We're partnering with FinMango to help schools reopen safely during
+                                COVID-19. Together, we're building the most comprehensive school-level COVID data
+                                tracker to inform decision-making. Learn more: <a
+                                    href="https://t.co/vz7e0KR5qJ">https://t.co/vz7e0KR5qJ</a></p>&mdash; Google.org
+                            (@Googleorg) <a
+                                href="https://twitter.com/Googleorg/status/1299104929743765505?ref_src=twsrc%5Etfw">August
+                                27, 2020</a>
+                        </blockquote>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </div>
                 </div>
             </div>
         </section>
@@ -248,6 +223,17 @@
                 toggleMenu();
             }
         });
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
     </script>
 </body>
+
 </html>

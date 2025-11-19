@@ -5,19 +5,19 @@ A clean, minimalist personal website embodying "in a complex world, simple wins.
 ## Structure
 
 ### Pages
-- **index.html** - Homepage with hero, about, stats, and contact
+- **index.html** - Homepage with hero, about, and contact
 - **projects.html** - Comprehensive showcase of all projects and work
 - **publications.html** - Academic papers, op-eds, books, research, and TEDx talks
 - **speaking.html** - TEDx talks, speaking topics, and venues
 
 ## Design Philosophy
 
-✓ Prioritizes whitespace and breathing room
-✓ Bold typography for impact without clutter
-✓ Limited color palette (black, gray, white with blue accent)
-✓ Every element earns its place
-✓ Mobile-first responsive design
-✓ Fast loading times
+✓ **Google-Inspired Aesthetic**: Clean, minimalist, and purposeful.
+✓ **Abundant Whitespace**: Creates breathing room and focus.
+✓ **Warm & Approachable**: Conversational tone ("Hi, I'm Scott") and human-centered messaging.
+✓ **Systematic Design**: Unified color palette (Dark Grey #202124, Blue #1A73E8) and typography (Inter/Google Sans).
+✓ **Performance**: Removed heavy animations for instant loading.
+✓ **Mobile-First**: Fully responsive grid layouts and navigation.
 
 ## Content Included
 
@@ -55,21 +55,22 @@ A clean, minimalist personal website embodying "in a complex world, simple wins.
 
 ## Technical Specifications
 
-- Single-file HTML pages (no external CSS/JS dependencies)
-- Inter font family for clean typography
 - Semantic HTML5
-- Accessible design
+- CSS Variables for consistent theming
+- Accessible design (ARIA labels, contrast)
 - Optimized for performance
 - Smooth scroll behavior
-- Responsive breakpoints: 768px, 480px
+- Responsive breakpoints
 
 ## Deployment
 
-Simply upload all four HTML files to your web server:
+Simply upload all files to your web server or push to GitHub Pages:
 - index.html
 - projects.html
 - publications.html
 - speaking.html
+- styles.css
+- images/ (directory)
 
 No build process or dependencies required.
 

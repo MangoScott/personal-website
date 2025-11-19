@@ -26,7 +26,7 @@
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
@@ -35,7 +35,7 @@
     <div class="menu-overlay"></div>
     <header>
         <nav class="container">
-            <a href="index.html" class="logo"><img src="logo.svg" alt="Scott Glasgow"></a>
+            <a href="index.html" class="logo"><img src="logo.svg" alt="Scott Glasgow"> Scott Glasgow</a>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -53,12 +53,15 @@
     <main>
         <!-- Hero Section -->
         <section class="hero">
-            <canvas id="particle-canvas"></canvas>
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
-                        <h1>Building solutions that improve human well-being at scale</h1>
-                        <p class="hero-subtitle">Entrepreneur and social innovator focused on financial health, AI for social good, and systems change. Founder of <a href="https://finmango.org" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">FinMango</a>, currently building <a href="https://getfresho.com" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">Fresho</a>.</p>
+                        <h1>Hi, I'm Scott.</h1>
+                        <p class="hero-subtitle">I build technology that helps people thrive. Currently, I'm focused on privacy-first advertising at <a href="https://getfresho.com" target="_blank" rel="noopener">Fresho</a> and financial health at <a href="https://finmango.org" target="_blank" rel="noopener">FinMango</a>.</p>
+                        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                            <a href="#contact" class="btn btn-primary">Let's Connect</a>
+                            <a href="projects.html" class="btn btn-outline">View Projects</a>
+                        </div>
                     </div>
                     <div class="hero-image">
                         <img src="images/scott3.JPG" alt="Scott Glasgow" class="profile-image">
@@ -70,50 +73,40 @@
         <!-- About Section -->
         <section id="about">
             <div class="container">
-                <h2>About</h2>
-                <p class="section-intro">I build technology that helps people thrive. My focus is on creating systems that are more effective and accessible to those who need them most—whether that's through financial tools, AI applications, or new ways of thinking about social problems. I've shared these ideas as a TEDx speaker in Togo and Brazil, and I'm a firm believer that the best solutions are usually the simplest ones.</p>
-                <p class="section-intro">When I'm not working, I'm competing on the tennis court (former NCAA athlete), playing pickup basketball, or traveling to places I've never been.</p>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <h2>About Me</h2>
+                    <p style="font-size: 18px; line-height: 1.8; margin-bottom: 24px;">
+                        I believe the best solutions are often the simplest ones. My work sits at the intersection of technology and human needs—whether that's creating tools for financial literacy, designing privacy-preserving ad tech, or exploring how AI can create entertaining audio experiences.
+                    </p>
+                    <p style="font-size: 18px; line-height: 1.8; margin-bottom: 24px;">
+                        I've had the privilege of sharing my ideas on TEDx stages in Togo and Brazil, and my work has been recognized by organizations like Google Health and the World Bank. But at the end of the day, I'm just someone who loves solving big problems with elegant solutions.
+                    </p>
+                    <p style="font-size: 18px; line-height: 1.8;">
+                        When I'm not building, you can find me on the tennis court (I'm a former NCAA athlete), playing pickup basketball, or exploring new corners of the globe.
+                    </p>
+                </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact">
+        <section id="contact" style="background: var(--surface);">
             <div class="container">
-                <h2>Connect</h2>
-                <p class="section-intro">Interested in collaboration, speaking engagements, or just want to chat? Let's connect. I prioritize my time carefully around family, work, and personal commitments, so please be clear and direct about your purpose.</p>
-                <div class="contact-links">
-                    <a href="/cdn-cgi/l/email-protection#2a5949455e5e6a4c4344474b444d450445584d" class="contact-link">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                        Email
-                    </a>
-                    <a href="https://www.linkedin.com/in/sglasgow/" target="_blank" rel="noopener" class="contact-link">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                        LinkedIn
-                    </a>
-                    <a href="https://scholar.google.com/citations?user=YgEvVHsAAAAJ" target="_blank" rel="noopener" class="contact-link">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                        </svg>
-                        Research
-                    </a>
-                    <a href="https://drive.google.com/file/d/1mz4Wz-DBSUaF4KKclTbYpqNlNt6PZEuY/view?usp=sharing" target="_blank" rel="noopener" class="contact-link">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                        Resume
-                    </a>
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <h2>Let's Chat</h2>
+                    <p style="font-size: 18px; margin-bottom: 40px;">
+                        Interested in collaboration, speaking engagements, or just want to say hello? I'd love to hear from you.
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;">
+                        <a href="/cdn-cgi/l/email-protection#88fbebe7fcfcc8eee1e6e5e9e6efe7a6e7faef" class="btn btn-outline">
+                            Email Me
+                        </a>
+                        <a href="https://www.linkedin.com/in/sglasgow/" target="_blank" rel="noopener" class="btn btn-outline">
+                            LinkedIn
+                        </a>
+                        <a href="https://scholar.google.com/citations?user=YgEvVHsAAAAJ" target="_blank" rel="noopener" class="btn btn-outline">
+                            Research
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -158,163 +151,15 @@
             }
         });
 
-        // Particle Animation
-        const canvas = document.getElementById('particle-canvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-
-            // Set canvas size
-            let previousMobileState = window.innerWidth <= 768;
-            function resizeCanvas() {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-
-                // Reinitialize particles if switching between mobile/desktop
-                const currentMobileState = window.innerWidth <= 768;
-                if (currentMobileState !== previousMobileState) {
-                    init();
-                    previousMobileState = currentMobileState;
-                }
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            // Mouse position
-            const mouse = {
-                x: null,
-                y: null,
-                radius: 150
-            };
-
-            window.addEventListener('mousemove', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                mouse.x = e.clientX - rect.left;
-                mouse.y = e.clientY - rect.top;
-            });
-
-            window.addEventListener('mouseleave', () => {
-                mouse.x = null;
-                mouse.y = null;
-            });
-
-            // Particle class
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 3 + 1;
-                    this.baseX = this.x;
-                    this.baseY = this.y;
-                    this.density = Math.random() * 30 + 1;
-                    this.speedX = Math.random() * 0.5 - 0.25;
-                    this.speedY = Math.random() * 0.5 - 0.25;
-
-                    // Google blue color variations - more subtle on mobile
-                    const isMobile = window.innerWidth <= 768;
-                    const blueShades = isMobile ? [
-                        'rgba(66, 133, 244, 0.3)',   // Google Blue - more subtle
-                        'rgba(66, 133, 244, 0.25)',  // Google Blue lighter
-                        'rgba(100, 155, 245, 0.2)',  // Lighter blue
-                        'rgba(130, 177, 255, 0.15)'  // Light blue
-                    ] : [
-                        'rgba(66, 133, 244, 0.6)',   // Google Blue
-                        'rgba(66, 133, 244, 0.5)',   // Google Blue lighter
-                        'rgba(100, 155, 245, 0.4)',  // Lighter blue
-                        'rgba(130, 177, 255, 0.3)'   // Light blue
-                    ];
-                    this.color = blueShades[Math.floor(Math.random() * blueShades.length)];
-                }
-
-                draw() {
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.closePath();
-                    ctx.fill();
-                }
-
-                update() {
-                    // Gentle floating movement
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-
-                    // Keep particles within bounds with wrapping
-                    if (this.x > canvas.width) this.x = 0;
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.y > canvas.height) this.y = 0;
-                    if (this.y < 0) this.y = canvas.height;
-
-                    // Mouse interaction
-                    if (mouse.x != null && mouse.y != null) {
-                        const dx = mouse.x - this.x;
-                        const dy = mouse.y - this.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        const forceDirectionX = dx / distance;
-                        const forceDirectionY = dy / distance;
-                        const maxDistance = mouse.radius;
-                        const force = (maxDistance - distance) / maxDistance;
-
-                        if (distance < mouse.radius) {
-                            // Particles move away from mouse
-                            const directionX = forceDirectionX * force * this.density * 0.5;
-                            const directionY = forceDirectionY * force * this.density * 0.5;
-                            this.x -= directionX;
-                            this.y -= directionY;
-                        }
-                    }
-                }
-            }
-
-            // Create particle array - fewer particles on mobile
-            const isMobile = () => window.innerWidth <= 768;
-            const particlesArray = [];
-
-            function init() {
-                particlesArray.length = 0;
-                const particleCount = isMobile() ? 40 : 100;
-                for (let i = 0; i < particleCount; i++) {
-                    particlesArray.push(new Particle());
-                }
-            }
-
-            // Connect particles with lines
-            function connect() {
-                const lineOpacity = isMobile() ? 0.1 : 0.2;
-                for (let a = 0; a < particlesArray.length; a++) {
-                    for (let b = a + 1; b < particlesArray.length; b++) {
-                        const dx = particlesArray[a].x - particlesArray[b].x;
-                        const dy = particlesArray[a].y - particlesArray[b].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 120) {
-                            const opacity = 1 - distance / 120;
-                            ctx.strokeStyle = `rgba(66, 133, 244, ${opacity * lineOpacity})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.beginPath();
-                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-
-            // Animation loop
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                particlesArray.forEach(particle => {
-                    particle.update();
-                    particle.draw();
-                });
-
-                connect();
-                requestAnimationFrame(animate);
-            }
-
-            init();
-            animate();
-        }
+        });
     </script>
 </body>
 </html>

@@ -28,20 +28,40 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .pub-item {
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pub-item:last-child {
+            border-bottom: none;
+        }
+
+        .pub-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .pub-meta {
+            font-size: 1rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="menu-overlay"></div>
     <header>
         <nav class="container">
-            <a href="index.html" class="logo">
-                <img src="logo_icon.png" alt="Scott Glasgow Logo">
-                Scott Glasgow
-            </a>
+            <a href="index.html" class="logo">SCOTT GLASGOW</a>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -49,7 +69,7 @@
             </button>
             <ul class="nav-links">
                 <li><a href="projects.html">Projects</a></li>
-                <li><a href="publications.html" class="active">Publications</a></li>
+                <li><a href="publications.html" style="color: var(--accent-color);">Publications</a></li>
                 <li><a href="speaking.html">Speaking</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
@@ -57,10 +77,10 @@
     </header>
 
     <main>
-        <section style="padding-bottom: 40px;">
+        <section style="padding-top: 120px;">
             <div class="container">
                 <h1>Publications</h1>
-                <p class="hero-subtitle">Academic research, thought leadership, and contributions to evidence-based
+                <p>Academic research, thought leadership, and contributions to evidence-based
                     approaches in financial literacy, health education, and public policy.</p>
             </div>
         </section>
@@ -68,17 +88,15 @@
         <!-- Academic Peer-Reviewed -->
         <section style="padding-top: 0;">
             <div class="container">
-                <h2>Academic Peer-Reviewed</h2>
+                <h3>Academic Peer-Reviewed</h3>
 
-                <div class="publication-item">
+                <div class="pub-item">
                     <a href="https://www.tandfonline.com/doi/abs/10.1080/19325037.2023.2209620?journalCode=ujhe20"
                         target="_blank" rel="noopener" class="pub-title">
-                        The Mango Model: Best Practices in the Creation of a COVID-19 Open Data Project Through a
-                        Partnership with Google Health and the Non-Profit FinMango
+                        The Mango Model: Best Practices in the Creation of a COVID-19 Open Data Project
                     </a>
                     <div class="pub-meta">
-                        Oscar Wahltinez, Scott Glasgow, Aurora Cheung, James F. Glasgow, Martin Noguera, James W.
-                        Glasgow & Pamela Neidert Hoalt<br>
+                        Oscar Wahltinez, Scott Glasgow, et al.<br>
                         <em>American Journal of Health Education, 54:4, 259-264 (2023)</em>
                     </div>
                 </div>
@@ -88,9 +106,9 @@
         <!-- Op-Eds & Articles -->
         <section style="padding-top: 0;">
             <div class="container">
-                <h2>Op-Eds & Articles</h2>
+                <h3>Op-Eds & Articles</h3>
 
-                <div class="publication-item">
+                <div class="pub-item">
                     <a href="https://www.usnews.com/news/health-news/articles/2020-12-02/shut-them-down-why-schools-might-not-be-safe-during-covid-19"
                         target="_blank" rel="noopener" class="pub-title">
                         Should Schools Stay Open? Not so Fast
@@ -106,9 +124,9 @@
         <!-- Books -->
         <section style="padding-top: 0;">
             <div class="container">
-                <h2>Books</h2>
+                <h3>Books</h3>
 
-                <div class="publication-item">
+                <div class="pub-item">
                     <a href="https://axeladventurebooks.com/" target="_blank" rel="noopener" class="pub-title">
                         Axel And The Very Mysterious Island
                     </a>
@@ -123,66 +141,29 @@
         <!-- Media Mentions -->
         <section style="padding-top: 0;">
             <div class="container">
-                <h2>Media Mentions</h2>
-                <p>FinMango's work has received international recognition across major media outlets.</p>
+                <h3>Selected Media Mentions</h3>
 
-                <div class="publication-item">
+                <div class="pub-item">
                     <a href="https://www.youtube.com/watch?v=Ua3829GSqTU" target="_blank" rel="noopener"
                         class="pub-title">CNN</a>
-                    <div class="pub-meta">FinMango COVID-19 data project mentioned by Chris Cuomo (December 5, 2020)
-                    </div>
+                    <div class="pub-meta">FinMango COVID-19 data project mentioned by Chris Cuomo (2020)</div>
                 </div>
 
-                <div class="publication-item">
+                <div class="pub-item">
                     <a href="https://www.nytimes.com/interactive/2020/09/21/us/covid-schools.html" target="_blank"
                         rel="noopener" class="pub-title">The New York Times</a>
-                    <div class="pub-meta">"What We Know about Coronavirus Cases in K-12 Schools so Far" (September 22,
-                        2020)</div>
+                    <div class="pub-meta">"What We Know about Coronavirus Cases in K-12 Schools so Far" (2020)</div>
                 </div>
 
-                <div class="publication-item">
-                    <a href="https://www.thedailybeast.com/rebekah-jones-fired-florida-data-scientist-and-ron-desantis-worst-nightmare-goes-after-covid-in-schools"
-                        target="_blank" rel="noopener" class="pub-title">The Daily Beast</a>
-                    <div class="pub-meta">"Ron DeSantis' Worst Nightmare Has a New Target: Schools" (August 24, 2020)
-                    </div>
-                </div>
-
-                <div class="publication-item">
+                <div class="pub-item">
                     <a href="https://twitter.com/Googleorg/status/1299104929743765505?s=20" target="_blank"
                         rel="noopener" class="pub-title">Google.org</a>
-                    <div class="pub-meta">Featured partnership announcement via Twitter (August 27, 2020)</div>
+                    <div class="pub-meta">Featured partnership announcement via Twitter (2020)</div>
                 </div>
 
-                <div class="publication-item">
-                    <a href="https://news.yahoo.com/former-covid-data-whistleblower-now-111500375.html" target="_blank"
-                        rel="noopener" class="pub-title">Yahoo News</a>
-                    <div class="pub-meta">Multiple coverage including "COVID-19 Data Analyst Sues State of Florida"
-                        (December 22, 2020) and "Former COVID Data Whistleblower, Now Congressional Candidate"
-                        (September 1, 2022)</div>
-                </div>
-
-                <div class="publication-item">
-                    <a href="https://www.cleveland.com/community/2021/02/bob-gillinghams-how-to-become-a-millionaire-presentation-inspiring-parma-city-school-district-business-students-to-realize-financial-dreams.html"
-                        target="_blank" rel="noopener" class="pub-title">Cleveland.com</a>
-                    <div class="pub-meta">"Parma Business Students Inspired to Realize Financial Dreams" - Coverage of
-                        FinMango's 'How to Become a Millionaire' presentation (February 24, 2021)</div>
-                </div>
-
-                <div class="publication-item">
-                    <a href="https://www.pmldaily.com/business/tech/2018/12/fincubator-i-profile-foundation-to-tackle-escalating-youth-unemployment-financial-literacy.html"
-                        target="_blank" rel="noopener" class="pub-title">PML Daily (Uganda)</a>
-                    <div class="pub-meta">"Fincubator, I-Profile Foundation to Tackle Escalating Youth Unemployment,
-                        Financial Literacy" (December 28, 2018)</div>
-                </div>
-
-                <div class="publication-item">
+                <div class="pub-item">
                     <span class="pub-title">TIME Magazine</span>
                     <div class="pub-meta">Recognition of global financial inclusion work</div>
-                </div>
-
-                <div class="publication-item">
-                    <span class="pub-title">NBC News</span>
-                    <div class="pub-meta">Coverage of FinMango's impact and programs</div>
                 </div>
             </div>
         </section>
@@ -190,127 +171,44 @@
         <!-- TEDx Talks -->
         <section style="padding-top: 0;">
             <div class="container">
-                <h2>TEDx Talks</h2>
+                <h3>TEDx Talks</h3>
 
-                <div class="publication-item">
+                <div class="pub-item">
                     <a href="https://www.youtube.com/watch?v=dyPGGwcF3mE" target="_blank" rel="noopener"
                         class="pub-title">Enhancing Human Potential with Opportunity</a>
                     <div class="pub-meta">
-                        Scott Glasgow<br>
-                        <em>TEDxUniEVANGÉLICA, Anápolis, Brazil (May 2019)</em>
+                        TEDxUniEVANGÉLICA, Anápolis, Brazil (2019)
                     </div>
                 </div>
 
-                <div class="publication-item">
+                <div class="pub-item">
                     <a href="https://youtu.be/dK8jil_ycpA?si=htvfaHNf1D3rwqW-" target="_blank" rel="noopener"
                         class="pub-title">L'éducation Financière</a>
                     <div class="pub-meta">
-                        Scott Glasgow<br>
-                        <em>TEDxTokoin, Lomé, Togo</em>
+                        TEDxTokoin, Lomé, Togo
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Research Papers -->
+        <!-- Education -->
         <section style="padding-top: 0;">
             <div class="container">
-                <h2>Research Papers</h2>
+                <h3>Education</h3>
 
-                <div class="publication-item">
-                    <a href="https://drive.google.com/file/d/1wi9GPmV-nViRkmd9i45bRNtEiINmZyEx/view?usp=sharing"
-                        target="_blank" rel="noopener" class="pub-title">Fibonacci Recursive Model for Clean Energy
-                        Economy</a>
-                    <div class="pub-meta">
-                        Scott Glasgow<br>
-                        <em>Working Paper (2014)</em>
-                    </div>
-                </div>
-
-                <div class="publication-item">
-                    <a href="https://drive.google.com/file/d/1qkf5vOPL0u1MO_85aCIxhJs2LZN9_r8e/view?usp=sharing"
-                        target="_blank" rel="noopener" class="pub-title">Hot Chocolate Run Impact Study</a>
-                    <div class="pub-meta">
-                        Scott Glasgow<br>
-                        <em>Research Report (2014)</em>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Podcasts & Interviews -->
-        <section style="padding-top: 0;">
-            <div class="container">
-                <h2>Podcasts & Interviews</h2>
-
-                <div class="publication-item">
-                    <a href="https://www.ngpf.org/blog/podcasts/ngpf-podcast-founder-of-finmango-scott-glasgow/"
-                        target="_blank" rel="noopener" class="pub-title">NGPF Podcast: Founder of FinMango</a>
-                    <div class="pub-meta">Tim Ranzetta, Next Gen Personal Finance (July 26, 2019)</div>
-                </div>
-
-                <div class="publication-item">
-                    <a href="https://geneinletford.com/podcasts/how-your-creative-entrepreneurship-can-change-the-world-scott-glassgow-episode-18-2/"
-                        target="_blank" rel="noopener" class="pub-title">How Your Creative Entrepreneurship Can Change
-                        the World</a>
-                    <div class="pub-meta">Genein Letford (January 6, 2020)</div>
-                </div>
-
-                <div class="publication-item">
-                    <a href="https://open.spotify.com/episode/7G4zG5mYMsHzCowVpU6lWB?si=PB26t8kBS3ys0i3sCdrp9Q"
-                        target="_blank" rel="noopener" class="pub-title">Making Finances Less like a Rotten Tomato and
-                        More like a Juicy Mango</a>
-                    <div class="pub-meta">February 25, 2020</div>
-                </div>
-
-                <div class="publication-item">
-                    <a href="https://open.spotify.com/episode/2u9M4PuYU7gfw5wcgoMPoW?si=b6GQQDNBRHCD-mki_PGX-Q"
-                        target="_blank" rel="noopener" class="pub-title">Piggy Banks to Wall Street: Founder and CEO of
-                        Financial Inclusion Non-Profit FinMango</a>
-                    <div class="pub-meta">JJ Wenrich (November 18, 2020)</div>
-                </div>
-
-                <div class="publication-item">
-                    <a href="https://open.spotify.com/episode/5Oe1AZtYruTdCyFCzvb19d?si=C8Eetuu1QKKL1eTDCxB99g"
-                        target="_blank" rel="noopener" class="pub-title">Unscripted Podcast: FinMango and Importance of
-                        Personal Finance</a>
-                    <div class="pub-meta">May 4, 2022</div>
-                </div>
-
-                <div class="publication-item">
-                    <a href="https://modernhusbands.substack.com/p/financial-considerations-and-conversations"
-                        target="_blank" rel="noopener" class="pub-title">Financial Considerations and Conversations
-                        Before Marriage</a>
-                    <div class="pub-meta">Modern Husbands (September 29, 2023)</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education & Credentials -->
-        <section style="padding-top: 0;">
-            <div class="container">
-                <h2>Education & Credentials</h2>
-
-                <div class="publication-item">
+                <div class="pub-item">
                     <div class="pub-title">Harvard Kennedy School</div>
                     <div class="pub-meta">Executive Education: Rethinking Financial Inclusion</div>
                 </div>
 
-                <div class="publication-item">
+                <div class="pub-item">
                     <div class="pub-title">MA in Financial Economics</div>
                     <div class="pub-meta">Advanced study in economic theory and financial systems</div>
                 </div>
 
-                <div class="publication-item">
+                <div class="pub-item">
                     <div class="pub-title">BA in Biology and Community Health</div>
                     <div class="pub-meta">Interdisciplinary foundation in science and public health</div>
-                </div>
-
-                <div style="margin-top: 32px;">
-                    <a href="https://scholar.google.com/citations?user=YgEvVHsAAAAJ" target="_blank" rel="noopener"
-                        class="btn btn-outline">
-                        View Google Scholar Profile
-                    </a>
                 </div>
             </div>
         </section>
@@ -326,18 +224,25 @@
         // Mobile Menu Toggle
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
-        const menuOverlay = document.querySelector('.menu-overlay');
         const body = document.body;
 
         function toggleMenu() {
-            mobileMenuToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-            body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            const isActive = navLinks.classList.toggle('active');
+            body.style.overflow = isActive ? 'hidden' : '';
+
+            const lines = mobileMenuToggle.querySelectorAll('.hamburger-line');
+            if (isActive) {
+                lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                lines[1].style.opacity = '0';
+                lines[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                lines[0].style.transform = 'none';
+                lines[1].style.opacity = '1';
+                lines[2].style.transform = 'none';
+            }
         }
 
         mobileMenuToggle.addEventListener('click', toggleMenu);
-        menuOverlay.addEventListener('click', toggleMenu);
 
         // Close menu when clicking nav links
         navLinks.querySelectorAll('a').forEach(link => {
@@ -346,23 +251,6 @@
                     toggleMenu();
                 }
             });
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
-
-        // Header scroll effect
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
         });
     </script>
 </body>

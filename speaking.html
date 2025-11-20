@@ -29,20 +29,16 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="menu-overlay"></div>
     <header>
         <nav class="container">
-            <a href="index.html" class="logo">
-                <img src="logo_icon.png" alt="Scott Glasgow Logo">
-                Scott Glasgow
-            </a>
+            <a href="index.html" class="logo">SCOTT GLASGOW</a>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -51,23 +47,23 @@
             <ul class="nav-links">
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="publications.html">Publications</a></li>
-                <li><a href="speaking.html" class="active">Speaking</a></li>
+                <li><a href="speaking.html" style="color: var(--accent-color);">Speaking</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section style="padding-bottom: 40px;">
+        <section style="padding-top: 120px;">
             <div class="container">
                 <h1>Speaking</h1>
-                <p class="hero-subtitle">World speaker passionate about financial inclusion, technology, and
+                <p>World speaker passionate about financial inclusion, technology, and
                     entrepreneurship. Known for the ability to absorb, adapt, and thrive in fast-paced, ever-changing
                     environments to scale ideas.</p>
 
                 <!-- Featured TEDx Brazil Talk -->
                 <div
-                    style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 48px 0; border-radius: 12px; box-shadow: var(--shadow-md);">
+                    style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 64px 0; background: #000;">
                     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
                         src="https://www.youtube.com/embed/dyPGGwcF3mE" title="TEDx Brazil - Financial Inclusion"
                         frameborder="0"
@@ -75,46 +71,18 @@
                         allowfullscreen></iframe>
                 </div>
 
-                <div class="speaking-stats">
-                    <div class="stat">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Universities & conferences</div>
+                <div class="grid-3" style="text-align: center; margin-bottom: 64px;">
+                    <div>
+                        <div style="font-size: 3rem; font-weight: 800; color: var(--accent-color);">50+</div>
+                        <div style="font-weight: 600;">Universities & conferences</div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number">2</div>
-                        <div class="stat-label">TEDx talks</div>
+                    <div>
+                        <div style="font-size: 3rem; font-weight: 800; color: var(--accent-color);">2</div>
+                        <div style="font-weight: 600;">TEDx talks</div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number">Global</div>
-                        <div class="stat-label">Reach & impact</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TEDx Talks -->
-        <section style="padding-top: 0;">
-            <div class="container">
-                <h2>TEDx Talks</h2>
-                <div class="projects-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-                    <div class="card">
-                        <div class="card-content">
-                            <h3>TEDx Tokoin</h3>
-                            <p style="font-weight: 500; color: var(--primary); margin-bottom: 8px;">Lomé, Togo</p>
-                            <p>Exploring technology's role in advancing financial health across West Africa</p>
-                            <a href="https://www.youtube.com/watch?v=dK8jil_ycpA" target="_blank" rel="noopener"
-                                style="font-weight: 500;">Watch Talk &rarr;</a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-content">
-                            <h3>TEDx UniEVANGÉLICA</h3>
-                            <p style="font-weight: 500; color: var(--primary); margin-bottom: 8px;">Anápolis, Brazil</p>
-                            <p>Sharing insights on financial inclusion and systems change with Brazilian audiences</p>
-                            <a href="https://www.youtube.com/watch?v=dyPGGwcF3mE" target="_blank" rel="noopener"
-                                style="font-weight: 500;">Watch Talk &rarr;</a>
-                        </div>
+                    <div>
+                        <div style="font-size: 3rem; font-weight: 800; color: var(--accent-color);">Global</div>
+                        <div style="font-weight: 600;">Reach & impact</div>
                     </div>
                 </div>
             </div>
@@ -127,34 +95,34 @@
                 <p style="margin-bottom: 48px;">Delivering insights on the intersection of technology, financial
                     systems, and human well-being.</p>
 
-                <div class="topics-grid">
-                    <div class="topic">
+                <div class="grid-3">
+                    <div class="card">
                         <h3>Financial Inclusion</h3>
                         <p>Making financial systems accessible, effective, and just for underserved populations globally
                         </p>
                     </div>
 
-                    <div class="topic">
+                    <div class="card">
                         <h3>Technology & Impact</h3>
                         <p>Leveraging technology to solve complex social problems at scale</p>
                     </div>
 
-                    <div class="topic">
+                    <div class="card">
                         <h3>Entrepreneurship</h3>
                         <p>Building organizations from 0 to 1, scaling ideas, and navigating rapid change</p>
                     </div>
 
-                    <div class="topic">
+                    <div class="card">
                         <h3>Financial Literacy</h3>
                         <p>Evidence-based approaches to financial education and behavior change</p>
                     </div>
 
-                    <div class="topic">
+                    <div class="card">
                         <h3>Systems Change</h3>
                         <p>Working with leaders to make public, private, and government systems more effective</p>
                     </div>
 
-                    <div class="topic">
+                    <div class="card">
                         <h3>Data for Good</h3>
                         <p>Using open data and research to inform policy and drive social impact</p>
                     </div>
@@ -170,28 +138,36 @@
                     worldwide.</p>
 
                 <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">Harvard Kennedy School</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">Pepperdine University</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">Vanderbilt University</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">Santa Clara University</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">Kent State University</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">University of Virginia</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">Money20/20 Middle East</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">Global Inclusion Forum</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">TEDx Brazil</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">TEDx Togo</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">50+ High Schools</span>
-                    <span class="tag" style="font-size: 14px; padding: 8px 16px;">International Conferences</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">Harvard
+                        Kennedy School</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">Pepperdine
+                        University</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">Vanderbilt
+                        University</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">Santa
+                        Clara University</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">Kent State
+                        University</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">University
+                        of Virginia</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">Money20/20
+                        Middle East</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">Global
+                        Inclusion Forum</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">TEDx
+                        Brazil</span>
+                    <span style="padding: 8px 16px; border: 1px solid var(--border-color); font-weight: 500;">TEDx
+                        Togo</span>
                 </div>
             </div>
         </section>
 
         <!-- CTA -->
-        <section style="background: var(--surface);">
+        <section style="background: var(--surface-color);">
             <div class="container">
                 <div style="max-width: 600px; margin: 0 auto; text-align: center;">
                     <h2>Book Scott for Your Event</h2>
-                    <p style="font-size: 18px; margin-bottom: 32px;">Interested in having Scott speak at your
+                    <p style="margin-bottom: 32px;">Interested in having Scott speak at your
                         university, conference, or organization? Let's discuss how we can bring valuable insights to
                         your audience.</p>
                     <a href="/cdn-cgi/l/email-protection#c3b0a0acb7b783a5aaadaea2ada4acedacb1a4"
@@ -213,18 +189,25 @@
         // Mobile Menu Toggle
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
-        const menuOverlay = document.querySelector('.menu-overlay');
         const body = document.body;
 
         function toggleMenu() {
-            mobileMenuToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-            body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            const isActive = navLinks.classList.toggle('active');
+            body.style.overflow = isActive ? 'hidden' : '';
+
+            const lines = mobileMenuToggle.querySelectorAll('.hamburger-line');
+            if (isActive) {
+                lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                lines[1].style.opacity = '0';
+                lines[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                lines[0].style.transform = 'none';
+                lines[1].style.opacity = '1';
+                lines[2].style.transform = 'none';
+            }
         }
 
         mobileMenuToggle.addEventListener('click', toggleMenu);
-        menuOverlay.addEventListener('click', toggleMenu);
 
         // Close menu when clicking nav links
         navLinks.querySelectorAll('a').forEach(link => {
@@ -233,23 +216,6 @@
                     toggleMenu();
                 }
             });
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
-
-        // Header scroll effect
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
         });
     </script>
 </body>

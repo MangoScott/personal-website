@@ -28,27 +28,23 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="menu-overlay"></div>
     <header>
         <nav class="container">
-            <a href="index.html" class="logo">
-                <img src="logo_icon.png" alt="Scott Glasgow Logo">
-                Scott Glasgow
-            </a>
+            <a href="index.html" class="logo">SCOTT GLASGOW</a>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
             <ul class="nav-links">
-                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="projects.html" style="color: var(--accent-color);">Projects</a></li>
                 <li><a href="publications.html">Publications</a></li>
                 <li><a href="speaking.html">Speaking</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
@@ -57,121 +53,92 @@
     </header>
 
     <main>
-        <section style="padding-bottom: 40px;">
+        <section style="padding-top: 120px;">
             <div class="container">
-                <h1>Projects</h1>
-                <p class="hero-subtitle">Building products and systems that improve human well-being at scale.</p>
+                <h1>Selected Work</h1>
+                <p>Building products and systems that improve human well-being at scale.</p>
             </div>
         </section>
 
         <section style="padding-top: 0;">
             <div class="container">
-                <div class="projects-grid">
+                <div class="grid-3">
                     <!-- Fresho -->
                     <div class="card">
-                        <div class="card-image-container">
-                            <img src="images/fresho.jpg" alt="Fresho" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <span class="tag">Active</span>
-                            <h3>Fresho</h3>
-                            <p>Launch and automate personalized advertising quickly without third-party cookies.
-                                Building the future of privacy-first digital marketing.</p>
-                            <a href="https://getfresho.com" target="_blank" rel="noopener"
-                                style="font-weight: 500;">Visit Fresho &rarr;</a>
-                        </div>
+                        <div class="card-meta">Active</div>
+                        <h3>Fresho</h3>
+                        <p>Launch and automate personalized advertising quickly without third-party cookies.
+                            Building the future of privacy-first digital marketing.</p>
+                        <a href="https://getfresho.com" target="_blank" rel="noopener"
+                            style="font-weight: 600; margin-top: auto;">Visit Fresho &rarr;</a>
                     </div>
 
                     <!-- FinMango -->
                     <div class="card">
-                        <div class="card-image-container">
-                            <img src="images/finmango.jpg" alt="FinMango" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <span class="tag">Active</span>
-                            <h3>FinMango</h3>
-                            <p>Global organization solving complex problems that endanger the financial health of young
-                                adults in transition.</p>
-                            <a href="https://finmango.org" target="_blank" rel="noopener"
-                                style="font-weight: 500;">Visit FinMango &rarr;</a>
-                        </div>
+                        <div class="card-meta">Active</div>
+                        <h3>FinMango</h3>
+                        <p>Global organization solving complex problems that endanger the financial health of young
+                            adults in transition.</p>
+                        <a href="https://finmango.org" target="_blank" rel="noopener"
+                            style="font-weight: 600; margin-top: auto;">Visit FinMango &rarr;</a>
                     </div>
 
                     <!-- Raging Robot Radio -->
                     <div class="card">
-                        <div class="card-image-container">
-                            <img src="images/robot-radio.jpg" alt="Raging Robot Radio" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <span class="tag">Active</span>
-                            <h3>Raging Robot Radio</h3>
-                            <p>The world's first fully AI-powered DJ radio station featuring C-3PO's voice. Exploring
-                                how AI creates entertaining audio experiences.</p>
-                            <a href="https://ragingrobot.app/" target="_blank" rel="noopener"
-                                style="font-weight: 500;">Visit Raging Robot Radio &rarr;</a>
-                        </div>
+                        <div class="card-meta">Active</div>
+                        <h3>Raging Robot Radio</h3>
+                        <p>The world's first fully AI-powered DJ radio station featuring C-3PO's voice. Exploring
+                            how AI creates entertaining audio experiences.</p>
+                        <a href="https://ragingrobot.app/" target="_blank" rel="noopener"
+                            style="font-weight: 600; margin-top: auto;">Visit Raging Robot Radio &rarr;</a>
                     </div>
 
                     <!-- Axel Adventure Books -->
                     <div class="card">
-                        <div class="card-image-container">
-                            <img src="images/axel-books.jpg" alt="Axel Adventure Books" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <span class="tag archived">Archived</span>
-                            <h3>Axel Adventure Books</h3>
-                            <p>A children's book series teaching friendship, courage, and environmental stewardship
-                                through engaging adventure stories.</p>
-                            <a href="https://a.co/d/2aTl6yg" target="_blank" rel="noopener"
-                                style="font-weight: 500;">View on Amazon &rarr;</a>
-                        </div>
+                        <div class="card-meta" style="color: var(--text-color); opacity: 0.5;">Archived</div>
+                        <h3>Axel Adventure Books</h3>
+                        <p>A children's book series teaching friendship, courage, and environmental stewardship
+                            through engaging adventure stories.</p>
+                        <a href="https://a.co/d/2aTl6yg" target="_blank" rel="noopener"
+                            style="font-weight: 600; margin-top: auto;">View on Amazon &rarr;</a>
                     </div>
 
                     <!-- Open Data Project -->
                     <div class="card">
-                        <div class="card-image-container">
-                            <img src="images/covid-data.jpg" alt="COVID-19 Open Data Project" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <span class="tag archived">Archived</span>
-                            <h3>COVID-19 Open Data Project</h3>
-                            <p>Built the world's most comprehensive COVID-19 dataset in collaboration with Google Health
-                                and a volunteer network.</p>
-                            <a href="https://www.finmango.org/covid-19-open-data-project" target="_blank" rel="noopener"
-                                style="font-weight: 500;">Learn More &rarr;</a>
-                        </div>
+                        <div class="card-meta" style="color: var(--text-color); opacity: 0.5;">Archived</div>
+                        <h3>COVID-19 Open Data Project</h3>
+                        <p>Built the world's most comprehensive COVID-19 dataset in collaboration with Google Health
+                            and a volunteer network.</p>
+                        <a href="https://www.finmango.org/covid-19-open-data-project" target="_blank" rel="noopener"
+                            style="font-weight: 600; margin-top: auto;">Learn More &rarr;</a>
                     </div>
 
                     <!-- EZ Workout -->
                     <div class="card">
-                        <div class="card-image-container">
-                            <img src="images/ez-workout.jpg" alt="EZ Workout" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <span class="tag archived">Archived</span>
-                            <h3>EZ Workout</h3>
-                            <p>An app that procedurally generates custom workouts based on available equipment. Making
-                                fitness accessible anywhere.</p>
-                            <a href="https://ez-workout.web.app/" target="_blank" rel="noopener"
-                                style="font-weight: 500;">Visit EZ Workout &rarr;</a>
-                        </div>
+                        <div class="card-meta" style="color: var(--text-color); opacity: 0.5;">Archived</div>
+                        <h3>EZ Workout</h3>
+                        <p>An app that procedurally generates custom workouts based on available equipment. Making
+                            fitness accessible anywhere.</p>
+                        <a href="https://ez-workout.web.app/" target="_blank" rel="noopener"
+                            style="font-weight: 600; margin-top: auto;">Visit EZ Workout &rarr;</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Global Impact Section -->
-        <section id="global-impact" style="background: var(--surface);">
+        <section id="global-impact" style="background: var(--surface-color);">
             <div class="container">
-                <div style="max-width: 800px; margin: 0 auto;">
+                <div style="max-width: 900px;">
                     <h2>Global Impact</h2>
-                    <p style="font-size: 18px; line-height: 1.8;">My work has been featured internationally or used by
+                    <p>My work has been featured internationally or used by
                         organizations such as Google Health, WHO, the World Bank, Harvard Research, USAID, and Verily. I
                         have a published paper in the Journal of Health Education and have shared ideas on TEDx stages
                         in Brazil and Togo.</p>
 
                     <!-- Embedded Tweet -->
-                    <div class="tweet-container">
+                    <div
+                        style="margin-top: 48px; border: 1px solid var(--border-color); border-radius: 0; padding: 24px; background: var(--bg-color);">
                         <blockquote class="twitter-tweet">
                             <p lang="en" dir="ltr">We're partnering with FinMango to help schools reopen safely during
                                 COVID-19. Together, we're building the most comprehensive school-level COVID data
@@ -198,18 +165,25 @@
         // Mobile Menu Toggle
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
-        const menuOverlay = document.querySelector('.menu-overlay');
         const body = document.body;
 
         function toggleMenu() {
-            mobileMenuToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-            body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            const isActive = navLinks.classList.toggle('active');
+            body.style.overflow = isActive ? 'hidden' : '';
+
+            const lines = mobileMenuToggle.querySelectorAll('.hamburger-line');
+            if (isActive) {
+                lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                lines[1].style.opacity = '0';
+                lines[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                lines[0].style.transform = 'none';
+                lines[1].style.opacity = '1';
+                lines[2].style.transform = 'none';
+            }
         }
 
         mobileMenuToggle.addEventListener('click', toggleMenu);
-        menuOverlay.addEventListener('click', toggleMenu);
 
         // Close menu when clicking nav links
         navLinks.querySelectorAll('a').forEach(link => {
@@ -218,23 +192,6 @@
                     toggleMenu();
                 }
             });
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
-                toggleMenu();
-            }
-        });
-
-        // Header scroll effect
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
         });
     </script>
 </body>

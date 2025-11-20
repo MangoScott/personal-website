@@ -211,6 +211,19 @@ nav {
     transform: translateY(20px);
 }
 
+.hero-text p a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: all 0.2s ease;
+}
+
+.hero-text p a:hover {
+    background: var(--accent-color);
+    color: white;
+    text-decoration: none;
+}
+
 .hero-actions {
     display: flex;
     gap: var(--spacing-sm);
@@ -281,6 +294,24 @@ nav {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: var(--spacing-md);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+@media (max-width: 768px) {
+    .stats-grid .stat-number {
+        font-size: 2rem !important;
+    }
+
+    .stats-grid .stat-label {
+        font-size: 0.8rem !important;
+    }
 }
 
 .card {

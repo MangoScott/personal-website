@@ -145,17 +145,14 @@
                 align-items: center;
                 gap: 40px;
                 z-index: 1001;
-                opacity: 0;
+                transform: translateX(100%);
                 visibility: hidden;
-                pointer-events: none;
-                transition: opacity 0.3s, visibility 0.3s;
-                pointer-events: none;
+                transition: transform 0.3s, visibility 0.3s;
             }
 
             .nav-links.active {
-                opacity: 1;
+                transform: translateX(0);
                 visibility: visible;
-                pointer-events: auto;
             }
 
             .nav-links li {

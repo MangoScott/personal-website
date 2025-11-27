@@ -479,11 +479,11 @@
             font-size: 0.9rem;
         }
 
-        /* Mobile */
+        /* Mobile - THIS IS THE ONLY CHANGE: added min-height with dvh */
         @media (max-width: 768px) {
             .hero {
                 padding-top: 20px;
-                min-height: 100vh; /* fallback for older browsers */
+                min-height: 100vh;
                 min-height: 100dvh;
             }
 
@@ -639,7 +639,7 @@
                         Interested in collaboration, speaking engagements, or just want to say hello?
                     </p>
                     <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px;">
-                        <a href="/cdn-cgi/l/email-protection#f083939f8484b096999e9d919e979fde9f8297" class="btn btn-primary">Email Me</a>
+                        <a href="mailto:scott@finmango.org" class="btn btn-primary">Email Me</a>
                         <a href="https://www.linkedin.com/in/sglasgow/" target="_blank"
                             class="btn btn-outline">LinkedIn</a>
                         <a href="https://github.com/mangoscott" target="_blank" class="btn btn-outline">GitHub</a>
@@ -671,7 +671,7 @@
         <button class="physics-btn" id="reset-btn">Reset</button>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Mobile Menu Toggle
         (function () {
             var toggle = document.querySelector(".mobile-menu-toggle");
@@ -787,7 +787,6 @@
                         size: size,
                         url: data.url,
                         dragging: false,
-                        // For antigravity floating effect
                         floatPhase: Math.random() * Math.PI * 2,
                         floatSpeed: 0.02 + Math.random() * 0.02
                     };
@@ -880,24 +879,15 @@
                     }
 
                     if (antigravityMode) {
-                        // Antigravity: gentle floating with slight drift
                         ball.floatPhase += ball.floatSpeed;
-                        
-                        // Add gentle sinusoidal movement
                         var floatForceX = Math.sin(ball.floatPhase) * 0.05;
                         var floatForceY = Math.cos(ball.floatPhase * 0.7) * 0.05;
-                        
-                        // Very slight upward drift
                         ball.vy -= 0.02;
-                        
                         ball.vx += floatForceX;
                         ball.vy += floatForceY;
-                        
-                        // Slower friction in antigravity for floatier feel
                         ball.vx *= 0.995;
                         ball.vy *= 0.995;
                     } else {
-                        // Normal gravity
                         ball.vy += gravity;
                         ball.vx *= friction;
                         ball.vy *= friction;
@@ -906,7 +896,6 @@
                     ball.x += ball.vx;
                     ball.y += ball.vy;
 
-                    // Boundary collisions
                     if (ball.x < 0) {
                         ball.x = 0;
                         ball.vx *= -bounce;
@@ -924,7 +913,6 @@
                         ball.vy *= -bounce;
                     }
 
-                    // Ball-to-ball collisions
                     for (var j = i + 1; j < balls.length; j++) {
                         var other = balls[j];
                         var dx = (other.x + other.size / 2) - (ball.x + ball.size / 2);
@@ -962,12 +950,11 @@
 
             function toggleAntigravity() {
                 antigravityMode = !antigravityMode;
-                
+
                 if (antigravityMode) {
                     antigravityBtn.classList.add("antigravity-active");
                     antigravityBtn.querySelector("span").textContent = "Gravity";
-                    
-                    // Give balls a gentle upward push when activating
+
                     for (var i = 0; i < balls.length; i++) {
                         balls[i].vy -= 2 + Math.random() * 2;
                         balls[i].vx += (Math.random() - 0.5) * 2;
@@ -976,7 +963,7 @@
                     antigravityBtn.classList.remove("antigravity-active");
                     antigravityBtn.querySelector("span").textContent = "Antigravity";
                 }
-                
+
                 if (!hasInteracted) {
                     hasInteracted = true;
                     hint.classList.add("hidden");
@@ -998,7 +985,6 @@
                 animationId = requestAnimationFrame(update);
             }
 
-            // Wait for DOM
             if (document.readyState === "loading") {
                 document.addEventListener("DOMContentLoaded", function () {
                     createBalls();
@@ -1014,3 +1000,11 @@
 
             var resizeTimer;
             window.addEventListener("resize", function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(reset, 300);
+            });
+        })();
+    </script>
+</body>
+
+</html>

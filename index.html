@@ -483,7 +483,8 @@
         @media (max-width: 768px) {
             .hero {
                 padding-top: 20px;
-                min-height: 85vh;
+                min-height: 100vh; /* fallback for older browsers */
+                min-height: 100dvh;
             }
 
             .hero-text h1 {
@@ -638,7 +639,7 @@
                         Interested in collaboration, speaking engagements, or just want to say hello?
                     </p>
                     <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px;">
-                        <a href="mailto:scott@finmango.org" class="btn btn-primary">Email Me</a>
+                        <a href="/cdn-cgi/l/email-protection#f083939f8484b096999e9d919e979fde9f8297" class="btn btn-primary">Email Me</a>
                         <a href="https://www.linkedin.com/in/sglasgow/" target="_blank"
                             class="btn btn-outline">LinkedIn</a>
                         <a href="https://github.com/mangoscott" target="_blank" class="btn btn-outline">GitHub</a>
@@ -670,7 +671,7 @@
         <button class="physics-btn" id="reset-btn">Reset</button>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Mobile Menu Toggle
         (function () {
             var toggle = document.querySelector(".mobile-menu-toggle");
@@ -1013,11 +1014,3 @@
 
             var resizeTimer;
             window.addEventListener("resize", function () {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(reset, 300);
-            });
-        })();
-    </script>
-</body>
-
-</html>

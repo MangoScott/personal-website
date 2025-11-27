@@ -182,7 +182,7 @@
         }
 
         .hero-text h1 {
-            font-size: clamp(2.8rem, 5.5vw, 4rem);
+            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 24px;
@@ -406,7 +406,15 @@
         /* Mobile */
         @media (max-width: 768px) {
             .hero {
-                padding-top: 40px;
+                padding-top: 20px;
+            }
+
+            .hero-text h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
             }
 
             .hero-content {

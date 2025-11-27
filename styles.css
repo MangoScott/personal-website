@@ -333,8 +333,7 @@ footer {
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #ffffff !important;
-        opacity: 1 !important;
+        background: rgb(255, 255, 255);
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -346,6 +345,17 @@ footer {
         visibility: hidden;
         transition: transform 0.3s, visibility 0.3s;
         list-style: none;
+    }
+
+    .nav-links::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #ffffff;
+        z-index: -1;
     }
 
     .nav-links.active {

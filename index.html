@@ -391,12 +391,25 @@
             }
         }
 
-        /* Reset button */
-        .reset-physics {
+        /* Control buttons */
+        .physics-controls {
             position: fixed;
             bottom: 24px;
             right: 24px;
             z-index: 1000;
+            display: flex;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+
+        .physics-controls.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .physics-btn {
             background: var(--text-color);
             color: white;
             border: none;
@@ -405,19 +418,29 @@
             font-weight: 600;
             font-size: 0.85rem;
             cursor: pointer;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s;
+            transition: all 0.2s;
             font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .reset-physics.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reset-physics:hover {
+        .physics-btn:hover {
             background: #333;
+            transform: translateY(-2px);
+        }
+
+        .physics-btn.antigravity-active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .physics-btn.antigravity-active:hover {
+            background: linear-gradient(135deg, #5a6fd6, #6a4190);
+        }
+
+        .physics-btn svg {
+            width: 16px;
+            height: 16px;
         }
 
         /* Sections */
@@ -481,6 +504,17 @@
 
             .grid-3 {
                 grid-template-columns: 1fr;
+            }
+
+            .physics-controls {
+                bottom: 16px;
+                right: 16px;
+                gap: 8px;
+            }
+
+            .physics-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -624,7 +658,16 @@
         </div>
     </footer>
 
-    <button class="reset-physics" id="reset-btn">Reset Objects</button>
+    <div class="physics-controls" id="physics-controls">
+        <button class="physics-btn" id="antigravity-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+            <span>Antigravity</span>
+        </button>
+        <button class="physics-btn" id="reset-btn">Reset</button>
+    </div>
 
     <script>
         // Mobile Menu Toggle
@@ -675,7 +718,9 @@
         (function () {
             var area = document.getElementById("physics-area");
             var hint = document.getElementById("physics-hint");
+            var controls = document.getElementById("physics-controls");
             var resetBtn = document.getElementById("reset-btn");
+            var antigravityBtn = document.getElementById("antigravity-btn");
 
             var balls = [];
             var gravity = 0.3;
@@ -683,6 +728,7 @@
             var bounce = 0.7;
             var hasInteracted = false;
             var animationId = null;
+            var antigravityMode = false;
 
             var ballData = [
                 { label: "", size: 220, type: "photo", url: null, isPhoto: true },
@@ -738,7 +784,10 @@
                         vy: 0,
                         size: size,
                         url: data.url,
-                        dragging: false
+                        dragging: false,
+                        // For antigravity floating effect
+                        floatPhase: Math.random() * Math.PI * 2,
+                        floatSpeed: 0.02 + Math.random() * 0.02
                     };
 
                     balls.push(ballObj);
@@ -769,7 +818,7 @@
                     if (!hasInteracted) {
                         hasInteracted = true;
                         hint.classList.add("hidden");
-                        resetBtn.classList.add("visible");
+                        controls.classList.add("visible");
                     }
 
                     document.addEventListener("mousemove", onMove);
@@ -828,12 +877,34 @@
                         continue;
                     }
 
-                    ball.vy += gravity;
-                    ball.vx *= friction;
-                    ball.vy *= friction;
+                    if (antigravityMode) {
+                        // Antigravity: gentle floating with slight drift
+                        ball.floatPhase += ball.floatSpeed;
+                        
+                        // Add gentle sinusoidal movement
+                        var floatForceX = Math.sin(ball.floatPhase) * 0.05;
+                        var floatForceY = Math.cos(ball.floatPhase * 0.7) * 0.05;
+                        
+                        // Very slight upward drift
+                        ball.vy -= 0.02;
+                        
+                        ball.vx += floatForceX;
+                        ball.vy += floatForceY;
+                        
+                        // Slower friction in antigravity for floatier feel
+                        ball.vx *= 0.995;
+                        ball.vy *= 0.995;
+                    } else {
+                        // Normal gravity
+                        ball.vy += gravity;
+                        ball.vx *= friction;
+                        ball.vy *= friction;
+                    }
+
                     ball.x += ball.vx;
                     ball.y += ball.vy;
 
+                    // Boundary collisions
                     if (ball.x < 0) {
                         ball.x = 0;
                         ball.vx *= -bounce;
@@ -851,6 +922,7 @@
                         ball.vy *= -bounce;
                     }
 
+                    // Ball-to-ball collisions
                     for (var j = i + 1; j < balls.length; j++) {
                         var other = balls[j];
                         var dx = (other.x + other.size / 2) - (ball.x + ball.size / 2);
@@ -886,13 +958,40 @@
                 animationId = requestAnimationFrame(update);
             }
 
+            function toggleAntigravity() {
+                antigravityMode = !antigravityMode;
+                
+                if (antigravityMode) {
+                    antigravityBtn.classList.add("antigravity-active");
+                    antigravityBtn.querySelector("span").textContent = "Gravity";
+                    
+                    // Give balls a gentle upward push when activating
+                    for (var i = 0; i < balls.length; i++) {
+                        balls[i].vy -= 2 + Math.random() * 2;
+                        balls[i].vx += (Math.random() - 0.5) * 2;
+                    }
+                } else {
+                    antigravityBtn.classList.remove("antigravity-active");
+                    antigravityBtn.querySelector("span").textContent = "Antigravity";
+                }
+                
+                if (!hasInteracted) {
+                    hasInteracted = true;
+                    hint.classList.add("hidden");
+                    controls.classList.add("visible");
+                }
+            }
+
             function reset() {
                 if (animationId) {
                     cancelAnimationFrame(animationId);
                 }
+                antigravityMode = false;
+                antigravityBtn.classList.remove("antigravity-active");
+                antigravityBtn.querySelector("span").textContent = "Antigravity";
                 hasInteracted = false;
                 hint.classList.remove("hidden");
-                resetBtn.classList.remove("visible");
+                controls.classList.remove("visible");
                 createBalls();
                 animationId = requestAnimationFrame(update);
             }
@@ -909,6 +1008,7 @@
             }
 
             resetBtn.addEventListener("click", reset);
+            antigravityBtn.addEventListener("click", toggleAntigravity);
 
             var resizeTimer;
             window.addEventListener("resize", function () {

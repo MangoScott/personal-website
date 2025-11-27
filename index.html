@@ -136,7 +136,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: rgb(255, 255, 255);
+                background: #ffffff;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -148,17 +148,7 @@
                 visibility: hidden;
                 transition: transform 0.3s, visibility 0.3s;
                 list-style: none;
-            }
-
-            .nav-links::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: #ffffff;
-                z-index: -1;
+                isolation: isolate;
             }
 
             .nav-links.active {

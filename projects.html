@@ -206,6 +206,11 @@
 
         mobileMenuToggle.addEventListener('click', toggleMenu);
 
+        // Close menu when clicking overlay
+        if (overlay) {
+            overlay.addEventListener('click', toggleMenu);
+        }
+
         // Close menu when clicking nav links
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {

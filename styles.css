@@ -343,6 +343,7 @@ footer {
         transform: translateX(100%);
         visibility: hidden;
         transition: transform 0.3s, visibility 0.3s;
+        list-style: none;
     }
 
     .nav-links.active {

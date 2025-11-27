@@ -83,6 +83,10 @@ header nav {
     z-index: 1002;
 }
 
+.mobile-nav-overlay {
+    display: none;
+}
+
 .hamburger-line {
     display: block;
     width: 24px;
@@ -327,25 +331,43 @@ footer {
         display: block;
     }
 
+    .mobile-nav-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .mobile-nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
     .nav-links {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: #ffffff;
+        background: transparent;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         padding-top: 120px;
         align-items: center;
         gap: 40px;
-        z-index: 1001;
+        z-index: 1002;
         transform: translateX(100%);
         visibility: hidden;
         transition: transform 0.3s, visibility 0.3s;
         list-style: none;
-        isolation: isolate;
     }
 
     .nav-links.active {

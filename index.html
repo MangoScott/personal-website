@@ -86,6 +86,8 @@
             letter-spacing: 0.05em;
             text-decoration: none;
             color: var(--text-color);
+            position: relative;
+            z-index: 10001;
         }
 
         .nav-links {
@@ -113,11 +115,7 @@
             cursor: pointer;
             padding: 8px;
             position: relative;
-            z-index: 1002;
-        }
-
-        .mobile-nav-overlay {
-            display: none;
+            z-index: 10001;
         }
 
         .hamburger-line {
@@ -129,62 +127,84 @@
             transition: transform 0.3s, opacity 0.3s;
         }
 
+        /* Mobile menu - fullscreen overlay approach */
+        .mobile-menu {
+            display: none;
+        }
+
         @media (max-width: 768px) {
             .mobile-menu-toggle {
                 display: block;
             }
 
-            .mobile-nav-overlay {
+            /* Hide the regular nav-links on mobile */
+            .nav-links {
+                display: none;
+            }
+
+            /* Mobile menu is a separate fullscreen element */
+            .mobile-menu {
                 display: block;
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background-color: rgb(255, 255, 255);
-                z-index: 1001;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                pointer-events: none;
-            }
-
-            .mobile-nav-overlay.active {
-                transform: translateX(0);
-                pointer-events: auto;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: transparent;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                padding-top: 120px;
-                align-items: center;
-                gap: 40px;
-                z-index: 1002;
-                transform: translateX(100%);
+                z-index: 10000;
+                opacity: 0;
                 visibility: hidden;
-                transition: transform 0.3s, visibility 0.3s;
-                list-style: none;
+                transition: opacity 0.3s, visibility 0.3s;
             }
 
-            .nav-links.active {
-                transform: translateX(0);
+            .mobile-menu.active {
+                opacity: 1;
                 visibility: visible;
             }
 
-            .nav-links li {
-                list-style: none;
+            .mobile-menu-bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #fafafa;
             }
 
-            .nav-links a {
+            .mobile-menu-links {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                gap: 40px;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .mobile-menu-links a {
                 font-size: 1.8rem;
                 font-weight: 600;
+                text-decoration: none;
+                color: var(--text-color);
+            }
+
+            .mobile-menu-close {
+                position: absolute;
+                top: 20px;
+                right: 24px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+                z-index: 10001;
+                color: var(--text-color);
+            }
+
+            .mobile-menu-close:hover {
+                opacity: 0.6;
             }
         }
 
@@ -475,7 +495,6 @@
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
-            <div class="mobile-nav-overlay"></div>
             <ul class="nav-links">
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="publications.html">Publications</a></li>
@@ -484,6 +503,23 @@
             </ul>
         </nav>
     </header>
+
+    <!-- Separate mobile menu element with inline background style -->
+    <div class="mobile-menu" id="mobile-menu" style="background-color: #fafafa !important;">
+        <div class="mobile-menu-bg" style="background-color: #fafafa !important;"></div>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <ul class="mobile-menu-links">
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="speaking.html">Speaking</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
 
     <main>
         <section class="hero" id="hero-section">
@@ -594,14 +630,13 @@
         // Mobile Menu Toggle
         (function () {
             var toggle = document.querySelector(".mobile-menu-toggle");
-            var navLinks = document.querySelector(".nav-links");
-            var overlay = document.querySelector(".mobile-nav-overlay");
+            var mobileMenu = document.getElementById("mobile-menu");
+            var closeBtn = document.getElementById("mobile-menu-close");
             var lines = toggle.querySelectorAll(".hamburger-line");
-            var links = navLinks.querySelectorAll("a");
+            var links = mobileMenu.querySelectorAll("a");
 
             function closeMenu() {
-                navLinks.classList.remove("active");
-                if (overlay) overlay.classList.remove("active");
+                mobileMenu.classList.remove("active");
                 document.body.style.overflow = "";
                 lines[0].style.transform = "none";
                 lines[1].style.opacity = "1";
@@ -609,8 +644,9 @@
             }
 
             function openMenu() {
-                navLinks.classList.add("active");
-                if (overlay) overlay.classList.add("active");
+                mobileMenu.classList.add("active");
+                // Force background color via JS as well
+                mobileMenu.style.backgroundColor = "#fafafa";
                 document.body.style.overflow = "hidden";
                 lines[0].style.transform = "rotate(45deg) translate(5px, 5px)";
                 lines[1].style.opacity = "0";
@@ -618,18 +654,17 @@
             }
 
             toggle.addEventListener("click", function () {
-                if (navLinks.classList.contains("active")) {
+                if (mobileMenu.classList.contains("active")) {
                     closeMenu();
                 } else {
                     openMenu();
                 }
             });
 
-            // Close menu when clicking overlay
-            if (overlay) {
-                overlay.addEventListener("click", closeMenu);
-            }
+            // Close button
+            closeBtn.addEventListener("click", closeMenu);
 
+            // Close when clicking links
             for (var i = 0; i < links.length; i++) {
                 links[i].addEventListener("click", closeMenu);
             }

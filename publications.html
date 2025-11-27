@@ -43,7 +43,6 @@
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
-            <div class="mobile-nav-overlay"></div>
             <ul class="nav-links">
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="publications.html" style="color: var(--accent-color);">Publications</a></li>
@@ -52,6 +51,23 @@
             </ul>
         </nav>
     </header>
+
+    <!-- Separate mobile menu element with inline background style -->
+    <div class="mobile-menu" id="mobile-menu" style="background-color: #fafafa !important;">
+        <div class="mobile-menu-bg" style="background-color: #fafafa !important;"></div>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <ul class="mobile-menu-links">
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="speaking.html">Speaking</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
 
     <main>
         <section style="padding-top: 120px;">
@@ -254,43 +270,47 @@
 
     <script>
         // Mobile Menu Toggle
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        const overlay = document.querySelector('.mobile-nav-overlay');
-        const body = document.body;
+        (function () {
+            var toggle = document.querySelector(".mobile-menu-toggle");
+            var mobileMenu = document.getElementById("mobile-menu");
+            var closeBtn = document.getElementById("mobile-menu-close");
+            var lines = toggle.querySelectorAll(".hamburger-line");
+            var links = mobileMenu.querySelectorAll("a");
 
-        function toggleMenu() {
-            const isActive = navLinks.classList.toggle('active');
-            if (overlay) overlay.classList.toggle('active');
-            body.style.overflow = isActive ? 'hidden' : '';
-
-            const lines = mobileMenuToggle.querySelectorAll('.hamburger-line');
-            if (isActive) {
-                lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                lines[1].style.opacity = '0';
-                lines[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-            } else {
-                lines[0].style.transform = 'none';
-                lines[1].style.opacity = '1';
-                lines[2].style.transform = 'none';
+            function closeMenu() {
+                mobileMenu.classList.remove("active");
+                document.body.style.overflow = "";
+                lines[0].style.transform = "none";
+                lines[1].style.opacity = "1";
+                lines[2].style.transform = "none";
             }
-        }
 
-        mobileMenuToggle.addEventListener('click', toggleMenu);
+            function openMenu() {
+                mobileMenu.classList.add("active");
+                // Force background color via JS as well
+                mobileMenu.style.backgroundColor = "#fafafa";
+                document.body.style.overflow = "hidden";
+                lines[0].style.transform = "rotate(45deg) translate(5px, 5px)";
+                lines[1].style.opacity = "0";
+                lines[2].style.transform = "rotate(-45deg) translate(5px, -5px)";
+            }
 
-        // Close menu when clicking overlay
-        if (overlay) {
-            overlay.addEventListener('click', toggleMenu);
-        }
-
-        // Close menu when clicking nav links
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navLinks.classList.contains('active')) {
-                    toggleMenu();
+            toggle.addEventListener("click", function () {
+                if (mobileMenu.classList.contains("active")) {
+                    closeMenu();
+                } else {
+                    openMenu();
                 }
             });
-        });
+
+            // Close button
+            closeBtn.addEventListener("click", closeMenu);
+
+            // Close when clicking links
+            for (var i = 0; i < links.length; i++) {
+                links[i].addEventListener("click", closeMenu);
+            }
+        })();
     </script>
 </body>
 

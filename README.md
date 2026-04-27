@@ -76,4 +76,4 @@ No build process or dependencies required.
 
 ---
 
-Built with intention. © 2025 Scott Glasgow
+Built with intention. © 2026 Scott Glasgow

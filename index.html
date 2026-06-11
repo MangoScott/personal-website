@@ -7,14 +7,15 @@
     <title>Scott Glasgow - Building Products That Improve Human Well-Being at Scale</title>
     <meta name="description"
         content="Building products that improve human well-being at scale. Founder of FinMango, currently building Fresho.">
+    <link rel="canonical" href="https://sglasgow.com/">
 
     <!-- Open Graph / Facebook / LinkedIn -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://scottglasgow.com/">
+    <meta property="og:url" content="https://sglasgow.com/">
     <meta property="og:title" content="Scott Glasgow | Improving Lives at Scale">
     <meta property="og:description"
         content="Using technology to improve lives at scale. Founder of FinMango, currently building Fresho. TEDx speaker focused on financial inclusion and systems change.">
-    <meta property="og:image" content="https://scottglasgow.com/images/og-image.png">
+    <meta property="og:image" content="https://sglasgow.com/images/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Scott Glasgow - Improving Lives at Scale">
@@ -23,11 +24,11 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://scottglasgow.com/">
+    <meta name="twitter:url" content="https://sglasgow.com/">
     <meta name="twitter:title" content="Scott Glasgow | Improving Lives at Scale">
     <meta name="twitter:description"
         content="Using technology to improve lives at scale. Founder of FinMango, currently building Fresho. TEDx speaker focused on financial inclusion and systems change.">
-    <meta name="twitter:image" content="https://scottglasgow.com/images/og-image.png">
+    <meta name="twitter:image" content="https://sglasgow.com/images/og-image.png">
     <meta name="twitter:image:alt" content="Scott Glasgow - Improving Lives at Scale">
     <meta name="twitter:creator" content="@mangoscott_">
 
@@ -527,13 +528,36 @@
             }
         }
     </style>
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Scott Glasgow",
+        "url": "https://sglasgow.com/",
+        "image": "https://sglasgow.com/images/og-image.png",
+        "jobTitle": "Founder",
+        "worksFor": [
+            { "@type": "Organization", "name": "FinMango", "url": "https://finmango.org" },
+            { "@type": "Organization", "name": "Fresho", "url": "https://getfresho.com" }
+        ],
+        "sameAs": [
+            "https://www.linkedin.com/in/sglasgow/",
+            "https://github.com/mangoscott",
+            "https://x.com/mangoscott_",
+            "https://www.instagram.com/mangoscott/",
+            "https://www.youtube.com/@ScottPlaysTennis"
+        ]
+    }
+    </script>
 </head>
 
 <body>
     <header>
         <nav class="container">
             <a href="index.html" class="logo">SCOTT GLASGOW</a>
-            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -550,8 +574,8 @@
     </header>
 
     <!-- Separate mobile menu element with inline background style -->
-    <div class="mobile-menu" id="mobile-menu" style="background-color: #fafafa !important;">
-        <div class="mobile-menu-bg" style="background-color: #fafafa !important;"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-bg"></div>
         <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -578,8 +602,8 @@
                         <h1>Using technology to improve lives at scale.</h1>
                         <p>
                             I sit at the intersection of technology and human needs. Currently focused on AI advertising
-                            at <a href="https://getfresho.com" target="_blank">Fresho</a> and financial health at <a
-                                href="https://finmango.org" target="_blank">FinMango</a>.
+                            at <a href="https://getfresho.com" target="_blank" rel="noopener">Fresho</a> and financial health at <a
+                                href="https://finmango.org" target="_blank" rel="noopener">FinMango</a>.
                         </p>
                         <div class="hero-actions">
                             <a href="#contact" class="btn btn-primary">Let's Connect</a>
@@ -649,13 +673,13 @@
                     </p>
                     <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px;">
                         <a href="mailto:scott@finmango.org" class="btn btn-primary">Email Me</a>
-                        <a href="https://www.linkedin.com/in/sglasgow/" target="_blank"
+                        <a href="https://www.linkedin.com/in/sglasgow/" target="_blank" rel="noopener"
                             class="btn btn-outline">LinkedIn</a>
-                        <a href="https://github.com/mangoscott" target="_blank" class="btn btn-outline">GitHub</a>
-                        <a href="https://x.com/mangoscott_" target="_blank" class="btn btn-outline">X</a>
-                        <a href="https://www.instagram.com/mangoscott/" target="_blank"
+                        <a href="https://github.com/mangoscott" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+                        <a href="https://x.com/mangoscott_" target="_blank" rel="noopener" class="btn btn-outline">X</a>
+                        <a href="https://www.instagram.com/mangoscott/" target="_blank" rel="noopener"
                             class="btn btn-outline">Instagram</a>
-                        <a href="https://www.youtube.com/@ScottPlaysTennis" target="_blank"
+                        <a href="https://www.youtube.com/@ScottPlaysTennis" target="_blank" rel="noopener"
                             class="btn btn-outline">YouTube</a>
                     </div>
                 </div>
@@ -681,50 +705,7 @@
         <button class="physics-btn" id="reset-btn">Reset</button>
     </div>
 
-    <script>
-        // Mobile Menu Toggle
-        (function () {
-            var toggle = document.querySelector(".mobile-menu-toggle");
-            var mobileMenu = document.getElementById("mobile-menu");
-            var closeBtn = document.getElementById("mobile-menu-close");
-            var lines = toggle.querySelectorAll(".hamburger-line");
-            var links = mobileMenu.querySelectorAll("a");
-
-            function closeMenu() {
-                mobileMenu.classList.remove("active");
-                document.body.style.overflow = "";
-                lines[0].style.transform = "none";
-                lines[1].style.opacity = "1";
-                lines[2].style.transform = "none";
-            }
-
-            function openMenu() {
-                mobileMenu.classList.add("active");
-                // Force background color via JS as well
-                mobileMenu.style.backgroundColor = "#fafafa";
-                document.body.style.overflow = "hidden";
-                lines[0].style.transform = "rotate(45deg) translate(5px, 5px)";
-                lines[1].style.opacity = "0";
-                lines[2].style.transform = "rotate(-45deg) translate(5px, -5px)";
-            }
-
-            toggle.addEventListener("click", function () {
-                if (mobileMenu.classList.contains("active")) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-
-            // Close button
-            closeBtn.addEventListener("click", closeMenu);
-
-            // Close when clicking links
-            for (var i = 0; i < links.length; i++) {
-                links[i].addEventListener("click", closeMenu);
-            }
-        })();
-    </script>
+    <script src="js/main.js"></script>
 
     <script>
         (function () {

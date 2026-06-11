@@ -73,6 +73,10 @@ header nav {
     opacity: 0.6;
 }
 
+.nav-links a.active {
+    color: var(--accent-color);
+}
+
 .logo {
     position: relative;
     z-index: 10001;
@@ -504,6 +508,13 @@ footer {
 
 .gallery-item:hover .caption {
     opacity: 1;
+}
+
+/* Touch screens have no hover: keep captions visible */
+@media (hover: none) {
+    .caption {
+        opacity: 1;
+    }
 }
 
 .caption h3 {

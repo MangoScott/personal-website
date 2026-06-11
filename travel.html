@@ -6,10 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel Journal - Scott Glasgow</title>
     <meta name="description" content="A visual collection of moments from around the world.">
+    <link rel="canonical" href="https://sglasgow.com/travel.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sglasgow.com/travel.html">
+    <meta property="og:title" content="Travel Journal - Scott Glasgow">
+    <meta property="og:description" content="A visual collection of moments from 39 countries and counting.">
+    <meta property="og:image" content="https://sglasgow.com/images/og-image.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://sglasgow.com/travel.html">
+    <meta name="twitter:title" content="Travel Journal - Scott Glasgow">
+    <meta name="twitter:description" content="A visual collection of moments from 39 countries and counting.">
+    <meta name="twitter:image" content="https://sglasgow.com/images/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@0;1&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -17,7 +38,7 @@
     <header>
         <nav class="container">
             <a href="index.html" class="logo">SCOTT GLASGOW</a>
-            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -62,7 +83,7 @@
             <div class="gallery-grid">
                 <!-- IMG_4301 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_4301.jpg')">
-                    <img src="images/travel/IMG_4301.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_4301.webp" alt="Seoul, South Korea" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Seoul</h3>
                         <p>South Korea</p>
@@ -71,7 +92,7 @@
 
                 <!-- IMG_4507 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_4507.jpg')">
-                    <img src="images/travel/IMG_4507.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_4507.webp" alt="Seoul, South Korea" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Seoul</h3>
                         <p>South Korea</p>
@@ -80,16 +101,16 @@
 
                 <!-- IMG_4586 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_4586.JPG')">
-                    <img src="images/travel/IMG_4586.JPG" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_4586.webp" alt="Google office, Seoul" width="800" height="1422" loading="lazy">
                     <div class="caption">
-                        <h3>Location</h3>
-                        <p>Country</p>
+                        <h3>Seoul</h3>
+                        <p>South Korea</p>
                     </div>
                 </div>
 
                 <!-- Dubai IMG_3310 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_3310.JPG')">
-                    <img src="images/travel/IMG_3310.JPG" alt="Dubai" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_3310.webp" alt="Dubai, UAE" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Dubai</h3>
                         <p>UAE</p>
@@ -98,7 +119,7 @@
 
                 <!-- Dubai Skyline -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/FullSizeRender.jpg')">
-                    <img src="images/travel/FullSizeRender.jpg" alt="Dubai Skyline" loading="lazy">
+                    <img src="images/travel/thumbs/FullSizeRender.webp" alt="Dubai, United Arab Emirates" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Dubai</h3>
                         <p>United Arab Emirates</p>
@@ -107,7 +128,7 @@
 
                 <!-- IMG_1078 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_1078.jpg')">
-                    <img src="images/travel/IMG_1078.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_1078.webp" alt="Sydney, Australia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Sydney</h3>
                         <p>Australia</p>
@@ -116,16 +137,16 @@
 
                 <!-- Thailand 2 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_6420.jpg')">
-                    <img src="images/travel/IMG_6420.jpg" alt="Thailand" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_6420.webp" alt="Maeklong Railway Market" width="800" height="1422" loading="lazy">
                     <div class="caption">
-                        <h3>Thailand</h3>
+                        <h3>Maeklong</h3>
                         <p>Thailand</p>
                     </div>
                 </div>
 
                 <!-- Ayutthaya 2 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_6513.jpg')">
-                    <img src="images/travel/IMG_6513.jpg" alt="Ayutthaya" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_6513.webp" alt="Ayutthaya, Thailand" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Ayutthaya</h3>
                         <p>Thailand</p>
@@ -134,7 +155,7 @@
 
                 <!-- USA Nature -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_3151.jpg')">
-                    <img src="images/travel/IMG_3151.jpg" alt="USA Nature" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_3151.webp" alt="Illinois, USA" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Illinois</h3>
                         <p>USA</p>
@@ -143,16 +164,16 @@
 
                 <!-- IMG_3391 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_3391.JPG')">
-                    <img src="images/travel/IMG_3391.JPG" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_3391.webp" alt="The Loop cafe, Dubai" width="800" height="1425" loading="lazy">
                     <div class="caption">
-                        <h3>Seoul</h3>
-                        <p>South Korea</p>
+                        <h3>Dubai</h3>
+                        <p>UAE</p>
                     </div>
                 </div>
 
                 <!-- IMG_5042 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_5042.jpg')">
-                    <img src="images/travel/IMG_5042.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_5042.webp" alt="Badlands, USA" width="800" height="450" loading="lazy">
                     <div class="caption">
                         <h3>Badlands</h3>
                         <p>USA</p>
@@ -161,7 +182,7 @@
 
                 <!-- Indonesia Tea -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_1508.jpg')">
-                    <img src="images/travel/IMG_1508.jpg" alt="Tea Plantation" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_1508.webp" alt="Lembang, Indonesia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Lembang</h3>
                         <p>Indonesia</p>
@@ -170,7 +191,7 @@
 
                 <!-- IMG_8151 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_8151.jpg')">
-                    <img src="images/travel/IMG_8151.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_8151.webp" alt="Sydney, Australia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Sydney</h3>
                         <p>Australia</p>
@@ -179,7 +200,7 @@
 
                 <!-- Seoul Palace 2 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_4516.jpg')">
-                    <img src="images/travel/IMG_4516.jpg" alt="Seoul Palace" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_4516.webp" alt="Seoul, South Korea" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Seoul</h3>
                         <p>South Korea</p>
@@ -188,7 +209,7 @@
 
                 <!-- Incheon -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_4781.jpg')">
-                    <img src="images/travel/IMG_4781.jpg" alt="Incheon" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_4781.webp" alt="Incheon, South Korea" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Incheon</h3>
                         <p>South Korea</p>
@@ -197,7 +218,7 @@
 
                 <!-- Batu Caves 2 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_7351.jpg')">
-                    <img src="images/travel/IMG_7351.jpg" alt="Batu Caves" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_7351.webp" alt="Kuala Lumpur, Malaysia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Kuala Lumpur</h3>
                         <p>Malaysia</p>
@@ -206,7 +227,7 @@
 
                 <!-- Dubai 3 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_3622.jpg')">
-                    <img src="images/travel/IMG_3622.jpg" alt="Dubai" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_3622.webp" alt="Dubai, UAE" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Dubai</h3>
                         <p>UAE</p>
@@ -215,16 +236,16 @@
 
                 <!-- Ayutthaya -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_6826.jpg')">
-                    <img src="images/travel/IMG_6826.jpg" alt="Ayutthaya" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_6826.webp" alt="Angkor temples at sunrise" width="800" height="1422" loading="lazy">
                     <div class="caption">
-                        <h3>Ayutthaya</h3>
-                        <p>Thailand</p>
+                        <h3>Angkor</h3>
+                        <p>Cambodia</p>
                     </div>
                 </div>
 
                 <!-- Cambodia 2 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_7239.jpg')">
-                    <img src="images/travel/IMG_7239.jpg" alt="Cambodia" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_7239.webp" alt="Siem Reap, Cambodia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Siem Reap</h3>
                         <p>Cambodia</p>
@@ -233,7 +254,7 @@
 
                 <!-- Great Ocean Road -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_0768.jpg')">
-                    <img src="images/travel/IMG_0768.jpg" alt="Great Ocean Road" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_0768.webp" alt="Victoria, Australia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Victoria</h3>
                         <p>Australia</p>
@@ -242,7 +263,7 @@
 
                 <!-- IMG_1875 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_1875.jpg')">
-                    <img src="images/travel/IMG_1875.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_1875.webp" alt="Tokyo, Japan" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Tokyo</h3>
                         <p>Japan</p>
@@ -251,7 +272,7 @@
 
                 <!-- IMG_1813 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_1813.jpg')">
-                    <img src="images/travel/IMG_1813.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_1813.webp" alt="Tokyo, Japan" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Tokyo</h3>
                         <p>Japan</p>
@@ -260,7 +281,7 @@
 
                 <!-- IMG_1309 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_1309.jpg')">
-                    <img src="images/travel/IMG_1309.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_1309.webp" alt="Bandung, Indonesia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Bandung</h3>
                         <p>Indonesia</p>
@@ -269,7 +290,7 @@
 
                 <!-- Dubai Snapseed -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/Snapseed.jpg')">
-                    <img src="images/travel/Snapseed.jpg" alt="Dubai" loading="lazy">
+                    <img src="images/travel/thumbs/Snapseed.webp" alt="Dubai, UAE" width="800" height="1067" loading="lazy">
                     <div class="caption">
                         <h3>Dubai</h3>
                         <p>UAE</p>
@@ -278,25 +299,25 @@
 
                 <!-- Prague -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_0766.jpg')">
-                    <img src="images/travel/IMG_0766.jpg" alt="Prague Streets" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_0766.webp" alt="Prague streets" width="800" height="1422" loading="lazy">
                     <div class="caption">
-                        <h3>Seoul</h3>
-                        <p>South Korea</p>
+                        <h3>Prague</h3>
+                        <p>Czech Republic</p>
                     </div>
                 </div>
 
                 <!-- IMG_1845 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_1845.JPG')">
-                    <img src="images/travel/IMG_1845.JPG" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_1845.webp" alt="Android Oreo statue at Google Tokyo" width="800" height="1422" loading="lazy">
                     <div class="caption">
-                        <h3>Location</h3>
-                        <p>Country</p>
+                        <h3>Tokyo</h3>
+                        <p>Japan</p>
                     </div>
                 </div>
 
                 <!-- Taiwan -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_6169.JPG')">
-                    <img src="images/travel/IMG_6169.JPG" alt="Taipei" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_6169.webp" alt="Taipei, Taiwan" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Taipei</h3>
                         <p>Taiwan</p>
@@ -305,16 +326,16 @@
 
                 <!-- Thailand 3 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_6473.jpg')">
-                    <img src="images/travel/IMG_6473.jpg" alt="Thailand" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_6473.webp" alt="Damnoen Saduak Floating Market" width="800" height="1422" loading="lazy">
                     <div class="caption">
-                        <h3>Thailand</h3>
+                        <h3>Damnoen Saduak</h3>
                         <p>Thailand</p>
                     </div>
                 </div>
 
                 <!-- IMG_6298 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_6298.jpg')">
-                    <img src="images/travel/IMG_6298.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_6298.webp" alt="Bangkok, Thailand" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Bangkok</h3>
                         <p>Thailand</p>
@@ -323,16 +344,16 @@
 
                 <!-- IMG_0798 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_0798.JPG')">
-                    <img src="images/travel/IMG_0798.JPG" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_0798.webp" alt="Snake warning sign on the Great Ocean Road" width="800" height="1422" loading="lazy">
                     <div class="caption">
-                        <h3>Location</h3>
-                        <p>Country</p>
+                        <h3>Great Ocean Road</h3>
+                        <p>Australia</p>
                     </div>
                 </div>
 
                 <!-- IMG_3008 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_3008.jpg')">
-                    <img src="images/travel/IMG_3008.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_3008.webp" alt="Dubai, UAE" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Dubai</h3>
                         <p>UAE</p>
@@ -341,7 +362,7 @@
 
                 <!-- IMG_2238 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_2238.jpg')">
-                    <img src="images/travel/IMG_2238.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_2238.webp" alt="Kuala Lumpur, Malaysia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Kuala Lumpur</h3>
                         <p>Malaysia</p>
@@ -350,7 +371,7 @@
 
                 <!-- Batu Caves 3 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_7366.jpg')">
-                    <img src="images/travel/IMG_7366.jpg" alt="Batu Caves" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_7366.webp" alt="Kuala Lumpur, Malaysia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Kuala Lumpur</h3>
                         <p>Malaysia</p>
@@ -359,7 +380,7 @@
 
                 <!-- IMG_0678 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_0678.jpg')">
-                    <img src="images/travel/IMG_0678.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_0678.webp" alt="Poznan, Poland" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Poznan</h3>
                         <p>Poland</p>
@@ -368,7 +389,7 @@
 
                 <!-- IMG_7347 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_7347.jpg')">
-                    <img src="images/travel/IMG_7347.jpg" alt="Travel Photo" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_7347.webp" alt="Kuala Lumpur, Malaysia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Kuala Lumpur</h3>
                         <p>Malaysia</p>
@@ -377,7 +398,7 @@
 
                 <!-- Batu Caves 4 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_7410.jpg')">
-                    <img src="images/travel/IMG_7410.jpg" alt="Batu Caves" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_7410.webp" alt="Kuala Lumpur, Malaysia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Kuala Lumpur</h3>
                         <p>Malaysia</p>
@@ -386,7 +407,7 @@
 
                 <!-- USA Nature 2 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_3161.jpg')">
-                    <img src="images/travel/IMG_3161.jpg" alt="USA Nature" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_3161.webp" alt="Illinois, USA" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Illinois</h3>
                         <p>USA</p>
@@ -395,20 +416,18 @@
 
                 <!-- Cambodia 1 -->
                 <div class="gallery-item" onclick="openLightbox('images/travel/IMG_7175.jpg')">
-                    <img src="images/travel/IMG_7175.jpg" alt="Cambodia" loading="lazy">
+                    <img src="images/travel/thumbs/IMG_7175.webp" alt="Siem Reap, Cambodia" width="800" height="1422" loading="lazy">
                     <div class="caption">
                         <h3>Siem Reap</h3>
                         <p>Cambodia</p>
                     </div>
                 </div>
             </div>
-            </div>
-            </div>
         </section>
     </main>
 
     <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightbox-close">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close photo">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -419,47 +438,8 @@
         </div>
     </div>
 
+    <script src="js/main.js"></script>
     <script>
-        // Mobile Menu
-        (function () {
-            var toggle = document.querySelector(".mobile-menu-toggle");
-            var mobileMenu = document.getElementById("mobile-menu");
-            var closeBtn = document.getElementById("mobile-menu-close");
-            var lines = toggle.querySelectorAll(".hamburger-line");
-            var links = mobileMenu.querySelectorAll("a");
-
-            function closeMenu() {
-                mobileMenu.classList.remove("active");
-                document.body.style.overflow = "";
-                lines[0].style.transform = "none";
-                lines[1].style.opacity = "1";
-                lines[2].style.transform = "none";
-            }
-
-            function openMenu() {
-                mobileMenu.classList.add("active");
-                document.body.style.overflow = "hidden";
-                lines[0].style.transform = "rotate(45deg) translate(5px, 5px)";
-                lines[1].style.opacity = "0";
-                lines[2].style.transform = "rotate(-45deg) translate(5px, -5px)";
-            }
-
-            toggle.addEventListener("click", function () {
-                if (mobileMenu.classList.contains("active")) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-
-            // Close button
-            closeBtn.addEventListener("click", closeMenu);
-
-            for (var i = 0; i < links.length; i++) {
-                links[i].addEventListener("click", closeMenu);
-            }
-        })();
-
         // Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxContent = document.getElementById('lightbox-content');

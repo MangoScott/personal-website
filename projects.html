@@ -7,21 +7,22 @@
     <title>Projects - Scott Glasgow</title>
     <meta name="description"
         content="Projects by Scott Glasgow - from global financial health initiatives to AI experiments.">
+    <link rel="canonical" href="https://sglasgow.com/projects.html">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://scottglasgow.com/projects.html">
+    <meta property="og:url" content="https://sglasgow.com/projects.html">
     <meta property="og:title" content="Projects - Scott Glasgow">
     <meta property="og:description" content="Building products and systems that improve human well-being at scale.">
-    <meta property="og:image" content="https://scottglasgow.com/images/profile/profile.jpg">
+    <meta property="og:image" content="https://sglasgow.com/images/og-image.png">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://scottglasgow.com/projects.html">
-    <meta property="twitter:title" content="Projects - Scott Glasgow">
-    <meta property="twitter:description"
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://sglasgow.com/projects.html">
+    <meta name="twitter:title" content="Projects - Scott Glasgow">
+    <meta name="twitter:description"
         content="Building products and systems that improve human well-being at scale.">
-    <meta property="twitter:image" content="https://scottglasgow.com/images/profile/profile.jpg">
+    <meta name="twitter:image" content="https://sglasgow.com/images/og-image.png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -38,14 +39,14 @@
     <header>
         <nav class="container">
             <a href="index.html" class="logo">SCOTT GLASGOW</a>
-            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+            <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
             </button>
             <ul class="nav-links">
                 <li><a href="about.html">About</a></li>
-                <li><a href="projects.html" style="color: var(--accent-color);">Projects</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
                 <li><a href="publications.html">Publications</a></li>
                 <li><a href="travel.html">Travel</a></li>
                 <li><a href="speaking.html">Speaking</a></li>
@@ -55,8 +56,8 @@
     </header>
 
     <!-- Separate mobile menu element with inline background style -->
-    <div class="mobile-menu" id="mobile-menu" style="background-color: #fafafa !important;">
-        <div class="mobile-menu-bg" style="background-color: #fafafa !important;"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-bg"></div>
         <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -200,50 +201,7 @@
         </div>
     </footer>
 
-    <script>
-        // Mobile Menu Toggle
-        (function () {
-            var toggle = document.querySelector(".mobile-menu-toggle");
-            var mobileMenu = document.getElementById("mobile-menu");
-            var closeBtn = document.getElementById("mobile-menu-close");
-            var lines = toggle.querySelectorAll(".hamburger-line");
-            var links = mobileMenu.querySelectorAll("a");
-
-            function closeMenu() {
-                mobileMenu.classList.remove("active");
-                document.body.style.overflow = "";
-                lines[0].style.transform = "none";
-                lines[1].style.opacity = "1";
-                lines[2].style.transform = "none";
-            }
-
-            function openMenu() {
-                mobileMenu.classList.add("active");
-                // Force background color via JS as well
-                mobileMenu.style.backgroundColor = "#fafafa";
-                document.body.style.overflow = "hidden";
-                lines[0].style.transform = "rotate(45deg) translate(5px, 5px)";
-                lines[1].style.opacity = "0";
-                lines[2].style.transform = "rotate(-45deg) translate(5px, -5px)";
-            }
-
-            toggle.addEventListener("click", function () {
-                if (mobileMenu.classList.contains("active")) {
-                    closeMenu();
-                } else {
-                    openMenu();
-                }
-            });
-
-            // Close button
-            closeBtn.addEventListener("click", closeMenu);
-
-            // Close when clicking links
-            for (var i = 0; i < links.length; i++) {
-                links[i].addEventListener("click", closeMenu);
-            }
-        })();
-    </script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

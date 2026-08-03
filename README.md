@@ -1,6 +1,6 @@
 # Scott Glasgow - Personal Website
 
-Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https://sglasgow.com). Plain HTML/CSS/JS — no build step, no dependencies.
+Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https://sglasgow.com). Plain HTML/CSS/JS. No build step, no dependencies.
 
 ## Pages
 

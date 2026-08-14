@@ -325,12 +325,16 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(0, 0, 0, 0.05);
             opacity: 0;
-            transition: opacity 0.35s ease;
+            /* Kept out of the paint entirely until it's needed — an always-on
+               backdrop-filter makes the compositor work on every frame */
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s;
             pointer-events: none;
         }
 
         .physics-layer.docked .dock-plate {
             opacity: 1;
+            visibility: visible;
         }
 
         .ball {
@@ -863,15 +867,31 @@
 
             var balls = [];
             var gravity = 0.3;
-            var friction = 0.995;
+            var friction = 0.99;
             var bounce = 0.7;
-            var maxSpeed = 52;
+            var maxSpeed = 60;   // safety against tunnelling only; normal play never reaches it
 
-            // Every force below is tuned per 60fps frame, then scaled by real elapsed
-            // time so the balls behave the same on a 60Hz and a 120Hz display
+            // The simulation advances in whole 60fps steps and never a partial one, so
+            // every step moves a ball exactly as far as the last. Scaling forces by real
+            // elapsed time instead makes each frame's step slightly different, which is
+            // what reads as jitter.
             var FRAME_MS = 1000 / 60;
+            var MAX_CATCHUP = 5;
+            var accumulator = 0;
             var FLICK_WINDOW = 120;
             var lastFrame = 0;
+
+            // A ball that has been slow for this many steps is put to sleep, so the pile
+            // goes properly still instead of micro-bouncing forever
+            // Low enough that a ball is already visually stationary when it sleeps —
+            // the point is that the pile goes properly still, not that it stops early
+            var REST_SPEED = 0.2;
+            var REST_STEPS = 30;
+
+            // Cached so the loop never forces a layout mid-frame
+            var viewW = window.innerWidth;
+            var viewH = window.innerHeight;
+            var heroHeight = window.innerHeight;
             var hasInteracted = false;
             var animationId = null;
             var antigravityMode = false;
@@ -884,12 +904,11 @@
             var dockSize = 50;
             var avatarSize = 36;
 
-            // Pointer gravity
+            // Pointer gravity. Push only — an attraction term at any useful range keeps
+            // every ball permanently agitated and nothing ever settles.
             var pointer = { x: 0, y: 0, active: false };
-            var REPEL_RADIUS = 170;
-            var REPEL_FORCE = 1.1;
-            var PULL_OUTER = 520;
-            var PULL_FORCE = 0.07;
+            var REPEL_RADIUS = 110;
+            var REPEL_FORCE = 0.45;
 
             var ballData = [
                 {
@@ -990,6 +1009,8 @@
                         ty: y,
                         dragging: false,
                         frozen: false,
+                        resting: false,
+                        calm: 0,
                         suppressClick: false,
                         floatPhase: Math.random() * Math.PI * 2,
                         floatSpeed: 0.02 + Math.random() * 0.02
@@ -1011,9 +1032,16 @@
             }
 
             // Where each ball goes once the page scrolls past the hero
+            function measureViewport() {
+                viewW = window.innerWidth;
+                viewH = window.innerHeight;
+                heroHeight = hero.offsetHeight || viewH;
+            }
+
             function layoutDock() {
-                var vw = window.innerWidth;
-                var vh = window.innerHeight;
+                measureViewport();
+                var vw = viewW;
+                var vh = viewH;
                 var isMobile = vw < 768;
 
                 dockSize = isMobile ? 36 : 50;
@@ -1053,7 +1081,6 @@
             }
 
             function updateDockProgress() {
-                var heroHeight = hero.offsetHeight || window.innerHeight;
                 var start = heroHeight * 0.30;
                 var end = heroHeight * 0.70;
                 var raw = (window.pageYOffset - start) / (end - start);
@@ -1133,6 +1160,8 @@
                     e.preventDefault();
                     ball.dragging = true;
                     ball.suppressClick = false;
+                    ball.resting = false;
+                    ball.calm = 0;
                     ball.vx = 0;
                     ball.vy = 0;
 
@@ -1245,10 +1274,12 @@
                 if (dockProgress <= 0.15) controls.classList.add("visible");
             }
 
-            function applyPointerForces(ball, k) {
-                if (!pointer.active || !canHover) return;
-                var strength = (1 - dockEased) * k;
-                if (strength <= 0.01) return;
+            // Returns true when the cursor actually pushed, which is also what wakes a
+            // sleeping ball
+            function applyPointerForces(ball) {
+                if (!pointer.active || !canHover) return false;
+                var strength = 1 - dockEased;
+                if (strength <= 0.01) return false;
 
                 var cx = ball.x + ball.size / 2;
                 var cy = ball.y + ball.size / 2;
@@ -1258,18 +1289,14 @@
                 if (dist < 1) dist = 1;
 
                 var radius = REPEL_RADIUS + ball.size / 2;
+                if (dist >= radius) return false;
 
-                if (dist < radius) {
-                    // Close in, the cursor pushes
-                    var push = (1 - dist / radius) * REPEL_FORCE * strength;
-                    ball.vx += (dx / dist) * push;
-                    ball.vy += (dy / dist) * push;
-                } else if (dist < PULL_OUTER) {
-                    // Further out, it quietly pulls
-                    var pull = (1 - (dist - radius) / (PULL_OUTER - radius)) * PULL_FORCE * strength;
-                    ball.vx -= (dx / dist) * pull;
-                    ball.vy -= (dy / dist) * pull;
-                }
+                var push = (1 - dist / radius) * REPEL_FORCE * strength;
+                if (push < 0.02) return false;
+
+                ball.vx += (dx / dist) * push;
+                ball.vy += (dy / dist) * push;
+                return true;
             }
 
             function renderBall(ball, sizeChanged) {
@@ -1289,50 +1316,55 @@
                     "translate3d(" + (cx - curSize / 2) + "px," + (cy - curSize / 2) + "px,0)";
             }
 
-            function update(now) {
-                updateDockProgress();
+            function wakeAll() {
+                for (var i = 0; i < balls.length; i++) {
+                    balls[i].resting = false;
+                    balls[i].calm = 0;
+                }
+            }
 
-                // Elapsed time in 60fps frames, clamped so a stalled tab or a slow
-                // frame can't fling everything across the screen
-                if (!lastFrame) lastFrame = now - FRAME_MS;
-                var k = (now - lastFrame) / FRAME_MS;
-                lastFrame = now;
-                if (!(k > 0.25)) k = 0.25;
-                if (k > 3) k = 3;
-
-                var width = window.innerWidth;
-                var height = window.innerHeight;
+            function step() {
+                var width = viewW;
+                var height = viewH;
                 var collisionScale = 1 - dockEased;
-                var sizeChanged = Math.abs(dockEased - lastEased) > 0.0005;
-                var drag = Math.pow(friction, k);
 
                 for (var i = 0; i < balls.length; i++) {
                     var ball = balls[i];
 
                     if (!ball.dragging && !ball.frozen) {
-                        if (antigravityMode) {
-                            ball.floatPhase += ball.floatSpeed * k;
-                            ball.vy -= 0.02 * k;
-                            ball.vx += Math.sin(ball.floatPhase) * 0.05 * k;
-                            ball.vy += Math.cos(ball.floatPhase * 0.7) * 0.05 * k;
-                            ball.vx *= Math.pow(0.995, k);
-                            ball.vy *= Math.pow(0.995, k);
-                        } else {
-                            ball.vy += gravity * k;
-                            ball.vx *= drag;
-                            ball.vy *= drag;
+                        if (applyPointerForces(ball)) {
+                            ball.resting = false;
+                            ball.calm = 0;
                         }
 
-                        applyPointerForces(ball, k);
+                        // A sleeping ball costs nothing and, more to the point, sits
+                        // perfectly still
+                        if (ball.resting && !antigravityMode) {
+                            continue;
+                        }
+
+                        if (antigravityMode) {
+                            ball.floatPhase += ball.floatSpeed;
+                            ball.vy -= 0.02;
+                            ball.vx += Math.sin(ball.floatPhase) * 0.05;
+                            ball.vy += Math.cos(ball.floatPhase * 0.7) * 0.05;
+                            ball.vx *= 0.995;
+                            ball.vy *= 0.995;
+                        } else {
+                            ball.vy += gravity;
+                            ball.vx *= friction;
+                            ball.vy *= friction;
+                        }
 
                         var speed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
                         if (speed > maxSpeed) {
                             ball.vx = (ball.vx / speed) * maxSpeed;
                             ball.vy = (ball.vy / speed) * maxSpeed;
+                            speed = maxSpeed;
                         }
 
-                        ball.x += ball.vx * k;
-                        ball.y += ball.vy * k;
+                        ball.x += ball.vx;
+                        ball.y += ball.vy;
 
                         if (ball.x < 0) {
                             ball.x = 0;
@@ -1349,6 +1381,20 @@
                         if (ball.y + ball.size > height) {
                             ball.y = height - ball.size;
                             ball.vy *= -bounce;
+                        }
+
+                        // Stay slow for long enough and the ball is done moving. Free
+                        // fall never qualifies, because it's only slow for an instant.
+                        if (!antigravityMode) {
+                            if (speed < REST_SPEED) {
+                                if (++ball.calm > REST_STEPS) {
+                                    ball.vx = 0;
+                                    ball.vy = 0;
+                                    ball.resting = true;
+                                }
+                            } else {
+                                ball.calm = 0;
+                            }
                         }
                     }
 
@@ -1371,6 +1417,16 @@
                                 other.y += ny * overlap / 2;
 
                                 var dot = (ball.vx - other.vx) * nx + (ball.vy - other.vy) * ny;
+
+                                // Only a real knock wakes a sleeping ball. Resting balls
+                                // in a pile touch constantly; that must not count.
+                                if (Math.abs(dot) > REST_SPEED) {
+                                    ball.resting = false;
+                                    other.resting = false;
+                                    ball.calm = 0;
+                                    other.calm = 0;
+                                }
+
                                 var impulse = dot * bounce * collisionScale;
 
                                 ball.vx -= impulse * nx;
@@ -1380,11 +1436,34 @@
                             }
                         }
                     }
-
-                    renderBall(ball, sizeChanged);
                 }
+            }
 
+            function update(now) {
+                updateDockProgress();
+
+                if (!lastFrame) lastFrame = now - FRAME_MS;
+                var elapsed = now - lastFrame;
+                lastFrame = now;
+                if (elapsed > 200) elapsed = 200;
+                if (Math.abs(elapsed - FRAME_MS) < 2) elapsed = FRAME_MS;
+                accumulator += elapsed;
+
+                // Whole steps only, so every step advances the world by the same amount
+                var steps = 0;
+                while (accumulator >= FRAME_MS && steps < MAX_CATCHUP) {
+                    step();
+                    accumulator -= FRAME_MS;
+                    steps++;
+                }
+                if (steps === MAX_CATCHUP) accumulator = 0;
+
+                var sizeChanged = Math.abs(dockEased - lastEased) > 0.0005;
+                for (var i = 0; i < balls.length; i++) {
+                    renderBall(balls[i], sizeChanged);
+                }
                 if (sizeChanged) lastEased = dockEased;
+
                 animationId = requestAnimationFrame(update);
             }
 
@@ -1396,6 +1475,7 @@
                     antigravityBtn.setAttribute("aria-pressed", "true");
                     antigravityBtn.querySelector("span").textContent = "Gravity";
 
+                    wakeAll();
                     for (var i = 0; i < balls.length; i++) {
                         balls[i].vy -= 2 + Math.random() * 2;
                         balls[i].vx += (Math.random() - 0.5) * 2;
@@ -1404,6 +1484,7 @@
                     antigravityBtn.classList.remove("antigravity-active");
                     antigravityBtn.setAttribute("aria-pressed", "false");
                     antigravityBtn.querySelector("span").textContent = "Antigravity";
+                    wakeAll();
                 }
 
                 markInteracted();
@@ -1418,6 +1499,7 @@
                 hint.classList.remove("hidden");
                 controls.classList.remove("visible");
                 lastFrame = 0;
+                accumulator = 0;
                 createBalls();
             }
 
@@ -1469,6 +1551,7 @@
                         startStatic();
                     } else {
                         layoutDock();
+                        wakeAll();
                     }
                 }, 200);
             });
@@ -1483,6 +1566,7 @@
                     }
                 } else if (!animationId) {
                     lastFrame = 0;
+                    accumulator = 0;
                     animationId = requestAnimationFrame(update);
                 }
             });

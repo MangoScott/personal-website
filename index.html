@@ -863,9 +863,15 @@
 
             var balls = [];
             var gravity = 0.3;
-            var friction = 0.99;
+            var friction = 0.995;
             var bounce = 0.7;
-            var maxSpeed = 42;
+            var maxSpeed = 52;
+
+            // Every force below is tuned per 60fps frame, then scaled by real elapsed
+            // time so the balls behave the same on a 60Hz and a 120Hz display
+            var FRAME_MS = 1000 / 60;
+            var FLICK_WINDOW = 120;
+            var lastFrame = 0;
             var hasInteracted = false;
             var animationId = null;
             var antigravityMode = false;
@@ -1078,8 +1084,48 @@
                 var startY = 0;
                 var offsetX = 0;
                 var offsetY = 0;
+                var samples = [];
+
+                // Keep a short trail of pointer positions. A throw's speed comes from
+                // this window, not from the final mouse event — hands decelerate just
+                // before letting go, and reading only the last event throws that away.
+                function sample(x, y, t) {
+                    samples.push(x, y, t);
+                    while (samples.length > 6 && t - samples[2] > FLICK_WINDOW) {
+                        samples.splice(0, 3);
+                    }
+                }
+
+                // Take the fastest stretch ending at the release rather than averaging
+                // the whole window. A slow device may only report a handful of moves,
+                // and averaging lets the hand's final slowdown swallow the throw.
+                function flickVelocity() {
+                    var n = samples.length;
+                    if (n < 6) return null;
+
+                    var lastX = samples[n - 3];
+                    var lastY = samples[n - 2];
+                    var lastT = samples[n - 1];
+                    var best = null;
+                    var bestSpeed = 0;
+
+                    for (var i = 0; i + 3 < n; i += 3) {
+                        var dt = lastT - samples[i + 2];
+                        if (dt < 4) continue;
+                        var vx = (lastX - samples[i]) / dt * FRAME_MS;
+                        var vy = (lastY - samples[i + 1]) / dt * FRAME_MS;
+                        var speed = Math.sqrt(vx * vx + vy * vy);
+                        if (speed > bestSpeed) {
+                            bestSpeed = speed;
+                            best = { vx: vx, vy: vy };
+                        }
+                    }
+
+                    return best;
+                }
 
                 function onStart(e) {
+                    if (reduceMotion) return;
                     // Once docked the balls are navigation, not toys
                     if (dockProgress > 0.5) return;
                     if (e.button !== undefined && e.button !== 0) return;
@@ -1090,49 +1136,75 @@
                     ball.vx = 0;
                     ball.vy = 0;
 
-                    var touch = e.touches ? e.touches[0] : e;
-                    startX = touch.clientX;
-                    startY = touch.clientY;
-                    offsetX = touch.clientX - ball.x;
-                    offsetY = touch.clientY - ball.y;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    offsetX = e.clientX - ball.x;
+                    offsetY = e.clientY - ball.y;
+
+                    samples.length = 0;
+                    sample(e.clientX, e.clientY, performance.now());
+
+                    // Keeps the drag alive if the pointer outruns the ball
+                    if (ball.el.setPointerCapture) {
+                        try {
+                            ball.el.setPointerCapture(e.pointerId);
+                        } catch (err) { /* not fatal */ }
+                    }
+
+                    // Listen on the document, not the element, so the drag survives
+                    // even where pointer capture isn't available
+                    document.addEventListener("pointermove", onMove, { passive: false });
+                    document.addEventListener("pointerup", onEnd);
+                    document.addEventListener("pointercancel", onEnd);
 
                     markInteracted();
-
-                    document.addEventListener("mousemove", onMove);
-                    document.addEventListener("mouseup", onEnd);
-                    document.addEventListener("touchmove", onMove, { passive: false });
-                    document.addEventListener("touchend", onEnd);
-                    document.addEventListener("touchcancel", onEnd);
                 }
 
                 function onMove(e) {
                     if (!ball.dragging) return;
                     e.preventDefault();
 
-                    var touch = e.touches ? e.touches[0] : e;
-                    var newX = touch.clientX - offsetX;
-                    var newY = touch.clientY - offsetY;
+                    // One clock for every sample. Event timeStamps and performance.now()
+                    // don't always share an origin, and mixing them wrecks the window.
+                    sample(e.clientX, e.clientY, performance.now());
 
-                    ball.vx = newX - ball.x;
-                    ball.vy = newY - ball.y;
-                    ball.x = newX;
-                    ball.y = newY;
+                    ball.x = e.clientX - offsetX;
+                    ball.y = e.clientY - offsetY;
 
-                    var dx = touch.clientX - startX;
-                    var dy = touch.clientY - startY;
+                    // Draw immediately rather than waiting for the next frame, so the
+                    // ball stays glued to the cursor instead of trailing it
+                    renderBall(ball);
+
+                    var dx = e.clientX - startX;
+                    var dy = e.clientY - startY;
                     if (Math.sqrt(dx * dx + dy * dy) > 6) {
                         ball.suppressClick = true;
                     }
                 }
 
-                function onEnd() {
+                function onEnd(e) {
+                    if (!ball.dragging) return;
                     ball.dragging = false;
-                    document.removeEventListener("mousemove", onMove);
-                    document.removeEventListener("mouseup", onEnd);
-                    document.removeEventListener("touchmove", onMove);
-                    document.removeEventListener("touchend", onEnd);
-                    document.removeEventListener("touchcancel", onEnd);
+
+                    document.removeEventListener("pointermove", onMove);
+                    document.removeEventListener("pointerup", onEnd);
+                    document.removeEventListener("pointercancel", onEnd);
+
+                    if (e && e.pointerId !== undefined && ball.el.releasePointerCapture) {
+                        try {
+                            ball.el.releasePointerCapture(e.pointerId);
+                        } catch (err) { /* not fatal */ }
+                    }
+
+                    var flick = flickVelocity();
+                    if (flick) {
+                        ball.vx = flick.vx;
+                        ball.vy = flick.vy;
+                    }
+                    samples.length = 0;
                 }
+
+                ball.el.addEventListener("pointerdown", onStart);
 
                 // A throw is not a click
                 ball.el.addEventListener("click", function (e) {
@@ -1164,10 +1236,6 @@
                     ball.frozen = false;
                 });
 
-                if (!reduceMotion) {
-                    ball.el.addEventListener("mousedown", onStart);
-                    ball.el.addEventListener("touchstart", onStart, { passive: false });
-                }
             }
 
             function markInteracted() {
@@ -1177,9 +1245,9 @@
                 if (dockProgress <= 0.15) controls.classList.add("visible");
             }
 
-            function applyPointerForces(ball) {
+            function applyPointerForces(ball, k) {
                 if (!pointer.active || !canHover) return;
-                var strength = 1 - dockEased;
+                var strength = (1 - dockEased) * k;
                 if (strength <= 0.01) return;
 
                 var cx = ball.x + ball.size / 2;
@@ -1204,32 +1272,58 @@
                 }
             }
 
-            function update() {
+            function renderBall(ball, sizeChanged) {
+                // Blend the free simulation into the dock slot
+                var target = ball.dockTarget || dockSize;
+                var curSize = ball.size + (target - ball.size) * dockEased;
+                var cx = (ball.x + ball.size / 2) + (ball.tx - (ball.x + ball.size / 2)) * dockEased;
+                var cy = (ball.y + ball.size / 2) + (ball.ty - (ball.y + ball.size / 2)) * dockEased;
+
+                if (sizeChanged) {
+                    ball.el.style.width = curSize + "px";
+                    ball.el.style.height = curSize + "px";
+                    ball.el.style.fontSize = Math.max(9, curSize * 0.12) + "px";
+                }
+
+                ball.el.style.transform =
+                    "translate3d(" + (cx - curSize / 2) + "px," + (cy - curSize / 2) + "px,0)";
+            }
+
+            function update(now) {
                 updateDockProgress();
+
+                // Elapsed time in 60fps frames, clamped so a stalled tab or a slow
+                // frame can't fling everything across the screen
+                if (!lastFrame) lastFrame = now - FRAME_MS;
+                var k = (now - lastFrame) / FRAME_MS;
+                lastFrame = now;
+                if (!(k > 0.25)) k = 0.25;
+                if (k > 3) k = 3;
 
                 var width = window.innerWidth;
                 var height = window.innerHeight;
                 var collisionScale = 1 - dockEased;
                 var sizeChanged = Math.abs(dockEased - lastEased) > 0.0005;
+                var drag = Math.pow(friction, k);
 
                 for (var i = 0; i < balls.length; i++) {
                     var ball = balls[i];
 
                     if (!ball.dragging && !ball.frozen) {
                         if (antigravityMode) {
-                            ball.floatPhase += ball.floatSpeed;
-                            ball.vy -= 0.02;
-                            ball.vx += Math.sin(ball.floatPhase) * 0.05;
-                            ball.vy += Math.cos(ball.floatPhase * 0.7) * 0.05;
-                            ball.vx *= 0.995;
-                            ball.vy *= 0.995;
+                            ball.floatPhase += ball.floatSpeed * k;
+                            ball.vy -= 0.02 * k;
+                            ball.vx += Math.sin(ball.floatPhase) * 0.05 * k;
+                            ball.vy += Math.cos(ball.floatPhase * 0.7) * 0.05 * k;
+                            ball.vx *= Math.pow(0.995, k);
+                            ball.vy *= Math.pow(0.995, k);
                         } else {
-                            ball.vy += gravity;
-                            ball.vx *= friction;
-                            ball.vy *= friction;
+                            ball.vy += gravity * k;
+                            ball.vx *= drag;
+                            ball.vy *= drag;
                         }
 
-                        applyPointerForces(ball);
+                        applyPointerForces(ball, k);
 
                         var speed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
                         if (speed > maxSpeed) {
@@ -1237,8 +1331,8 @@
                             ball.vy = (ball.vy / speed) * maxSpeed;
                         }
 
-                        ball.x += ball.vx;
-                        ball.y += ball.vy;
+                        ball.x += ball.vx * k;
+                        ball.y += ball.vy * k;
 
                         if (ball.x < 0) {
                             ball.x = 0;
@@ -1287,20 +1381,7 @@
                         }
                     }
 
-                    // Blend the free simulation into the dock slot
-                    var target = ball.dockTarget || dockSize;
-                    var curSize = ball.size + (target - ball.size) * dockEased;
-                    var cx = (ball.x + ball.size / 2) + (ball.tx - (ball.x + ball.size / 2)) * dockEased;
-                    var cy = (ball.y + ball.size / 2) + (ball.ty - (ball.y + ball.size / 2)) * dockEased;
-
-                    if (sizeChanged) {
-                        ball.el.style.width = curSize + "px";
-                        ball.el.style.height = curSize + "px";
-                        ball.el.style.fontSize = Math.max(9, curSize * 0.12) + "px";
-                    }
-
-                    ball.el.style.transform =
-                        "translate3d(" + (cx - curSize / 2) + "px," + (cy - curSize / 2) + "px,0)";
+                    renderBall(ball, sizeChanged);
                 }
 
                 if (sizeChanged) lastEased = dockEased;
@@ -1336,6 +1417,7 @@
                 hasInteracted = false;
                 hint.classList.remove("hidden");
                 controls.classList.remove("visible");
+                lastFrame = 0;
                 createBalls();
             }
 
@@ -1345,8 +1427,7 @@
                 layer.style.height = (hero.offsetHeight || window.innerHeight) + "px";
                 createBalls();
                 for (var i = 0; i < balls.length; i++) {
-                    var ball = balls[i];
-                    ball.el.style.transform = "translate3d(" + ball.x + "px," + ball.y + "px,0)";
+                    renderBall(balls[i], true);
                 }
             }
 
@@ -1401,6 +1482,7 @@
                         animationId = null;
                     }
                 } else if (!animationId) {
+                    lastFrame = 0;
                     animationId = requestAnimationFrame(update);
                 }
             });

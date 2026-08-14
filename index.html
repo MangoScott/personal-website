@@ -96,6 +96,13 @@
             color: var(--text-color);
             position: relative;
             z-index: 10001;
+            padding-left: 0;
+            transition: padding-left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Makes room for the photo ball once it settles into the masthead */
+        body.avatar-docked .logo {
+            padding-left: 46px;
         }
 
         .nav-links {
@@ -298,19 +305,38 @@
             color: white;
         }
 
-        /* Physics Area */
-        .physics-area {
-            position: absolute;
+        /* Physics layer — fixed to the viewport so the balls survive the scroll */
+        .physics-layer {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: 1001;
             pointer-events: none;
+        }
+
+        /* Frosted plate that fades in behind the dock */
+        .dock-plate {
+            position: absolute;
+            border-radius: 100px;
+            background: rgba(250, 250, 250, 0.75);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .physics-layer.docked .dock-plate {
+            opacity: 1;
         }
 
         .ball {
             position: absolute;
+            top: 0;
+            left: 0;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -319,9 +345,19 @@
             font-size: 12px;
             cursor: grab;
             user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
             transition: box-shadow 0.2s;
             text-decoration: none;
             pointer-events: auto;
+            will-change: transform;
+            touch-action: none;
+        }
+
+        /* Docked balls are navigation, so let touches scroll the page again */
+        .ball.is-docked {
+            touch-action: auto;
+            cursor: pointer;
         }
 
         .ball:active {
@@ -330,6 +366,11 @@
 
         .ball:hover {
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .ball:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 4px;
         }
 
         .ball.orange {
@@ -360,6 +401,69 @@
             height: 100%;
             object-fit: cover;
             object-position: center 35%;
+            pointer-events: none;
+        }
+
+        /* Full label in play, two-letter monogram once docked */
+        .ball-label,
+        .ball-mono {
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
+
+        .ball-mono {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 0.02em;
+        }
+
+        .ball.is-docked .ball-label {
+            opacity: 0;
+        }
+
+        .ball.is-docked .ball-mono {
+            opacity: 1;
+        }
+
+        /* Dock tooltip */
+        .ball-tip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-bottom: 10px;
+            padding: 6px 12px;
+            border-radius: 100px;
+            background: var(--text-color);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translate(-50%, 4px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+        }
+
+        .ball.is-docked:hover .ball-tip,
+        .ball.is-docked:focus-visible .ball-tip {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* Static, motion-free arrangement */
+        .physics-layer.static-mode {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .physics-layer.static-mode .ball {
+            position: absolute;
+            transition: none;
         }
 
         /* Hint */
@@ -527,6 +631,40 @@
                 font-size: 0.8rem;
             }
         }
+
+        /* Hero controls belong to the hero — they retire once the balls dock */
+        .physics-controls.retired {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        /* Reduced motion: no simulation, no dock, no drifting. Just links. */
+        @media (prefers-reduced-motion: reduce) {
+
+            .ball,
+            .ball-label,
+            .ball-mono,
+            .ball-tip,
+            .logo,
+            .dock-plate {
+                transition: none;
+            }
+
+            .physics-hint svg {
+                animation: none;
+            }
+
+            .physics-hint,
+            .physics-controls,
+            .dock-plate {
+                display: none;
+            }
+
+            .ball {
+                cursor: pointer;
+            }
+        }
     </style>
 
     <!-- Structured data -->
@@ -594,8 +732,6 @@
 
     <main>
         <section class="hero" id="hero-section">
-            <div class="physics-area" id="physics-area"></div>
-
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
@@ -693,8 +829,12 @@
         </div>
     </footer>
 
+    <nav class="physics-layer" id="physics-layer" aria-label="Featured work">
+        <div class="dock-plate" id="dock-plate" aria-hidden="true"></div>
+    </nav>
+
     <div class="physics-controls" id="physics-controls">
-        <button class="physics-btn" id="antigravity-btn">
+        <button class="physics-btn" id="antigravity-btn" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="3" />
                 <path
@@ -709,65 +849,133 @@
 
     <script>
         (function () {
-            var area = document.getElementById("physics-area");
+            var layer = document.getElementById("physics-layer");
+            var plate = document.getElementById("dock-plate");
+            var hero = document.getElementById("hero-section");
+            var logo = document.querySelector(".logo");
             var hint = document.getElementById("physics-hint");
             var controls = document.getElementById("physics-controls");
             var resetBtn = document.getElementById("reset-btn");
             var antigravityBtn = document.getElementById("antigravity-btn");
 
+            var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
             var balls = [];
             var gravity = 0.3;
-            var friction = 0.99;
+            var friction = 0.995;
             var bounce = 0.7;
+            var maxSpeed = 52;
+
+            // Every force below is tuned per 60fps frame, then scaled by real elapsed
+            // time so the balls behave the same on a 60Hz and a 120Hz display
+            var FRAME_MS = 1000 / 60;
+            var FLICK_WINDOW = 120;
+            var lastFrame = 0;
             var hasInteracted = false;
             var animationId = null;
             var antigravityMode = false;
 
+            // Scroll-driven dock transition
+            var dockProgress = 0;
+            var dockEased = 0;
+            var lastEased = -1;
+            var isDocked = false;
+            var dockSize = 50;
+            var avatarSize = 36;
+
+            // Pointer gravity
+            var pointer = { x: 0, y: 0, active: false };
+            var REPEL_RADIUS = 170;
+            var REPEL_FORCE = 1.1;
+            var PULL_OUTER = 520;
+            var PULL_FORCE = 0.07;
+
             var ballData = [
-                { label: "", size: 220, type: "photo", url: null, isPhoto: true },
-                { label: "Fresho", size: 104, type: "orange", url: "https://getfresho.com" },
-                { label: "FinMango", size: 110, type: "dark", url: "https://finmango.org" },
-                { label: "Robot Radio", size: 90, type: "orange", url: "https://ragingrobot.app/" },
-                { label: "GotKiwi", size: 85, type: "dark", url: "https://gotkiwi.com/" },
-                { label: "Axel Books", size: 80, type: "orange", url: "https://a.co/d/2aTl6yg" },
-                { label: "39+", size: 70, type: "light", url: null },
-                { label: "TEDx", size: 60, type: "light", url: null }
+                {
+                    label: "", mono: "", size: 220, type: "photo", isPhoto: true,
+                    url: "about.html", external: false, aria: "About Scott Glasgow"
+                },
+                {
+                    label: "Fresho", mono: "FR", size: 104, type: "orange",
+                    url: "https://getfresho.com", external: true, aria: "Fresho — AI advertising"
+                },
+                {
+                    label: "FinMango", mono: "FM", size: 110, type: "dark",
+                    url: "https://finmango.org", external: true, aria: "FinMango — financial health nonprofit"
+                },
+                {
+                    label: "Robot Radio", mono: "RR", size: 90, type: "orange",
+                    url: "https://ragingrobot.app/", external: true, aria: "Raging Robot Radio — AI radio station"
+                },
+                {
+                    label: "GotKiwi", mono: "GK", size: 85, type: "dark",
+                    url: "https://gotkiwi.com/", external: true, aria: "GotKiwi"
+                },
+                {
+                    label: "Axel Books", mono: "AX", size: 80, type: "orange",
+                    url: "https://a.co/d/2aTl6yg", external: true, aria: "Axel Adventure Books on Amazon"
+                },
+                {
+                    label: "TEDx", mono: "TEDx", size: 70, type: "light",
+                    url: "https://www.youtube.com/watch?v=dyPGGwcF3mE", external: true,
+                    aria: "Watch the TEDx talk: Enhancing Human Potential with Opportunity"
+                }
             ];
 
+            function smoothstep(t) {
+                if (t <= 0) return 0;
+                if (t >= 1) return 1;
+                return t * t * (3 - 2 * t);
+            }
+
             function createBalls() {
-                area.innerHTML = "";
+                for (var k = 0; k < balls.length; k++) {
+                    layer.removeChild(balls[k].el);
+                }
                 balls = [];
 
-                var areaWidth = area.offsetWidth;
-                var areaHeight = area.offsetHeight;
-                var isMobile = window.innerWidth < 768;
-                var centerX = isMobile ? areaWidth / 2 : areaWidth * 0.7;
-                var centerY = areaHeight / 2;
+                var vw = window.innerWidth;
+                var vh = window.innerHeight;
+                var isMobile = vw < 768;
+                var centerX = isMobile ? vw / 2 : vw * 0.7;
+                var centerY = vh / 2;
 
                 for (var i = 0; i < ballData.length; i++) {
                     var data = ballData[i];
-                    var size = isMobile ? data.size * 0.7 : data.size;
+                    var size = isMobile ? Math.round(data.size * 0.7) : data.size;
 
                     var angle = (i / ballData.length) * Math.PI * 2;
                     var dist = i === 0 ? 0 : (isMobile ? 120 : 180);
                     var x = centerX + Math.cos(angle) * dist - size / 2;
                     var y = centerY + Math.sin(angle) * dist * 0.6 - size / 2;
 
-                    var el = document.createElement("div");
+                    var el = document.createElement("a");
                     el.className = "ball " + data.type;
+                    el.href = data.url;
+                    el.setAttribute("draggable", "false");
+                    el.setAttribute("aria-label", data.external ? data.aria + " (opens in a new tab)" : data.aria);
+                    if (data.external) {
+                        el.target = "_blank";
+                        el.rel = "noopener";
+                    }
                     el.style.width = size + "px";
                     el.style.height = size + "px";
-                    el.style.left = x + "px";
-                    el.style.top = y + "px";
                     el.style.fontSize = Math.max(10, size * 0.12) + "px";
 
                     if (data.isPhoto) {
-                        el.innerHTML = '<img src="images/scott1.jpg" alt="Scott Glasgow">';
+                        el.innerHTML = '<img src="images/scott1.jpg" alt="" width="220" height="220">';
                     } else {
-                        el.textContent = data.label;
+                        el.innerHTML =
+                            '<span class="ball-label"></span>' +
+                            '<span class="ball-mono"></span>' +
+                            '<span class="ball-tip"></span>';
+                        el.querySelector(".ball-label").textContent = data.label;
+                        el.querySelector(".ball-mono").textContent = data.mono;
+                        el.querySelector(".ball-tip").textContent = data.label;
                     }
 
-                    area.appendChild(el);
+                    layer.appendChild(el);
 
                     var ballObj = {
                         el: el,
@@ -776,166 +984,407 @@
                         vx: 0,
                         vy: 0,
                         size: size,
-                        url: data.url,
+                        isPhoto: !!data.isPhoto,
+                        dockIndex: -1,
+                        tx: x,
+                        ty: y,
                         dragging: false,
+                        frozen: false,
+                        suppressClick: false,
                         floatPhase: Math.random() * Math.PI * 2,
                         floatSpeed: 0.02 + Math.random() * 0.02
                     };
 
                     balls.push(ballObj);
-                    setupDrag(ballObj);
+                    setupBall(ballObj);
+                }
+
+                var slot = 0;
+                for (var m = 0; m < balls.length; m++) {
+                    if (!balls[m].isPhoto) {
+                        balls[m].dockIndex = slot++;
+                    }
+                }
+
+                layoutDock();
+                lastEased = -1;
+            }
+
+            // Where each ball goes once the page scrolls past the hero
+            function layoutDock() {
+                var vw = window.innerWidth;
+                var vh = window.innerHeight;
+                var isMobile = vw < 768;
+
+                dockSize = isMobile ? 36 : 50;
+                avatarSize = isMobile ? 30 : 36;
+                var gap = isMobile ? 8 : 14;
+                var count = 0;
+
+                for (var i = 0; i < balls.length; i++) {
+                    if (!balls[i].isPhoto) count++;
+                }
+
+                var totalW = count * dockSize + (count - 1) * gap;
+                var startX = (vw - totalW) / 2 + dockSize / 2;
+                var rowY = vh - dockSize / 2 - (isMobile ? 18 : 28);
+
+                var logoRect = logo.getBoundingClientRect();
+                var avatarX = logoRect.left + avatarSize / 2;
+                var avatarY = logoRect.top + logoRect.height / 2;
+
+                for (var j = 0; j < balls.length; j++) {
+                    var ball = balls[j];
+                    if (ball.isPhoto) {
+                        ball.tx = avatarX;
+                        ball.ty = avatarY;
+                        ball.dockTarget = avatarSize;
+                    } else {
+                        ball.tx = startX + ball.dockIndex * (dockSize + gap);
+                        ball.ty = rowY;
+                        ball.dockTarget = dockSize;
+                    }
+                }
+
+                plate.style.left = ((vw - totalW) / 2 - 14) + "px";
+                plate.style.top = (rowY - dockSize / 2 - 12) + "px";
+                plate.style.width = (totalW + 28) + "px";
+                plate.style.height = (dockSize + 24) + "px";
+            }
+
+            function updateDockProgress() {
+                var heroHeight = hero.offsetHeight || window.innerHeight;
+                var start = heroHeight * 0.30;
+                var end = heroHeight * 0.70;
+                var raw = (window.pageYOffset - start) / (end - start);
+                dockProgress = raw < 0 ? 0 : (raw > 1 ? 1 : raw);
+                dockEased = smoothstep(dockProgress);
+
+                var nowDocked = dockProgress > 0.55;
+                if (nowDocked !== isDocked) {
+                    isDocked = nowDocked;
+                    layer.classList.toggle("docked", isDocked);
+                    document.body.classList.toggle("avatar-docked", isDocked);
+                    for (var i = 0; i < balls.length; i++) {
+                        balls[i].el.classList.toggle("is-docked", isDocked);
+                    }
+                }
+
+                if (dockProgress > 0.15) {
+                    controls.classList.add("retired");
+                    hint.classList.add("hidden");
+                } else {
+                    controls.classList.remove("retired");
+                    if (!hasInteracted) hint.classList.remove("hidden");
                 }
             }
 
-            function setupDrag(ball) {
+            function setupBall(ball) {
                 var startX = 0;
                 var startY = 0;
-                var startTime = 0;
                 var offsetX = 0;
                 var offsetY = 0;
+                var samples = [];
+
+                // Keep a short trail of pointer positions. A throw's speed comes from
+                // this window, not from the final mouse event — hands decelerate just
+                // before letting go, and reading only the last event throws that away.
+                function sample(x, y, t) {
+                    samples.push(x, y, t);
+                    while (samples.length > 6 && t - samples[2] > FLICK_WINDOW) {
+                        samples.splice(0, 3);
+                    }
+                }
+
+                // Take the fastest stretch ending at the release rather than averaging
+                // the whole window. A slow device may only report a handful of moves,
+                // and averaging lets the hand's final slowdown swallow the throw.
+                function flickVelocity() {
+                    var n = samples.length;
+                    if (n < 6) return null;
+
+                    var lastX = samples[n - 3];
+                    var lastY = samples[n - 2];
+                    var lastT = samples[n - 1];
+                    var best = null;
+                    var bestSpeed = 0;
+
+                    for (var i = 0; i + 3 < n; i += 3) {
+                        var dt = lastT - samples[i + 2];
+                        if (dt < 4) continue;
+                        var vx = (lastX - samples[i]) / dt * FRAME_MS;
+                        var vy = (lastY - samples[i + 1]) / dt * FRAME_MS;
+                        var speed = Math.sqrt(vx * vx + vy * vy);
+                        if (speed > bestSpeed) {
+                            bestSpeed = speed;
+                            best = { vx: vx, vy: vy };
+                        }
+                    }
+
+                    return best;
+                }
 
                 function onStart(e) {
+                    if (reduceMotion) return;
+                    // Once docked the balls are navigation, not toys
+                    if (dockProgress > 0.5) return;
+                    if (e.button !== undefined && e.button !== 0) return;
+
                     e.preventDefault();
                     ball.dragging = true;
+                    ball.suppressClick = false;
                     ball.vx = 0;
                     ball.vy = 0;
 
-                    var touch = e.touches ? e.touches[0] : e;
-                    startX = touch.clientX;
-                    startY = touch.clientY;
-                    startTime = Date.now();
-                    offsetX = touch.clientX - area.getBoundingClientRect().left - ball.x;
-                    offsetY = touch.clientY - area.getBoundingClientRect().top - ball.y;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    offsetX = e.clientX - ball.x;
+                    offsetY = e.clientY - ball.y;
 
-                    if (!hasInteracted) {
-                        hasInteracted = true;
-                        hint.classList.add("hidden");
-                        controls.classList.add("visible");
+                    samples.length = 0;
+                    sample(e.clientX, e.clientY, performance.now());
+
+                    // Keeps the drag alive if the pointer outruns the ball
+                    if (ball.el.setPointerCapture) {
+                        try {
+                            ball.el.setPointerCapture(e.pointerId);
+                        } catch (err) { /* not fatal */ }
                     }
 
-                    document.addEventListener("mousemove", onMove);
-                    document.addEventListener("mouseup", onEnd);
-                    document.addEventListener("touchmove", onMove, { passive: false });
-                    document.addEventListener("touchend", onEnd);
+                    // Listen on the document, not the element, so the drag survives
+                    // even where pointer capture isn't available
+                    document.addEventListener("pointermove", onMove, { passive: false });
+                    document.addEventListener("pointerup", onEnd);
+                    document.addEventListener("pointercancel", onEnd);
+
+                    markInteracted();
                 }
 
                 function onMove(e) {
                     if (!ball.dragging) return;
                     e.preventDefault();
 
-                    var touch = e.touches ? e.touches[0] : e;
-                    var rect = area.getBoundingClientRect();
-                    var newX = touch.clientX - rect.left - offsetX;
-                    var newY = touch.clientY - rect.top - offsetY;
+                    // One clock for every sample. Event timeStamps and performance.now()
+                    // don't always share an origin, and mixing them wrecks the window.
+                    sample(e.clientX, e.clientY, performance.now());
 
-                    ball.vx = newX - ball.x;
-                    ball.vy = newY - ball.y;
-                    ball.x = newX;
-                    ball.y = newY;
+                    ball.x = e.clientX - offsetX;
+                    ball.y = e.clientY - offsetY;
+
+                    // Draw immediately rather than waiting for the next frame, so the
+                    // ball stays glued to the cursor instead of trailing it
+                    renderBall(ball);
+
+                    var dx = e.clientX - startX;
+                    var dy = e.clientY - startY;
+                    if (Math.sqrt(dx * dx + dy * dy) > 6) {
+                        ball.suppressClick = true;
+                    }
                 }
 
                 function onEnd(e) {
+                    if (!ball.dragging) return;
                     ball.dragging = false;
 
-                    var touch = e.changedTouches ? e.changedTouches[0] : e;
-                    var duration = Date.now() - startTime;
-                    var dx = touch.clientX - startX;
-                    var dy = touch.clientY - startY;
-                    var dist = Math.sqrt(dx * dx + dy * dy);
+                    document.removeEventListener("pointermove", onMove);
+                    document.removeEventListener("pointerup", onEnd);
+                    document.removeEventListener("pointercancel", onEnd);
 
-                    if (duration < 200 && dist < 10 && ball.url) {
-                        window.open(ball.url, "_blank");
+                    if (e && e.pointerId !== undefined && ball.el.releasePointerCapture) {
+                        try {
+                            ball.el.releasePointerCapture(e.pointerId);
+                        } catch (err) { /* not fatal */ }
                     }
 
-                    document.removeEventListener("mousemove", onMove);
-                    document.removeEventListener("mouseup", onEnd);
-                    document.removeEventListener("touchmove", onMove);
-                    document.removeEventListener("touchend", onEnd);
+                    var flick = flickVelocity();
+                    if (flick) {
+                        ball.vx = flick.vx;
+                        ball.vy = flick.vy;
+                    }
+                    samples.length = 0;
                 }
 
-                ball.el.addEventListener("mousedown", onStart);
-                ball.el.addEventListener("touchstart", onStart, { passive: false });
+                ball.el.addEventListener("pointerdown", onStart);
+
+                // A throw is not a click
+                ball.el.addEventListener("click", function (e) {
+                    if (ball.suppressClick) {
+                        e.preventDefault();
+                        ball.suppressClick = false;
+                    }
+                });
+
+                ball.el.addEventListener("dragstart", function (e) {
+                    e.preventDefault();
+                });
+
+                // Hold a ball still while it has keyboard focus, so the focus ring
+                // isn't chasing a moving target
+                ball.el.addEventListener("focus", function () {
+                    var visible = true;
+                    try {
+                        visible = ball.el.matches(":focus-visible");
+                    } catch (err) { /* older browsers: freeze on any focus */ }
+                    if (visible) {
+                        ball.frozen = true;
+                        ball.vx = 0;
+                        ball.vy = 0;
+                    }
+                });
+
+                ball.el.addEventListener("blur", function () {
+                    ball.frozen = false;
+                });
+
             }
 
-            function update() {
-                var width = area.offsetWidth;
-                var height = area.offsetHeight;
+            function markInteracted() {
+                if (hasInteracted) return;
+                hasInteracted = true;
+                hint.classList.add("hidden");
+                if (dockProgress <= 0.15) controls.classList.add("visible");
+            }
+
+            function applyPointerForces(ball, k) {
+                if (!pointer.active || !canHover) return;
+                var strength = (1 - dockEased) * k;
+                if (strength <= 0.01) return;
+
+                var cx = ball.x + ball.size / 2;
+                var cy = ball.y + ball.size / 2;
+                var dx = cx - pointer.x;
+                var dy = cy - pointer.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 1) dist = 1;
+
+                var radius = REPEL_RADIUS + ball.size / 2;
+
+                if (dist < radius) {
+                    // Close in, the cursor pushes
+                    var push = (1 - dist / radius) * REPEL_FORCE * strength;
+                    ball.vx += (dx / dist) * push;
+                    ball.vy += (dy / dist) * push;
+                } else if (dist < PULL_OUTER) {
+                    // Further out, it quietly pulls
+                    var pull = (1 - (dist - radius) / (PULL_OUTER - radius)) * PULL_FORCE * strength;
+                    ball.vx -= (dx / dist) * pull;
+                    ball.vy -= (dy / dist) * pull;
+                }
+            }
+
+            function renderBall(ball, sizeChanged) {
+                // Blend the free simulation into the dock slot
+                var target = ball.dockTarget || dockSize;
+                var curSize = ball.size + (target - ball.size) * dockEased;
+                var cx = (ball.x + ball.size / 2) + (ball.tx - (ball.x + ball.size / 2)) * dockEased;
+                var cy = (ball.y + ball.size / 2) + (ball.ty - (ball.y + ball.size / 2)) * dockEased;
+
+                if (sizeChanged) {
+                    ball.el.style.width = curSize + "px";
+                    ball.el.style.height = curSize + "px";
+                    ball.el.style.fontSize = Math.max(9, curSize * 0.12) + "px";
+                }
+
+                ball.el.style.transform =
+                    "translate3d(" + (cx - curSize / 2) + "px," + (cy - curSize / 2) + "px,0)";
+            }
+
+            function update(now) {
+                updateDockProgress();
+
+                // Elapsed time in 60fps frames, clamped so a stalled tab or a slow
+                // frame can't fling everything across the screen
+                if (!lastFrame) lastFrame = now - FRAME_MS;
+                var k = (now - lastFrame) / FRAME_MS;
+                lastFrame = now;
+                if (!(k > 0.25)) k = 0.25;
+                if (k > 3) k = 3;
+
+                var width = window.innerWidth;
+                var height = window.innerHeight;
+                var collisionScale = 1 - dockEased;
+                var sizeChanged = Math.abs(dockEased - lastEased) > 0.0005;
+                var drag = Math.pow(friction, k);
 
                 for (var i = 0; i < balls.length; i++) {
                     var ball = balls[i];
-                    if (ball.dragging) {
-                        ball.el.style.left = ball.x + "px";
-                        ball.el.style.top = ball.y + "px";
-                        continue;
-                    }
 
-                    if (antigravityMode) {
-                        ball.floatPhase += ball.floatSpeed;
-                        var floatForceX = Math.sin(ball.floatPhase) * 0.05;
-                        var floatForceY = Math.cos(ball.floatPhase * 0.7) * 0.05;
-                        ball.vy -= 0.02;
-                        ball.vx += floatForceX;
-                        ball.vy += floatForceY;
-                        ball.vx *= 0.995;
-                        ball.vy *= 0.995;
-                    } else {
-                        ball.vy += gravity;
-                        ball.vx *= friction;
-                        ball.vy *= friction;
-                    }
+                    if (!ball.dragging && !ball.frozen) {
+                        if (antigravityMode) {
+                            ball.floatPhase += ball.floatSpeed * k;
+                            ball.vy -= 0.02 * k;
+                            ball.vx += Math.sin(ball.floatPhase) * 0.05 * k;
+                            ball.vy += Math.cos(ball.floatPhase * 0.7) * 0.05 * k;
+                            ball.vx *= Math.pow(0.995, k);
+                            ball.vy *= Math.pow(0.995, k);
+                        } else {
+                            ball.vy += gravity * k;
+                            ball.vx *= drag;
+                            ball.vy *= drag;
+                        }
 
-                    ball.x += ball.vx;
-                    ball.y += ball.vy;
+                        applyPointerForces(ball, k);
 
-                    if (ball.x < 0) {
-                        ball.x = 0;
-                        ball.vx *= -bounce;
-                    }
-                    if (ball.x + ball.size > width) {
-                        ball.x = width - ball.size;
-                        ball.vx *= -bounce;
-                    }
-                    if (ball.y < 0) {
-                        ball.y = 0;
-                        ball.vy *= -bounce;
-                    }
-                    if (ball.y + ball.size > height) {
-                        ball.y = height - ball.size;
-                        ball.vy *= -bounce;
-                    }
+                        var speed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
+                        if (speed > maxSpeed) {
+                            ball.vx = (ball.vx / speed) * maxSpeed;
+                            ball.vy = (ball.vy / speed) * maxSpeed;
+                        }
 
-                    for (var j = i + 1; j < balls.length; j++) {
-                        var other = balls[j];
-                        var dx = (other.x + other.size / 2) - (ball.x + ball.size / 2);
-                        var dy = (other.y + other.size / 2) - (ball.y + ball.size / 2);
-                        var dist = Math.sqrt(dx * dx + dy * dy);
-                        var minDist = (ball.size + other.size) / 2;
+                        ball.x += ball.vx * k;
+                        ball.y += ball.vy * k;
 
-                        if (dist < minDist && dist > 0) {
-                            var overlap = minDist - dist;
-                            var nx = dx / dist;
-                            var ny = dy / dist;
-
-                            ball.x -= nx * overlap / 2;
-                            ball.y -= ny * overlap / 2;
-                            other.x += nx * overlap / 2;
-                            other.y += ny * overlap / 2;
-
-                            var dvx = ball.vx - other.vx;
-                            var dvy = ball.vy - other.vy;
-                            var dot = dvx * nx + dvy * ny;
-
-                            ball.vx -= dot * nx * bounce;
-                            ball.vy -= dot * ny * bounce;
-                            other.vx += dot * nx * bounce;
-                            other.vy += dot * ny * bounce;
+                        if (ball.x < 0) {
+                            ball.x = 0;
+                            ball.vx *= -bounce;
+                        }
+                        if (ball.x + ball.size > width) {
+                            ball.x = width - ball.size;
+                            ball.vx *= -bounce;
+                        }
+                        if (ball.y < 0) {
+                            ball.y = 0;
+                            ball.vy *= -bounce;
+                        }
+                        if (ball.y + ball.size > height) {
+                            ball.y = height - ball.size;
+                            ball.vy *= -bounce;
                         }
                     }
 
-                    ball.el.style.left = ball.x + "px";
-                    ball.el.style.top = ball.y + "px";
+                    if (collisionScale > 0.01) {
+                        for (var j = i + 1; j < balls.length; j++) {
+                            var other = balls[j];
+                            var dx = (other.x + other.size / 2) - (ball.x + ball.size / 2);
+                            var dy = (other.y + other.size / 2) - (ball.y + ball.size / 2);
+                            var dist = Math.sqrt(dx * dx + dy * dy);
+                            var minDist = (ball.size + other.size) / 2;
+
+                            if (dist < minDist && dist > 0) {
+                                var overlap = (minDist - dist) * collisionScale;
+                                var nx = dx / dist;
+                                var ny = dy / dist;
+
+                                ball.x -= nx * overlap / 2;
+                                ball.y -= ny * overlap / 2;
+                                other.x += nx * overlap / 2;
+                                other.y += ny * overlap / 2;
+
+                                var dot = (ball.vx - other.vx) * nx + (ball.vy - other.vy) * ny;
+                                var impulse = dot * bounce * collisionScale;
+
+                                ball.vx -= impulse * nx;
+                                ball.vy -= impulse * ny;
+                                other.vx += impulse * nx;
+                                other.vy += impulse * ny;
+                            }
+                        }
+                    }
+
+                    renderBall(ball, sizeChanged);
                 }
 
+                if (sizeChanged) lastEased = dockEased;
                 animationId = requestAnimationFrame(update);
             }
 
@@ -944,6 +1393,7 @@
 
                 if (antigravityMode) {
                     antigravityBtn.classList.add("antigravity-active");
+                    antigravityBtn.setAttribute("aria-pressed", "true");
                     antigravityBtn.querySelector("span").textContent = "Gravity";
 
                     for (var i = 0; i < balls.length; i++) {
@@ -952,47 +1402,89 @@
                     }
                 } else {
                     antigravityBtn.classList.remove("antigravity-active");
+                    antigravityBtn.setAttribute("aria-pressed", "false");
                     antigravityBtn.querySelector("span").textContent = "Antigravity";
                 }
 
-                if (!hasInteracted) {
-                    hasInteracted = true;
-                    hint.classList.add("hidden");
-                    controls.classList.add("visible");
-                }
+                markInteracted();
             }
 
             function reset() {
-                if (animationId) {
-                    cancelAnimationFrame(animationId);
-                }
                 antigravityMode = false;
                 antigravityBtn.classList.remove("antigravity-active");
+                antigravityBtn.setAttribute("aria-pressed", "false");
                 antigravityBtn.querySelector("span").textContent = "Antigravity";
                 hasInteracted = false;
                 hint.classList.remove("hidden");
                 controls.classList.remove("visible");
+                lastFrame = 0;
+                createBalls();
+            }
+
+            // No simulation, no dock, no drift — the balls are just links in a tidy arrangement
+            function startStatic() {
+                layer.classList.add("static-mode");
+                layer.style.height = (hero.offsetHeight || window.innerHeight) + "px";
+                createBalls();
+                for (var i = 0; i < balls.length; i++) {
+                    renderBall(balls[i], true);
+                }
+            }
+
+            function start() {
+                if (reduceMotion) {
+                    startStatic();
+                    return;
+                }
                 createBalls();
                 animationId = requestAnimationFrame(update);
             }
 
             if (document.readyState === "loading") {
-                document.addEventListener("DOMContentLoaded", function () {
-                    createBalls();
-                    animationId = requestAnimationFrame(update);
-                });
+                document.addEventListener("DOMContentLoaded", start);
             } else {
-                createBalls();
-                animationId = requestAnimationFrame(update);
+                start();
             }
 
             resetBtn.addEventListener("click", reset);
             antigravityBtn.addEventListener("click", toggleAntigravity);
 
+            if (canHover && !reduceMotion) {
+                window.addEventListener("mousemove", function (e) {
+                    pointer.x = e.clientX;
+                    pointer.y = e.clientY;
+                    pointer.active = true;
+                });
+                document.addEventListener("mouseleave", function () {
+                    pointer.active = false;
+                });
+            }
+
             var resizeTimer;
             window.addEventListener("resize", function () {
                 clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(reset, 300);
+                resizeTimer = setTimeout(function () {
+                    if (reduceMotion) {
+                        layer.style.height = (hero.offsetHeight || window.innerHeight) + "px";
+                        startStatic();
+                    } else {
+                        layoutDock();
+                    }
+                }, 200);
+            });
+
+            // Pause the loop when the tab is hidden
+            document.addEventListener("visibilitychange", function () {
+                if (reduceMotion) return;
+                if (document.hidden) {
+                    if (animationId) {
+                        cancelAnimationFrame(animationId);
+                        animationId = null;
+                    }
+                } else if (!animationId) {
+                    lastFrame = 0;
+                    animationId = requestAnimationFrame(update);
+                }
             });
         })();
     </script>

@@ -517,7 +517,10 @@
             position: fixed;
             bottom: 24px;
             right: 24px;
-            z-index: 1000;
+            /* Above the ball layer (1001) — the pile settles on the floor, which is
+               exactly where these buttons live, and a ball parked on Reset was
+               swallowing the click */
+            z-index: 1002;
             display: flex;
             gap: 12px;
             opacity: 0;
@@ -874,6 +877,11 @@
             var gravity = 0.3;
             var friction = 0.99;
             var bounce = 0.7;
+
+            // Drag from the floor itself. Air friction alone is 0.99 a step, so a ball
+            // that has stopped bouncing still skates for several seconds — the pile
+            // reads as unsettled long after it looks like it should be still.
+            var GROUND_FRICTION = 0.95;
             var maxSpeed = 60;   // safety against tunnelling only; normal play never reaches it
 
             // The simulation advances in whole 60fps steps and never a partial one, so
@@ -909,11 +917,23 @@
             var dockSize = 50;
             var avatarSize = 36;
 
-            // Pointer gravity. Push only — an attraction term at any useful range keeps
-            // every ball permanently agitated and nothing ever settles.
-            var pointer = { x: 0, y: 0, active: false };
-            var REPEL_RADIUS = 110;
-            var REPEL_FORCE = 0.45;
+            // The cursor only pushes while it is actually moving. Resting it on a ball,
+            // or easing up to one to grab it, leaves the pile alone — a push that was
+            // always on meant every ball fled the cursor before it could be picked up.
+            var pointer = {
+                x: 0, y: 0, vx: 0, vy: 0, speed: 0,
+                active: false, seen: false, lastX: 0, lastY: 0, lastT: 0
+            };
+            var POINTER_REACH = 44;   // how far past a ball's edge the cursor is felt
+            var POINTER_FORCE = 1.1;  // peak push from a fast swipe
+            var POINTER_SLOW = 2;     // px/frame — at or below this the cursor never pushes
+            var POINTER_FAST = 16;    // px/frame — full strength
+            var POINTER_MAX_GAIN = 4; // ceiling on the speed term below
+            var POINTER_DECAY = 0.82; // cursor speed bleeds off once the moves stop arriving
+
+            // A ball resists in proportion to its area, so the photo takes a real shove
+            // and the small ones scatter
+            var MASS_BASE = 100;
 
             var ballData = [
                 {
@@ -1008,6 +1028,7 @@
                         vx: 0,
                         vy: 0,
                         size: size,
+                        invMass: (MASS_BASE * MASS_BASE) / (size * size),
                         isPhoto: !!data.isPhoto,
                         dockIndex: -1,
                         tx: x,
@@ -1116,6 +1137,7 @@
                 var startY = 0;
                 var offsetX = 0;
                 var offsetY = 0;
+                var lastMoveT = 0;
                 var samples = [];
 
                 // Keep a short trail of pointer positions. A throw's speed comes from
@@ -1175,8 +1197,9 @@
                     offsetX = e.clientX - ball.x;
                     offsetY = e.clientY - ball.y;
 
+                    lastMoveT = performance.now();
                     samples.length = 0;
-                    sample(e.clientX, e.clientY, performance.now());
+                    sample(e.clientX, e.clientY, lastMoveT);
 
                     // Keeps the drag alive if the pointer outruns the ball
                     if (ball.el.setPointerCapture) {
@@ -1200,10 +1223,26 @@
 
                     // One clock for every sample. Event timeStamps and performance.now()
                     // don't always share an origin, and mixing them wrecks the window.
-                    sample(e.clientX, e.clientY, performance.now());
+                    var now = performance.now();
+                    sample(e.clientX, e.clientY, now);
 
-                    ball.x = e.clientX - offsetX;
-                    ball.y = e.clientY - offsetY;
+                    var nextX = e.clientX - offsetX;
+                    var nextY = e.clientY - offsetY;
+
+                    // Keep the hand's speed on the ball while it is still held, so
+                    // dragging it through the pile shoves the others out of the way
+                    // instead of sliding through them
+                    var dt = now - lastMoveT;
+                    if (dt >= 1) {
+                        var ivx = (nextX - ball.x) / dt * FRAME_MS;
+                        var ivy = (nextY - ball.y) / dt * FRAME_MS;
+                        ball.vx += (ivx - ball.vx) * 0.5;
+                        ball.vy += (ivy - ball.vy) * 0.5;
+                        lastMoveT = now;
+                    }
+
+                    ball.x = nextX;
+                    ball.y = nextY;
 
                     // Draw immediately rather than waiting for the next frame, so the
                     // ball stays glued to the cursor instead of trailing it
@@ -1235,6 +1274,10 @@
                         ball.vx = flick.vx;
                         ball.vy = flick.vy;
                     }
+
+                    // A ball let go is always live, even if it was asleep when grabbed
+                    ball.resting = false;
+                    ball.calm = 0;
                     samples.length = 0;
                 }
 
@@ -1283,24 +1326,66 @@
             // sleeping ball
             function applyPointerForces(ball) {
                 if (!pointer.active || !canHover) return false;
+                if (ball.dragging || ball.frozen) return false;
+                if (pointer.speed <= 0) return false;
                 var strength = 1 - dockEased;
                 if (strength <= 0.01) return false;
 
-                var cx = ball.x + ball.size / 2;
-                var cy = ball.y + ball.size / 2;
-                var dx = cx - pointer.x;
-                var dy = cy - pointer.y;
+                var r = ball.size / 2;
+                var dx = (ball.x + r) - pointer.x;
+                var dy = (ball.y + r) - pointer.y;
                 var dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 1) dist = 1;
 
-                var radius = REPEL_RADIUS + ball.size / 2;
-                if (dist >= radius) return false;
+                var reach = r + POINTER_REACH;
+                if (dist >= reach) return false;
 
-                var push = (1 - dist / radius) * REPEL_FORCE * strength;
-                if (push < 0.02) return false;
+                var inv = 1 / pointer.speed;
+                var nx, ny, closing;
 
-                ball.vx += (dx / dist) * push;
-                ball.vy += (dy / dist) * push;
+                if (dist < 8) {
+                    // Dead centre: the line between cursor and ball is meaningless and
+                    // its sign flips frame to frame, so the cursor's own heading carries
+                    // the shove instead
+                    nx = pointer.vx * inv;
+                    ny = pointer.vy * inv;
+                    closing = pointer.speed;
+                } else {
+                    nx = dx / dist;
+                    ny = dy / dist;
+                    // How fast the cursor is bearing down on this ball. Only motion
+                    // *toward* a ball shoves it — resting on one, or sweeping away from
+                    // one, leaves it alone, which is what lets you reach in and grab it.
+                    // It also stops a pass through the middle from shoving the ball
+                    // forward on the way in and dragging it back on the way out.
+                    closing = pointer.vx * nx + pointer.vy * ny;
+                }
+
+                var swipe = smoothstep((closing - POINTER_SLOW) / (POINTER_FAST - POINTER_SLOW));
+                if (swipe <= 0) return false;
+
+                // Full strength inside the ball, easing to nothing at the edge of reach —
+                // no step change as the cursor crosses the boundary
+                var proximity = smoothstep((reach - dist) / POINTER_REACH);
+
+                // The faster the cursor, the fewer frames it spends beside the ball, so a
+                // fixed per-frame push makes a hard swipe land no harder than a gentle
+                // one. Scaling with the closing speed keeps the total impulse honest.
+                var gain = closing / POINTER_FAST;
+                if (gain > POINTER_MAX_GAIN) gain = POINTER_MAX_GAIN;
+
+                // Heavier balls give less — the photo takes a real shove to move
+                var push = proximity * swipe * gain * POINTER_FORCE * strength * ball.invMass;
+                if (push < 0.01) return false;
+
+                // Mostly straight away from the cursor, with some of its heading mixed in
+                // so a glancing pass sweeps the ball along rather than only shoving it
+                var dirX = nx * 0.75 + pointer.vx * inv * 0.25;
+                var dirY = ny * 0.75 + pointer.vy * inv * 0.25;
+                var len = Math.sqrt(dirX * dirX + dirY * dirY);
+                if (len < 0.001) return false;
+
+                ball.vx += (dirX / len) * push;
+                ball.vy += (dirY / len) * push;
                 return true;
             }
 
@@ -1332,6 +1417,17 @@
                 var width = viewW;
                 var height = viewH;
                 var collisionScale = 1 - dockEased;
+
+                // No moves since the last step means the cursor has stopped, and a
+                // stopped cursor pushes nothing
+                pointer.vx *= POINTER_DECAY;
+                pointer.vy *= POINTER_DECAY;
+                pointer.speed *= POINTER_DECAY;
+                if (pointer.speed < 0.05) {
+                    pointer.vx = 0;
+                    pointer.vy = 0;
+                    pointer.speed = 0;
+                }
 
                 for (var i = 0; i < balls.length; i++) {
                     var ball = balls[i];
@@ -1386,6 +1482,7 @@
                         if (ball.y + ball.size > height) {
                             ball.y = height - ball.size;
                             ball.vy *= -bounce;
+                            ball.vx *= GROUND_FRICTION;
                         }
 
                         // Stay slow for long enough and the ball is done moving. Free
@@ -1410,35 +1507,58 @@
                             var dy = (other.y + other.size / 2) - (ball.y + ball.size / 2);
                             var dist = Math.sqrt(dx * dx + dy * dy);
                             var minDist = (ball.size + other.size) / 2;
+                            if (dist >= minDist || dist <= 0) continue;
 
-                            if (dist < minDist && dist > 0) {
-                                var overlap = (minDist - dist) * collisionScale;
-                                var nx = dx / dist;
-                                var ny = dy / dist;
+                            // A held ball is immovable. It tracks the cursor exactly and
+                            // shoves the pile aside, instead of being nudged off the
+                            // cursor by whatever it lands on.
+                            var invA = (ball.dragging || ball.frozen) ? 0 : ball.invMass;
+                            var invB = (other.dragging || other.frozen) ? 0 : other.invMass;
+                            var invSum = invA + invB;
+                            if (invSum <= 0) continue;
 
-                                ball.x -= nx * overlap / 2;
-                                ball.y -= ny * overlap / 2;
-                                other.x += nx * overlap / 2;
-                                other.y += ny * overlap / 2;
+                            var nx = dx / dist;
+                            var ny = dy / dist;
 
-                                var dot = (ball.vx - other.vx) * nx + (ball.vy - other.vy) * ny;
+                            // Each ball gives way in proportion to how light it is
+                            var overlap = (minDist - dist) * collisionScale;
+                            var shareA = overlap * (invA / invSum);
+                            var shareB = overlap * (invB / invSum);
 
-                                // Only a real knock wakes a sleeping ball. Resting balls
-                                // in a pile touch constantly; that must not count.
-                                if (Math.abs(dot) > REST_SPEED) {
-                                    ball.resting = false;
-                                    other.resting = false;
-                                    ball.calm = 0;
-                                    other.calm = 0;
-                                }
+                            ball.x -= nx * shareA;
+                            ball.y -= ny * shareA;
+                            other.x += nx * shareB;
+                            other.y += ny * shareB;
 
-                                var impulse = dot * bounce * collisionScale;
-
-                                ball.vx -= impulse * nx;
-                                ball.vy -= impulse * ny;
-                                other.vx += impulse * nx;
-                                other.vy += impulse * ny;
+                            // A sleeping ball shoved far enough to leave the pile has to
+                            // wake, or it hangs in mid-air with gravity switched off. The
+                            // threshold clears the sub-pixel nudges a settled stack trades
+                            // every frame, which must not wake anything.
+                            if (overlap > 0.5) {
+                                if (shareA > 0.5) { ball.resting = false; ball.calm = 0; }
+                                if (shareB > 0.5) { other.resting = false; other.calm = 0; }
                             }
+
+                            // Positive means they are still closing. Separating pairs get
+                            // no impulse, which is what stops a settled pile buzzing.
+                            var dot = (ball.vx - other.vx) * nx + (ball.vy - other.vy) * ny;
+                            if (dot <= 0) continue;
+
+                            // Only a real knock wakes a sleeping ball. Resting balls in a
+                            // pile touch constantly; that must not count.
+                            if (dot > REST_SPEED) {
+                                ball.resting = false;
+                                other.resting = false;
+                                ball.calm = 0;
+                                other.calm = 0;
+                            }
+
+                            var impulse = (1 + bounce) * dot / invSum * collisionScale;
+
+                            ball.vx -= impulse * invA * nx;
+                            ball.vy -= impulse * invA * ny;
+                            other.vx += impulse * invB * nx;
+                            other.vy += impulse * invB * ny;
                         }
                     }
                 }
@@ -1537,13 +1657,42 @@
             antigravityBtn.addEventListener("click", toggleAntigravity);
 
             if (canHover && !reduceMotion) {
-                window.addEventListener("mousemove", function (e) {
+                window.addEventListener("pointermove", function (e) {
+                    if (e.pointerType === "touch") return;
+
+                    var now = performance.now();
+                    if (pointer.seen) {
+                        var dt = now - pointer.lastT;
+                        // Sub-millisecond gaps are left to accumulate — dividing by them
+                        // produces a speed spike, not a measurement
+                        if (dt >= 1) {
+                            var ivx = (e.clientX - pointer.lastX) / dt * FRAME_MS;
+                            var ivy = (e.clientY - pointer.lastY) / dt * FRAME_MS;
+                            pointer.vx += (ivx - pointer.vx) * 0.4;
+                            pointer.vy += (ivy - pointer.vy) * 0.4;
+                            pointer.speed = Math.sqrt(pointer.vx * pointer.vx + pointer.vy * pointer.vy);
+                            pointer.lastX = e.clientX;
+                            pointer.lastY = e.clientY;
+                            pointer.lastT = now;
+                        }
+                    } else {
+                        pointer.lastX = e.clientX;
+                        pointer.lastY = e.clientY;
+                        pointer.lastT = now;
+                        pointer.seen = true;
+                    }
+
                     pointer.x = e.clientX;
                     pointer.y = e.clientY;
                     pointer.active = true;
-                });
+                }, { passive: true });
+
                 document.addEventListener("mouseleave", function () {
                     pointer.active = false;
+                    pointer.seen = false;
+                    pointer.vx = 0;
+                    pointer.vy = 0;
+                    pointer.speed = 0;
                 });
             }
 

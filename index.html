@@ -603,6 +603,17 @@
             font-size: 0.9rem;
         }
 
+        /* Quiet CV link in the footer */
+        .footer-cv {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .footer-cv:hover {
+            color: var(--accent-color);
+        }
+
         /* Mobile - THIS IS THE ONLY CHANGE: added min-height with dvh */
         @media (max-width: 768px) {
             .hero {
@@ -714,7 +725,6 @@
             </button>
             <ul class="nav-links">
                 <li><a href="about.html">About</a></li>
-                <li><a href="cv.html">CV</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="publications.html">Publications</a></li>
                 <li><a href="travel.html">Travel</a></li>
@@ -735,7 +745,6 @@
         </button>
         <ul class="mobile-menu-links">
             <li><a href="about.html">About</a></li>
-            <li><a href="cv.html">CV</a></li>
             <li><a href="projects.html">Projects</a></li>
             <li><a href="publications.html">Publications</a></li>
             <li><a href="travel.html">Travel</a></li>
@@ -839,7 +848,7 @@
 
     <footer>
         <div class="container">
-            <p>© 2026 Scott Glasgow</p>
+            <p>© 2026 Scott Glasgow &middot; <a href="cv.html" class="footer-cv">CV</a></p>
         </div>
     </footer>
 

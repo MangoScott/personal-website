@@ -6,7 +6,7 @@ Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https:
 
 - **index.html** - Homepage with an interactive physics hero (draggable balls linking to projects), about blurb, education, and contact
 - **about.html** - Personal story, from Akron to 39 countries
-- **cv.html** - Full CV (experience, education, publications, speaking, awards). Carries its own `@media print` rules so the browser's print dialog produces a clean PDF; keep it in sync with `publications.html` and `speaking.html`
+- **cv.html** - Source for the CV PDF, not linked from the site and marked `noindex`. Carries its own `@media print` rules; open it and print to regenerate `Scott_Glasgow_CV.pdf`. Keep it in sync with `publications.html` and `speaking.html`
 - **projects.html** - Project cards (Fresho, FinMango, Raging Robot Radio, and archived work)
 - **publications.html** - Peer-reviewed papers, op-eds, books, media mentions, TEDx talks, podcasts
 - **travel.html** - Masonry photo gallery with lightbox, fed by WebP thumbnails
@@ -18,6 +18,7 @@ Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https:
 - **styles.css** - Shared design system (CSS variables, header/nav, cards, gallery, lightbox). `index.html` carries its own inline styles for the physics hero.
 - **js/main.js** - Shared mobile menu toggle used by every page
 - **images/** - Page images. `images/travel/` holds full-size gallery photos (used by the lightbox); `images/travel/thumbs/` holds 800px WebP thumbnails (used by the grid).
+- **Scott_Glasgow_CV.pdf** - The CV as linked from the hero button, the footers, and the About bio. Generated from `cv.html`; regenerate it there rather than editing the PDF.
 - **sitemap.xml / robots.txt** - Search engine plumbing; URLs point at https://sglasgow.com
 
 ## Conventions

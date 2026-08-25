@@ -586,3 +586,14 @@ footer {
         columns: 1;
     }
 }
+
+/* Quiet CV link in the footer */
+.footer-cv {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.footer-cv:hover {
+    color: var(--accent-color);
+}

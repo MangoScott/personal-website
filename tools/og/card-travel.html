@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@0;1&display=block">
+<style>
+  :root{--accent:#FF6B35}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{font-family:'Inter',sans-serif;background:#121212;-webkit-font-smoothing:antialiased}
+  .card{position:relative;width:1200px;height:630px;overflow:hidden;background:#0f0f0f}
+
+  /* photo mosaic fills the right side; the gutters are the card background */
+  .grid{
+    position:absolute;left:462px;top:0;width:738px;height:630px;
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:4px;
+    background:#0f0f0f;
+  }
+  .grid img{display:block;width:100%;height:100%;min-width:0;min-height:0;object-fit:cover}
+
+  /* text panel on the left */
+  .panel{
+    position:absolute;left:0;top:0;width:462px;height:630px;
+    padding:0 54px;display:flex;flex-direction:column;justify-content:center;
+    border-right:3px solid var(--accent);
+    background:
+      radial-gradient(circle at 20% 46%, rgba(255,107,53,.22) 0%, rgba(255,107,53,0) 62%),
+      linear-gradient(150deg,#202020 0%,#131313 60%,#171717 100%);
+  }
+  .eyebrow{
+    font-size:13px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:22px;
+  }
+  .big{font-size:122px;font-weight:800;letter-spacing:-.045em;line-height:.86;color:#fff}
+  .label{font-size:43px;font-weight:600;letter-spacing:-.02em;color:rgba(255,255,255,.95);margin-top:4px}
+  .sub{
+    font-family:'Playfair Display',Georgia,serif;font-style:italic;
+    font-size:27px;color:rgba(255,255,255,.66);margin-top:15px;
+  }
+  .mark{position:absolute;left:54px;bottom:44px;display:flex;align-items:center;gap:11px}
+  .mark .sg{
+    width:30px;height:30px;border-radius:50%;border:1.5px solid rgba(255,255,255,.28);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;color:rgba(255,255,255,.62);
+  }
+  .mark .dom{font-size:19px;font-weight:500;color:rgba(255,255,255,.5)}
+
+  .bar{position:absolute;left:0;right:0;bottom:0;height:6px;
+       background:linear-gradient(90deg,#FF6B35 0%,#ff8a5c 46%,#FF6B35 100%)}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="grid">
+      <img src="../../images/travel/FullSizeRender.jpg" alt="">
+      <img src="../../images/travel/IMG_0768.jpg" alt="">
+      <img src="../../images/travel/IMG_7347.jpg" alt="">
+      <img src="../../images/travel/IMG_1309.jpg" alt="">
+      <img src="../../images/travel/IMG_6826.jpg" alt="">
+      <img src="../../images/travel/IMG_3622.jpg" alt="">
+    </div>
+
+    <div class="panel">
+      <div class="eyebrow">Travel Journal</div>
+      <div class="big">39</div>
+      <div class="label">countries</div>
+      <div class="sub">and counting.</div>
+      <div class="mark">
+        <div class="sg">SG</div>
+        <div class="dom">sglasgow.com</div>
+      </div>
+    </div>
+
+    <div class="bar"></div>
+  </div>
+</body>
+</html>

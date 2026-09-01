@@ -39,6 +39,7 @@ def find_chromium():
 
 
 def render(card: pathlib.Path, out: pathlib.Path) -> None:
+    card, out = card.resolve(), out.resolve()
     raw = HERE / ".render-2x.png"
     with sync_playwright() as pw:
         exe = find_chromium()
@@ -50,7 +51,7 @@ def render(card: pathlib.Path, out: pathlib.Path) -> None:
             viewport={"width": WIDTH, "height": HEIGHT},
             device_scale_factor=SCALE,
         ).new_page()
-        page.goto(card.resolve().as_uri())
+        page.goto(card.as_uri())
         page.wait_for_function("document.fonts.ready.then(() => true)")
 
         missing = page.evaluate(
@@ -62,18 +63,23 @@ def render(card: pathlib.Path, out: pathlib.Path) -> None:
 
         overflow = page.evaluate(
             """() => {
-                const col = document.querySelector('.col'), bad = [];
-                for (const sel of ['.name', '.tag', '.proof']) {
+                const bad = [];
+                for (const sel of ['.name', '.tag', '.proof', '.eyebrow', '.big', '.label', '.head', '.sub']) {
                     const el = document.querySelector(sel);
                     if (!el) continue;
-                    if (el.scrollWidth > col.clientWidth + 1) bad.push(sel);
-                    if (el.getBoundingClientRect().right > 1200) bad.push(sel + ' (past edge)');
+                    const box = el.parentElement;
+                    if (el.scrollWidth > box.clientWidth + 1) bad.push(sel + ' wider than its column');
+                    const r = el.getBoundingClientRect();
+                    if (r.right > 1200.5 || r.bottom > 630.5 || r.left < -0.5 || r.top < -0.5)
+                        bad.push(sel + ' outside the card');
                 }
+                const imgs = [...document.images].filter(i => !i.complete || i.naturalWidth === 0);
+                if (imgs.length) bad.push('images failed to load: ' + imgs.map(i => i.getAttribute('src')).join(', '));
                 return bad;
             }"""
         )
         if overflow:
-            sys.exit(f"text overflows the card: {overflow} — shorten it or reduce the font size")
+            sys.exit("card layout problem: " + "; ".join(overflow))
 
         page.locator(".card").screenshot(path=str(raw))
         browser.close()
@@ -89,7 +95,7 @@ def render(card: pathlib.Path, out: pathlib.Path) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     im.save(out, quality=QUALITY, subsampling=0, progressive=True, optimize=True)
     raw.unlink(missing_ok=True)
-    print(f"{out.relative_to(ROOT)}  {im.width}x{im.height}  {out.stat().st_size // 1024}KB")
+    print(f"{os.path.relpath(out, ROOT)}  {im.width}x{im.height}  {out.stat().st_size // 1024}KB")
 
 
 if __name__ == "__main__":

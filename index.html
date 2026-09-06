@@ -413,6 +413,11 @@
                 justify-content: center;
             }
 
+            /* The desktop three-column override above must give way on phones */
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
             body.avatar-docked footer {
                 padding-bottom: 110px;
             }
@@ -541,11 +546,12 @@
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
-                        <h1>Using technology to improve lives at scale.</h1>
+                        <h1>Big problems, simple solutions.</h1>
                         <p>
-                            Right now that means AI advertising at <a href="https://getfresho.com" target="_blank"
-                                rel="noopener">Fresho</a> and financial health at <a href="https://finmango.org"
-                                target="_blank" rel="noopener">FinMango</a>.
+                            I build tools that help people live better: financial health at <a href="https://finmango.org"
+                                target="_blank" rel="noopener">FinMango</a>, advertising that doesn't track you at
+                            <a href="https://getfresho.com" target="_blank" rel="noopener">Fresho</a>, and an AI radio
+                            station mostly for fun.
                         </p>
                         <div class="hero-actions">
                             <a href="#contact" class="btn btn-primary">Let's Connect</a>
@@ -563,45 +569,64 @@
             </div>
         </section>
 
-        <section id="about">
+        <section id="work">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Selected work</h2>
+                    <a href="projects.html" class="section-link">All projects &rarr;</a>
+                </div>
+                <div class="grid-3" style="margin-top: 40px;">
+                    <div class="card">
+                        <div class="card-image-wrapper">
+                            <img src="images/fresho.jpg" alt="Fresho" class="card-image" loading="lazy" width="1080" height="1080">
+                        </div>
+                        <div class="card-meta">Active</div>
+                        <h3>Fresho</h3>
+                        <p>Personalized advertising without third-party cookies. Launch and automate campaigns
+                            without following anyone around the internet.</p>
+                        <a href="https://getfresho.com" target="_blank" rel="noopener" class="card-link">Visit Fresho &rarr;</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-image-wrapper">
+                            <img src="images/finmango.jpg" alt="FinMango" class="card-image" loading="lazy" width="1080" height="1080">
+                        </div>
+                        <div class="card-meta">Active</div>
+                        <h3>FinMango</h3>
+                        <p>A global nonprofit building financial health infrastructure for young adults and
+                            vulnerable communities. My life's work.</p>
+                        <a href="https://finmango.org" target="_blank" rel="noopener" class="card-link">Visit FinMango &rarr;</a>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-image-wrapper">
+                            <img src="images/robot-radio.jpg" alt="Raging Robot Radio" class="card-image" loading="lazy" width="1080" height="1080">
+                        </div>
+                        <div class="card-meta">Side project</div>
+                        <h3>Raging Robot Radio</h3>
+                        <p>The world's first fully AI-powered DJ radio station, featuring C-3PO's voice. Built
+                            to find out what AI does to audio.</p>
+                        <a href="https://ragingrobot.app/" target="_blank" rel="noopener" class="card-link">Listen in &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" style="padding-top: 0;">
             <div class="container">
                 <div style="max-width: 900px;">
-                    <h2>Big problems, simple solutions.</h2>
+                    <h2>From Akron to 39 countries.</h2>
                     <p>
-                        The best answer is usually the simplest one that works. My work runs across financial health,
-                        ad tech that doesn't track you, and an AI radio station I built mostly for fun.
-                    </p>
-                    <p>
-                        I've given TEDx talks in Togo and Brazil, and my work has been recognized by Google Health and
-                        the World Bank. But at the end of the day, I'm just someone who loves solving big problems with
-                        simple solutions.
+                        I grew up in Ohio and didn't get on a plane until I was 23. Since then I've founded a
+                        financial health nonprofit, helped Google Health build the most comprehensive open COVID
+                        dataset available, given TEDx talks in Togo and Brazil, and had my work recognized by the
+                        World Bank.
                     </p>
                     <p>
                         When I'm not building, I'm on the tennis court (I played in college), shooting hoops, or off
                         somewhere new.
                     </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="education" style="padding-top: 0;">
-            <div class="container">
-                <div style="max-width: 900px;">
-                    <h3>Education</h3>
-                    <div class="grid-3" style="margin-top: 32px;">
-                        <div>
-                            <div style="font-weight: 700; font-size: 1.1rem;">Harvard Kennedy School</div>
-                            <div style="opacity: 0.7;">Executive Education: Rethinking Financial Inclusion</div>
-                        </div>
-                        <div>
-                            <div style="font-weight: 700; font-size: 1.1rem;">MA in Financial Economics</div>
-                            <div style="opacity: 0.7;">Kent State University</div>
-                        </div>
-                        <div>
-                            <div style="font-weight: 700; font-size: 1.1rem;">BA in Biology & Community Health</div>
-                            <div style="opacity: 0.7;">Minor in Computer Science • Malone University</div>
-                        </div>
-                    </div>
+                    <a href="about.html" class="section-link">More about me &rarr;</a>
                 </div>
             </div>
         </section>
@@ -631,7 +656,15 @@
 
     <footer>
         <div class="container">
-            <p>© 2026 Scott Glasgow &middot; <a href="Scott_Glasgow_CV.pdf" target="_blank" rel="noopener" class="footer-cv">CV</a></p>
+            <ul class="footer-links">
+                <li><a href="https://www.linkedin.com/in/sglasgow/" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a href="https://github.com/mangoscott" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="https://x.com/mangoscott_" target="_blank" rel="noopener">X</a></li>
+                <li><a href="https://www.instagram.com/mangoscott/" target="_blank" rel="noopener">Instagram</a></li>
+                <li><a href="https://www.youtube.com/@ScottPlaysTennis" target="_blank" rel="noopener">YouTube</a></li>
+                <li><a href="Scott_Glasgow_CV.pdf" target="_blank" rel="noopener">CV</a></li>
+            </ul>
+            <p>© 2026 Scott Glasgow</p>
         </div>
     </footer>
 

@@ -186,6 +186,26 @@ a:hover {
 /* Sections */
 section {
     padding: 100px 0;
+    /* Anchor jumps (e.g. #contact) land clear of the fixed header */
+    scroll-margin-top: 88px;
+}
+
+/* Heading with a quiet link on the same line ("All projects →") */
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+}
+
+.section-head h2 {
+    margin-bottom: 0;
+}
+
+.section-link {
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 section h2 {
@@ -263,6 +283,11 @@ section p {
     margin-bottom: 8px;
 }
 
+.card-link {
+    font-weight: 600;
+    margin-top: auto;
+}
+
 .card-meta {
     font-size: 0.875rem;
     color: var(--accent-color);
@@ -309,28 +334,12 @@ section p {
     display: block;
 }
 
-/* Bullet List (Media Mentions) */
-.bullet-list {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin-top: 16px;
+.subtle-list-compact .subtle-item {
+    padding: 10px 0;
 }
 
-.bullet-list li {
-    margin-bottom: 12px;
-    color: var(--text-color);
-    line-height: 1.5;
-}
-
-.bullet-list a {
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    color: var(--text-color);
-    font-weight: 600;
-}
-
-.bullet-list a:hover {
-    color: var(--accent-color);
+.subtle-list-compact .subtle-title {
+    font-size: 1rem;
 }
 
 /* Footer */
@@ -346,6 +355,24 @@ footer {
 footer p {
     max-width: none;
     margin-bottom: 0;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 28px;
+    list-style: none;
+    margin-bottom: 16px;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
 }
 
 /* Skip link: parked off-screen until it receives keyboard focus */
@@ -466,6 +493,10 @@ footer p {
         font-size: 2rem;
     }
 
+    .footer-links {
+        gap: 8px 18px;
+    }
+
     h2 {
         font-size: 1.5rem;
     }
@@ -478,15 +509,10 @@ footer p {
 }
 
 .hero-travel h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 400;
     margin-bottom: 16px;
-    line-height: 1.1;
 }
 
 .hero-travel h1 span {
-    font-style: italic;
     color: var(--accent-color);
 }
 
@@ -508,7 +534,6 @@ footer p {
     break-inside: avoid;
     margin-bottom: 24px;
     position: relative;
-    border-radius: 4px;
     overflow: hidden;
     background: var(--surface-color);
     transition: transform 0.3s ease;
@@ -624,13 +649,3 @@ footer p {
     }
 }
 
-/* Quiet CV link in the footer */
-.footer-cv {
-    color: inherit;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-.footer-cv:hover {
-    color: var(--accent-color);
-}

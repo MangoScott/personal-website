@@ -4,7 +4,7 @@ Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https:
 
 ## Pages
 
-- **index.html** - Homepage with an interactive physics hero (draggable balls linking to projects), about blurb, education, and contact
+- **index.html** - Homepage with an interactive physics hero (draggable balls linking to projects), three featured project cards, a short about teaser, and contact
 - **about.html** - Personal story, from Akron to 39 countries
 - **cv.html** - Source for the CV PDF, not linked from the site and marked `noindex`. Carries its own `@media print` rules; open it and print to regenerate `Scott_Glasgow_CV.pdf`. Keep it in sync with `publications.html` and `speaking.html`
 - **projects.html** - Project cards (Fresho, FinMango, Raging Robot Radio, and archived work)

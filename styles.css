@@ -161,6 +161,12 @@ a:hover {
     color: white;
 }
 
+/* Both states name the colour, so the global a:hover rule can't turn the label orange */
+.btn-primary,
+.btn-primary:hover {
+    color: white;
+}
+
 .btn-primary:hover {
     background: #333;
     transform: translateY(-2px);
@@ -333,6 +339,37 @@ footer {
     text-align: center;
     color: var(--text-muted);
     font-size: 0.9rem;
+}
+
+/* The global paragraph rule caps width at 700px, which would pull the centred
+   copyright line off-centre inside the wider container */
+footer p {
+    max-width: none;
+    margin-bottom: 0;
+}
+
+/* Skip link: parked off-screen until it receives keyboard focus */
+.skip-link {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 20000;
+    padding: 10px 16px;
+    border-radius: 100px;
+    background: var(--text-color);
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transform: translateY(-200%);
+    transition: transform 0.2s;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+    color: white;
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
 /* Mobile Responsive */

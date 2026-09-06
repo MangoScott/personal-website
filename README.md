@@ -15,7 +15,7 @@ Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https:
 
 ## Structure
 
-- **styles.css** - Shared design system (CSS variables, header/nav, cards, gallery, lightbox). `index.html` carries its own inline styles for the physics hero.
+- **styles.css** - Shared design system (CSS variables, header/nav, cards, gallery, lightbox). `index.html` links it too and carries inline styles only for the physics hero.
 - **js/main.js** - Shared mobile menu toggle used by every page
 - **images/** - Page images. `images/travel/` holds full-size gallery photos (used by the lightbox); `images/travel/thumbs/` holds 800px WebP thumbnails (used by the grid).
 - **Scott_Glasgow_CV.pdf** - The CV as linked from the hero button, the footers, and the About bio. Generated from `cv.html`; regenerate it there rather than editing the PDF.

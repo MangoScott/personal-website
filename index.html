@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scott Glasgow - Building Products That Improve Human Well-Being at Scale</title>
+    <title>Scott Glasgow | Using Technology to Improve Lives at Scale</title>
     <meta name="description"
-        content="Building products that improve human well-being at scale. Founder of FinMango, currently building Fresho.">
+        content="Using technology to improve lives at scale. Founder of FinMango, currently building Fresho. TEDx speaker focused on financial inclusion and systems change.">
+    <meta name="theme-color" content="#fafafa">
     <link rel="canonical" href="https://sglasgow.com/">
 
     <!-- Open Graph / Facebook / LinkedIn -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sglasgow.com/">
-    <meta property="og:title" content="Scott Glasgow | Improving Lives at Scale">
+    <meta property="og:title" content="Scott Glasgow | Using Technology to Improve Lives at Scale">
     <meta property="og:description"
         content="Using technology to improve lives at scale. Founder of FinMango, currently building Fresho. TEDx speaker focused on financial inclusion and systems change.">
     <meta property="og:image" content="https://sglasgow.com/images/og-image.jpg">
@@ -26,7 +27,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://sglasgow.com/">
-    <meta name="twitter:title" content="Scott Glasgow | Improving Lives at Scale">
+    <meta name="twitter:title" content="Scott Glasgow | Using Technology to Improve Lives at Scale">
     <meta name="twitter:description"
         content="Using technology to improve lives at scale. Founder of FinMango, currently building Fresho. TEDx speaker focused on financial inclusion and systems change.">
     <meta name="twitter:image" content="https://sglasgow.com/images/og-image.jpg">
@@ -46,62 +47,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- The hero photo is injected by script, so tell the browser about it up front -->
+    <link rel="preload" as="image" href="images/scott1.jpg">
+
+    <!-- Shared design system; the rules below are specific to the physics hero -->
+    <link rel="stylesheet" href="styles.css">
+
     <style>
-        :root {
-            --bg-color: #fafafa;
-            --text-color: #1a1a1a;
-            --text-muted: #666;
-            --surface-color: #f0f0f0;
-            --accent-color: #FF6B35;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(250, 250, 250, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        header nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 72px;
-        }
-
         .logo {
-            font-weight: 800;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-            text-decoration: none;
-            color: var(--text-color);
-            position: relative;
-            z-index: 10001;
             padding-left: 0;
             transition: padding-left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         }
@@ -109,124 +62,6 @@
         /* Makes room for the photo ball once it settles into the masthead */
         body.avatar-docked .logo {
             padding-left: 46px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: opacity 0.2s;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.6;
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            position: relative;
-            z-index: 10001;
-        }
-
-        .hamburger-line {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--text-color);
-            margin: 5px 0;
-            transition: transform 0.3s, opacity 0.3s;
-        }
-
-        /* Mobile menu - fullscreen overlay approach */
-        .mobile-menu {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            /* Hide the regular nav-links on mobile */
-            .nav-links {
-                display: none;
-            }
-
-            /* Mobile menu is a separate fullscreen element */
-            .mobile-menu {
-                display: block;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 10000;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.3s, visibility 0.3s;
-            }
-
-            .mobile-menu.active {
-                opacity: 1;
-                visibility: visible;
-            }
-
-            .mobile-menu-bg {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: #fafafa;
-            }
-
-            .mobile-menu-links {
-                position: relative;
-                z-index: 1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-                gap: 40px;
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            .mobile-menu-links a {
-                font-size: 1.8rem;
-                font-weight: 600;
-                text-decoration: none;
-                color: var(--text-color);
-            }
-
-            .mobile-menu-close {
-                position: absolute;
-                top: 20px;
-                right: 24px;
-                background: none;
-                border: none;
-                cursor: pointer;
-                padding: 8px;
-                z-index: 10001;
-                color: var(--text-color);
-            }
-
-            .mobile-menu-close:hover {
-                opacity: 0.6;
-            }
         }
 
         /* Hero */
@@ -262,13 +97,13 @@
             max-width: 500px;
         }
 
-        .hero-text a {
+        .hero-text p a {
             color: var(--accent-color);
             text-decoration: none;
             font-weight: 600;
         }
 
-        .hero-text a:hover {
+        .hero-text p a:hover {
             text-decoration: underline;
         }
 
@@ -276,40 +111,6 @@
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 14px 28px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--text-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #333;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-color);
-            border: 2px solid var(--text-color);
-        }
-
-        .btn-outline:hover {
-            background: var(--text-color);
-            color: white;
         }
 
         /* Physics layer — fixed to the viewport so the balls survive the scroll */
@@ -477,13 +278,9 @@
             transition: none;
         }
 
-        /* Hint */
+        /* Hint — lives under the hero buttons, clear of the floor where the pile settles */
         .physics-hint {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
+            margin-top: 28px;
             font-size: 0.85rem;
             color: var(--text-muted);
             display: flex;
@@ -526,12 +323,15 @@
             display: flex;
             gap: 12px;
             opacity: 0;
+            /* Hidden for keyboards too, not just eyes */
+            visibility: hidden;
             transform: translateY(20px);
-            transition: all 0.3s;
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
         }
 
         .physics-controls.visible {
             opacity: 1;
+            visibility: visible;
             transform: translateY(0);
         }
 
@@ -569,51 +369,19 @@
             height: 16px;
         }
 
-        /* Sections */
-        section {
-            padding: 100px 0;
-        }
-
-        section h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        section h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        section p {
-            color: var(--text-muted);
-            max-width: 700px;
-            margin-bottom: 16px;
-        }
-
+        /* Education always sits in three columns on desktop */
         .grid-3 {
-            display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
         }
 
+        /* The dock parks on the bottom edge of the viewport, so give the footer
+           room to clear it once the balls have settled in */
         footer {
-            padding: 40px 0;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            transition: padding-bottom 0.4s ease;
         }
 
-        /* Quiet CV link in the footer */
-        .footer-cv {
-            color: inherit;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
-
-        .footer-cv:hover {
-            color: var(--accent-color);
+        body.avatar-docked footer {
+            padding-bottom: 130px;
         }
 
         /* Mobile - THIS IS THE ONLY CHANGE: added min-height with dvh */
@@ -641,8 +409,12 @@
                 justify-content: center;
             }
 
-            .grid-3 {
-                grid-template-columns: 1fr;
+            .physics-hint {
+                justify-content: center;
+            }
+
+            body.avatar-docked footer {
+                padding-bottom: 110px;
             }
 
             .physics-controls {
@@ -660,6 +432,7 @@
         /* Hero controls belong to the hero — they retire once the balls dock */
         .physics-controls.retired {
             opacity: 0;
+            visibility: hidden;
             transform: translateY(20px);
             pointer-events: none;
         }
@@ -700,7 +473,13 @@
         "name": "Scott Glasgow",
         "url": "https://sglasgow.com/",
         "image": "https://sglasgow.com/images/og-image.jpg",
+        "description": "Using technology to improve lives at scale. Founder of FinMango, currently building Fresho. TEDx speaker focused on financial inclusion and systems change.",
         "jobTitle": "Founder",
+        "alumniOf": [
+            { "@type": "CollegeOrUniversity", "name": "Harvard Kennedy School" },
+            { "@type": "CollegeOrUniversity", "name": "Kent State University" },
+            { "@type": "CollegeOrUniversity", "name": "Malone University" }
+        ],
         "worksFor": [
             { "@type": "Organization", "name": "FinMango", "url": "https://finmango.org" },
             { "@type": "Organization", "name": "Fresho", "url": "https://getfresho.com" }
@@ -717,9 +496,11 @@
 </head>
 
 <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
     <header>
         <nav class="container">
-            <a href="index.html" class="logo">SCOTT GLASGOW</a>
+            <a href="/" class="logo">SCOTT GLASGOW</a>
             <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -755,7 +536,7 @@
         </ul>
     </div>
 
-    <main>
+    <main id="main">
         <section class="hero" id="hero-section">
             <div class="container">
                 <div class="hero-content">
@@ -770,16 +551,15 @@
                             <a href="#contact" class="btn btn-primary">Let's Connect</a>
                             <a href="Scott_Glasgow_CV.pdf" target="_blank" rel="noopener" class="btn btn-outline">View CV</a>
                         </div>
+                        <div class="physics-hint" id="physics-hint">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M14 4l-4 4 4 4" />
+                                <path d="M10 20l4-4-4-4" />
+                            </svg>
+                            Drag to play · Click to explore
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="physics-hint" id="physics-hint">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M14 4l-4 4 4 4" />
-                    <path d="M10 20l4-4-4-4" />
-                </svg>
-                Drag to play · Click to explore
             </div>
         </section>
 

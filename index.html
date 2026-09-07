@@ -88,6 +88,8 @@
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 24px;
+            /* Even line lengths, so "solutions." never sits alone */
+            text-wrap: balance;
         }
 
         .hero-text p {
@@ -95,6 +97,8 @@
             color: var(--text-muted);
             margin-bottom: 32px;
             max-width: 500px;
+            /* Avoid a lone word on the last line where the browser supports it */
+            text-wrap: pretty;
         }
 
         .hero-text p a {
@@ -551,7 +555,7 @@
                             I build tools that help people live better: financial health at <a href="https://finmango.org"
                                 target="_blank" rel="noopener">FinMango</a>, advertising that doesn't track you at
                             <a href="https://getfresho.com" target="_blank" rel="noopener">Fresho</a>, and an AI radio
-                            station mostly for fun.
+                            station mostly for&nbsp;fun.
                         </p>
                         <div class="hero-actions">
                             <a href="#contact" class="btn btn-primary">Let's Connect</a>

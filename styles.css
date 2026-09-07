@@ -502,10 +502,261 @@ footer p {
     }
 }
 
+/* ---- Shared page furniture (introduced with the About redesign) ---- */
+
+/* Page hero: eyebrow, big balanced headline, lede */
+.page-hero {
+    padding: 150px 0 40px;
+}
+
+.page-hero h1 {
+    font-size: clamp(2.4rem, 4.6vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    text-wrap: balance;
+}
+
+.page-hero .lede {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 0;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: 24px;
+}
+
+.eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+.eyebrow.muted {
+    color: var(--text-muted);
+}
+
+.eyebrow.muted::before {
+    background: var(--text-muted);
+}
+
+/* Stat strip: big accent numbers that count up on first view */
+.stat-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stat-strip.three {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.stat-strip .stat {
+    padding: 32px 24px;
+    border-left: 1px solid var(--border-color);
+}
+
+.stat-strip .stat:first-child {
+    border-left: none;
+    padding-left: 0;
+}
+
+.stat-number {
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--accent-color);
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+    margin-top: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.stat-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Dark closing invite */
+.say-hello {
+    background: var(--text-color);
+    color: #fff;
+    padding: 100px 0;
+}
+
+.say-hello h2 {
+    color: #fff;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+.say-hello p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+}
+
+.say-hello .btn-primary {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+.say-hello .btn-primary:hover {
+    background: #ff8c5a;
+}
+
+.say-hello .btn-outline {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.say-hello .btn-outline:hover {
+    background: #fff;
+    color: var(--text-color);
+    border-color: #fff;
+}
+
+/* Scroll reveal: elements fade up the first time they enter the viewport.
+   Children of a .stagger container arrive one after another. */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.stagger > .reveal:nth-child(2) { transition-delay: 0.08s; }
+.stagger > .reveal:nth-child(3) { transition-delay: 0.16s; }
+.stagger > .reveal:nth-child(4) { transition-delay: 0.24s; }
+.stagger > .reveal:nth-child(5) { transition-delay: 0.32s; }
+.stagger > .reveal:nth-child(6) { transition-delay: 0.40s; }
+
+/* Muted card label for retired work */
+.card-meta.muted {
+    color: var(--text-muted);
+}
+
+/* Row of organisation names */
+.org-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 40px;
+    margin-top: 32px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--text-color);
+}
+
+/* Native pull quote (replaces the third-party tweet embed) */
+.pull-quote {
+    margin-top: 48px;
+    padding: 32px 32px 32px 40px;
+    border-left: 4px solid var(--accent-color);
+    background: var(--bg-color);
+    max-width: 760px;
+}
+
+.pull-quote p {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    max-width: none;
+    margin-bottom: 16px;
+}
+
+.pull-quote cite {
+    font-style: normal;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.pull-quote cite a {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.pull-quote cite a:hover {
+    color: var(--accent-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .stagger > .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .stat-strip,
+    .stat-strip.three {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-strip .stat:nth-child(odd) {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .stat-strip .stat:nth-child(n+3) {
+        border-top: 1px solid var(--border-color);
+    }
+}
+
+@media (max-width: 768px) {
+    .page-hero {
+        padding-top: 110px;
+    }
+
+    .page-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .say-hello {
+        padding: 72px 0;
+    }
+
+    .org-row {
+        gap: 8px 24px;
+        font-size: 0.95rem;
+    }
+
+    .pull-quote {
+        padding: 24px;
+    }
+}
+
 /* Travel Page Specific Styles */
 .hero-travel {
     padding: 150px 0 80px;
     text-align: center;
+}
+
+.hero-travel .eyebrow {
+    margin-bottom: 20px;
 }
 
 .hero-travel h1 {
@@ -538,6 +789,11 @@ footer p {
     background: var(--surface-color);
     transition: transform 0.3s ease;
     cursor: pointer;
+}
+
+/* Tiles fade up on first view, then hover as before */
+.gallery-item.reveal {
+    transition: opacity 0.7s ease, transform 0.4s ease;
 }
 
 .gallery-item:hover {

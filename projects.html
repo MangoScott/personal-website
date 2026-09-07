@@ -85,18 +85,20 @@
     </div>
 
     <main>
-        <section style="padding-top: 120px;">
+        <section class="page-hero">
             <div class="container">
-                <h1>Selected Work</h1>
-                <p>Things I've built. Some still running, some retired.</p>
+                <span class="eyebrow">Projects</span>
+                <h1>Things I've built. Some still running, some retired.</h1>
+                <p class="lede">Three are live today. The rest did their job and got shelved, which is its own kind
+                    of finished.</p>
             </div>
         </section>
 
-        <section style="padding-top: 0;">
+        <section style="padding-top: 64px;">
             <div class="container">
-                <div class="grid-3">
+                <div class="grid-3 stagger">
                     <!-- Fresho -->
-                    <div class="card">
+                    <div class="card reveal">
                         <div class="card-image-wrapper">
                             <img src="images/fresho.jpg" alt="Fresho" class="card-image">
                         </div>
@@ -109,7 +111,7 @@
                     </div>
 
                     <!-- FinMango -->
-                    <div class="card">
+                    <div class="card reveal">
                         <div class="card-image-wrapper">
                             <img src="images/finmango.jpg" alt="FinMango" class="card-image">
                         </div>
@@ -122,7 +124,7 @@
                     </div>
 
                     <!-- Raging Robot Radio -->
-                    <div class="card">
+                    <div class="card reveal">
                         <div class="card-image-wrapper">
                             <img src="images/robot-radio.jpg" alt="Raging Robot Radio" class="card-image">
                         </div>
@@ -135,11 +137,11 @@
                     </div>
 
                     <!-- Axel Adventure Books -->
-                    <div class="card">
+                    <div class="card reveal">
                         <div class="card-image-wrapper">
                             <img src="images/axel-books.jpg" alt="Axel Adventure Books" class="card-image">
                         </div>
-                        <div class="card-meta" style="color: var(--text-color); opacity: 0.5;">Archived</div>
+                        <div class="card-meta muted">Archived</div>
                         <h3>Axel Adventure Books</h3>
                         <p>A children's book series teaching friendship, courage, and environmental stewardship
                             through engaging adventure stories.</p>
@@ -148,11 +150,11 @@
                     </div>
 
                     <!-- Open Data Project -->
-                    <div class="card">
+                    <div class="card reveal">
                         <div class="card-image-wrapper">
                             <img src="images/covid-data.jpg" alt="COVID-19 Open Data Project" class="card-image">
                         </div>
-                        <div class="card-meta" style="color: var(--text-color); opacity: 0.5;">Archived</div>
+                        <div class="card-meta muted">Archived</div>
                         <h3>COVID-19 Open Data Project</h3>
                         <p>Built the world's most comprehensive COVID-19 dataset in collaboration with Google Health
                             and a volunteer network.</p>
@@ -161,11 +163,11 @@
                     </div>
 
                     <!-- EZ Workout -->
-                    <div class="card">
+                    <div class="card reveal">
                         <div class="card-image-wrapper">
                             <img src="images/ez-workout.jpg" alt="EZ Workout" class="card-image">
                         </div>
-                        <div class="card-meta" style="color: var(--text-color); opacity: 0.5;">Archived</div>
+                        <div class="card-meta muted">Archived</div>
                         <h3>EZ Workout</h3>
                         <p>An app that procedurally generates custom workouts based on available equipment. Making
                             fitness accessible anywhere.</p>
@@ -176,29 +178,43 @@
             </div>
         </section>
 
-        <!-- Global Impact Section -->
+        <!-- Reach -->
         <section id="global-impact" style="background: var(--surface-color);">
             <div class="container">
-                <div style="max-width: 900px;">
-                    <h2>Global Impact</h2>
-                    <p>My work has been featured internationally or used by
-                        organizations such as Google Health, WHO, the World Bank, Harvard Research, USAID, and Verily. I
-                        have a published paper in the Journal of Health Education and have shared ideas on TEDx stages
-                        in Brazil and Togo.</p>
+                <div class="reveal" style="max-width: 900px;">
+                    <span class="eyebrow">Reach</span>
+                    <h2>Used well beyond Ohio.</h2>
+                    <p>Work from these projects has been featured internationally and used by organizations
+                        including:</p>
+                    <div class="org-row">
+                        <span>Google Health</span>
+                        <span>WHO</span>
+                        <span>World Bank</span>
+                        <span>Harvard</span>
+                        <span>USAID</span>
+                        <span>Verily</span>
+                    </div>
 
-                    <!-- Embedded Tweet -->
-                    <div
-                        style="margin-top: 48px; border: 1px solid var(--border-color); border-radius: 0; padding: 24px; background: var(--bg-color);">
-                        <blockquote class="twitter-tweet">
-                            <p lang="en" dir="ltr">We're partnering with FinMango to help schools reopen safely during
-                                COVID-19. Together, we're building the most comprehensive school-level COVID data
-                                tracker to inform decision-making. Learn more: <a
-                                    href="https://t.co/vz7e0KR5qJ">https://t.co/vz7e0KR5qJ</a></p>&mdash; Google.org
-                            (@Googleorg) <a
-                                href="https://twitter.com/Googleorg/status/1299104929743765505?ref_src=twsrc%5Etfw">August
-                                27, 2020</a>
-                        </blockquote>
-                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    <blockquote class="pull-quote">
+                        <p>"We're partnering with FinMango to help schools reopen safely during COVID-19. Together,
+                            we're building the most comprehensive school-level COVID data tracker to inform
+                            decision-making."</p>
+                        <cite>Google.org, <a href="https://twitter.com/Googleorg/status/1299104929743765505"
+                                target="_blank" rel="noopener">August 27, 2020</a></cite>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <section class="say-hello">
+            <div class="container">
+                <div style="max-width: 720px;">
+                    <h2>Have a problem worth solving?</h2>
+                    <p style="margin: 16px 0 32px;">Tell me about it. The simple answer is usually in there
+                        somewhere.</p>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <a href="mailto:scott@finmango.org" class="btn btn-primary">Email Me</a>
+                        <a href="about.html" class="btn btn-outline">Read the story</a>
                     </div>
                 </div>
             </div>

@@ -7,8 +7,8 @@ Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https:
 - **index.html** - Homepage with an interactive physics hero (draggable balls linking to projects), three featured project cards, a short about teaser, and contact
 - **about.html** - Personal story, from Akron to 39 countries, told as a timeline with stats, a travel strip, and scroll reveals
 - **cv.html** - Source for the CV PDF, not linked from the site and marked `noindex`. Carries its own `@media print` rules; open it and print to regenerate `Scott_Glasgow_CV.pdf`. Keep it in sync with `publications.html` and `speaking.html`
-- **projects.html** - Project cards (Fresho, FinMango, Raging Robot Radio, and archived work)
-- **publications.html** - Peer-reviewed papers, op-eds, books, media mentions, TEDx talks, podcasts
+- **projects.html** - Project cards (Fresho, FinMango, Raging Robot Radio, and archived work), a "Reach" section, and a closing invite
+- **publications.html** - Three highlight cards (paper, op-ed, book), then media mentions, podcasts, and earlier research. TEDx talks live on speaking.html
 - **travel.html** - Masonry photo gallery with lightbox, fed by WebP thumbnails
 - **speaking.html** - TEDx video, speaking topics, and past venues
 - **404.html** - Not-found page (picked up automatically by GitHub Pages)
@@ -16,7 +16,7 @@ Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https:
 ## Structure
 
 - **styles.css** - Shared design system (CSS variables, header/nav, cards, gallery, lightbox). `index.html` links it too and carries inline styles only for the physics hero.
-- **js/main.js** - Shared mobile menu toggle used by every page
+- **js/main.js** - Shared mobile menu toggle, scroll reveals (`.reveal`, `.stagger`) and count-up numbers (`data-count`) used by every page
 - **images/** - Page images. `images/travel/` holds full-size gallery photos (used by the lightbox); `images/travel/thumbs/` holds 800px WebP thumbnails (used by the grid).
 - **Scott_Glasgow_CV.pdf** - The CV as linked from the hero button, the footers, and the About bio. Generated from `cv.html`; regenerate it there rather than editing the PDF.
 - **sitemap.xml / robots.txt** - Search engine plumbing; URLs point at https://sglasgow.com

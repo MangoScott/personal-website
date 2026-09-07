@@ -6,11 +6,11 @@ Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https:
 
 - **index.html** - Homepage with an interactive physics hero (draggable balls linking to projects), three featured project cards, a short about teaser, and contact
 - **about.html** - Personal story, from Akron to 39 countries, told as a timeline with stats, a travel strip, and scroll reveals
-- **cv.html** - Source for the CV PDF, not linked from the site and marked `noindex`. Carries its own `@media print` rules; open it and print to regenerate `Scott_Glasgow_CV.pdf`. Keep it in sync with `publications.html` and `speaking.html`
+- **cv.html** - Source for the CV PDF, not linked from the site and marked `noindex`. Carries its own `@media print` rules; open it and print to regenerate `Scott_Glasgow_CV.pdf`. Keep it in sync with `publications.html`
 - **projects.html** - Project cards (Fresho, FinMango, Raging Robot Radio, and archived work), a "Reach" section, and a closing invite
-- **publications.html** - Three highlight cards (paper, op-ed, book), then media mentions, podcasts, and earlier research. TEDx talks live on speaking.html
+- **publications.html** - Titled "Writing & Talks". Three highlight cards (paper, op-ed, book), a Talks section (TEDx video, both talk links, venues), then media mentions, podcasts, and earlier research
 - **travel.html** - Masonry photo gallery with lightbox, fed by WebP thumbnails
-- **speaking.html** - TEDx video, speaking topics, and past venues
+- **speaking.html** - Redirect stub to `publications.html#talks`, kept so old links work. Marked `noindex`
 - **404.html** - Not-found page (picked up automatically by GitHub Pages)
 
 ## Structure

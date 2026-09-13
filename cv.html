@@ -10,7 +10,7 @@
     <link rel="canonical" href="https://sglasgow.com/cv.html">
 
     <!-- This page is the source for Scott_Glasgow_CV.pdf, which is what the site links to.
-         Print it to regenerate the PDF. Not linked from anywhere, and kept out of search. -->
+         Regenerate the PDF with tools/cv/render.py. Not linked from anywhere, and kept out of search. -->
     <meta name="robots" content="noindex, follow">
 
     <!-- Open Graph / Facebook -->
@@ -728,6 +728,7 @@
             }
 
             @page {
+                size: Letter;
                 margin: 16mm 14mm;
             }
 
@@ -736,6 +737,8 @@
                 color: #000;
                 line-height: 1.42;
                 font-size: 10.5pt;
+                orphans: 2;
+                widows: 2;
             }
 
             .cv-page {
@@ -795,9 +798,22 @@
             }
 
             .cv-entry {
-                grid-template-columns: 130px 1fr;
-                gap: 16px;
+                grid-template-columns: 140px 1fr;
+                gap: 14px;
                 padding-bottom: 11px;
+            }
+
+            /* Entries may split across pages, but never between the heading and the first bullet,
+               and never mid-bullet. The short dated lists stay whole. Don't put break-inside: avoid
+               on .cv-entry itself: Chromium then breaks far too early and leaves pages half empty. */
+            .cv-entry-what h3,
+            .cv-entry-where {
+                break-after: avoid;
+            }
+
+            .cv-entry-what li,
+            .cv-list li,
+            .cv-list-dated {
                 break-inside: avoid;
             }
 

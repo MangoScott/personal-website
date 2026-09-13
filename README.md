@@ -6,7 +6,7 @@ Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https:
 
 - **index.html** - Homepage with an interactive physics hero (draggable balls linking to projects), three featured project cards, a short about teaser, and contact
 - **about.html** - Personal story, from Akron to 39 countries, told as a timeline with stats, a travel strip, and scroll reveals
-- **cv.html** - Source for the CV PDF, not linked from the site and marked `noindex`. Carries its own `@media print` rules, tuned to fit two US Letter pages; regenerate `Scott_Glasgow_CV.pdf` with `python3 tools/cv/render.py`. Keep it in sync with `publications.html`
+- **cv.html** - Source for the CV PDF, not linked from the site and marked `noindex`. Carries its own `@media print` rules, regenerate `Scott_Glasgow_CV.pdf` with `python3 tools/cv/render.py`. Keep it in sync with `publications.html`
 - **projects.html** - Project cards (Fresho, FinMango, Raging Robot Radio, and archived work), a "Reach" section, and a closing invite
 - **publications.html** - Titled "Writing & Talks". Three highlight cards (paper, op-ed, book), a Talks section (TEDx video, both talk links, venues), then media mentions, podcasts, and earlier research
 - **travel.html** - Masonry photo gallery with lightbox, fed by WebP thumbnails
@@ -18,7 +18,7 @@ Personal site for Scott Glasgow, served by GitHub Pages at [sglasgow.com](https:
 - **styles.css** - Shared design system (CSS variables, header/nav, cards, gallery, lightbox). `index.html` links it too and carries inline styles only for the physics hero.
 - **js/main.js** - Shared mobile menu toggle, scroll reveals (`.reveal`, `.stagger`) and count-up numbers (`data-count`) used by every page
 - **images/** - Page images. `images/travel/` holds full-size gallery photos (used by the lightbox); `images/travel/thumbs/` holds 800px WebP thumbnails (used by the grid).
-- **Scott_Glasgow_CV.pdf** - The CV as linked from the hero button, the footers, and the About bio. Generated from `cv.html` by `tools/cv/render.py` (headless Chromium, Inter embedded, two pages enforced); never edit the PDF directly.
+- **Scott_Glasgow_CV.pdf** - The CV as linked from the hero button, the footers, and the About bio. Generated from `cv.html` by `tools/cv/render.py` (headless Chromium, Inter embedded, page count checked); never edit the PDF directly.
 - **tools/og/** - Renders the social sharing cards; **tools/cv/** - renders the CV PDF. Both need `pip install playwright` and a Chromium.
 - **sitemap.xml / robots.txt** - Search engine plumbing; URLs point at https://sglasgow.com
 

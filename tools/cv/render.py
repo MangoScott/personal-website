@@ -10,7 +10,7 @@ so the PDF is the same document the site shows, set in the same typeface.
 Inter is fetched from Google Fonts here in Python (which honours HTTPS_PROXY
 and the usual CA variables) and handed to the browser, so the PDF is set in the
 site's typeface even where headless Chromium has no network of its own. Fails
-loudly if the font still did not load, or if the result runs past three pages.
+loudly if the font still did not load, or if the result runs past four pages.
 """
 
 import argparse
@@ -24,7 +24,7 @@ from playwright.sync_api import sync_playwright
 
 HERE = pathlib.Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
-MAX_PAGES = 3
+MAX_PAGES = 4
 
 METADATA = {
     "title": "Scott Glasgow — CV",

@@ -247,6 +247,20 @@
             padding-top: 16px;
         }
 
+        /* A card can end in two links (YouTube + Instagram); they share the bottom row */
+        .off-card .card-links {
+            margin-top: auto;
+            padding-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 24px;
+        }
+
+        .off-card .card-links .section-link {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
         /* Travel strip: five tall frames, colour on hover, scrolls on phones */
         .strip-photos {
             display: grid;
@@ -491,11 +505,15 @@
                         <span class="eyebrow">Off the clock</span>
                         <h3>Tennis, a few times a week.</h3>
                         <p>I picked up a racquet as a kid after watching James Blake play Andre Agassi in the US Open
-                            quarterfinals and never put it down. I played in college and still play a few times a week.
-                            No other sport teaches you more about resilience, responsibility, and just doing the thing
-                            instead of thinking about it.</p>
-                        <a href="https://www.youtube.com/@ScottPlaysTennis" target="_blank" rel="noopener"
-                            class="section-link">Watch @ScottPlaysTennis &rarr;</a>
+                            quarterfinals and never put it down. I played in college, still play a few times a week,
+                            and film it as @ScottPlaysTennis. No other sport teaches you more about resilience,
+                            responsibility, and just doing the thing instead of thinking about it.</p>
+                        <div class="card-links">
+                            <a href="https://www.youtube.com/@ScottPlaysTennis" target="_blank" rel="noopener"
+                                class="section-link">Watch on YouTube &rarr;</a>
+                            <a href="https://www.instagram.com/scottplaystennis/" target="_blank" rel="noopener"
+                                class="section-link">Highlights on Instagram &rarr;</a>
+                        </div>
                     </div>
                     <div class="off-card reveal">
                         <span class="eyebrow">Off the map</span>

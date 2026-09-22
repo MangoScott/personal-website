@@ -84,7 +84,14 @@
         }
 
         .hero-text h1 {
-            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+            /*
+             * Sized so the headline always breaks as two lines:
+             * "Big problems," / "simple solutions."
+             * The text column is (viewport - 2*24px padding - 64px gap) / 2, capped at 544px,
+             * and "simple solutions." in Inter 800 is ~8.5em wide, so the font must stay
+             * under column / 8.5 — that's the 5.8vw - 7px slope and the 3.9rem ceiling.
+             */
+            font-size: clamp(2.2rem, 5.8vw - 7px, 3.9rem);
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 24px;

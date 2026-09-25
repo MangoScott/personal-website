@@ -701,6 +701,42 @@ footer p {
     color: var(--accent-color);
 }
 
+/* Embedded post from X. widgets.js swaps the blockquote for the live
+   tweet; until then (or if the script is blocked) it reads as a card. */
+.twitter-tweet {
+    margin-top: 48px;
+}
+
+blockquote.tweet-card {
+    display: block;
+    padding: 24px 28px;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--text-color);
+    max-width: 550px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+blockquote.tweet-card p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    max-width: none;
+    margin: 0 0 12px;
+}
+
+blockquote.tweet-card a {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+blockquote.tweet-card a:hover {
+    color: var(--accent-color);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .reveal,
     .stagger > .reveal {

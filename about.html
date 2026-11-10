@@ -210,6 +210,77 @@
             text-underline-offset: 3px;
         }
 
+        /* How I work: the "simple, but not simpler" philosophy */
+        .philosophy {
+            padding: 80px 0 40px;
+        }
+
+        .philosophy-head {
+            max-width: 700px;
+            margin-bottom: 56px;
+        }
+
+        .philosophy-head .eyebrow {
+            margin-bottom: 16px;
+        }
+
+        .philosophy-head h2 {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            letter-spacing: -0.01em;
+        }
+
+        .philosophy-head p {
+            font-size: 1.1rem;
+            line-height: 1.75;
+            max-width: none;
+        }
+
+        .principles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .principle {
+            border-top: 2px solid var(--text-color);
+            padding-top: 24px;
+        }
+
+        .principle-num {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+        }
+
+        .principle h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .principle p {
+            line-height: 1.7;
+            max-width: none;
+            margin-bottom: 0;
+        }
+
+        .philosophy-line {
+            max-width: 860px;
+            margin: 64px 0 0;
+            padding-left: 24px;
+            border-left: 4px solid var(--accent-color);
+            font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+            font-weight: 600;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            color: var(--text-color);
+        }
+
         /* Off the clock */
         .off {
             padding: 80px 0;
@@ -318,6 +389,10 @@
             }
 
             .off-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .principles {
                 grid-template-columns: 1fr;
             }
 
@@ -498,6 +573,40 @@
             </div>
         </section>
 
+        <section class="philosophy" id="philosophy">
+            <div class="container">
+                <div class="philosophy-head reveal">
+                    <span class="eyebrow">How I work</span>
+                    <h2>Simple, but not simpler.</h2>
+                    <p>Simple is the hardest thing to make and the easiest thing to use. If something I'm building
+                        feels complicated, I don't understand it well enough yet. So I keep working until it is
+                        simple, and I stop before it stops working. Einstein gets the credit for the line: everything
+                        should be made as simple as possible, but not simpler.</p>
+                </div>
+                <ol class="principles stagger">
+                    <li class="principle reveal">
+                        <span class="principle-num">01</span>
+                        <h3>Simple is earned.</h3>
+                        <p>Simplicity comes after understanding, not before it. When something feels complicated, I
+                            go back and understand the problem better. I don't hide the mess behind a clean surface.</p>
+                    </li>
+                    <li class="principle reveal">
+                        <span class="principle-num">02</span>
+                        <h3>There is a floor.</h3>
+                        <p>Every piece I remove has to be truly unnecessary. If a person needs it, it stays. Cutting
+                            something people need and calling it clean is laziness with good design.</p>
+                    </li>
+                    <li class="principle reveal">
+                        <span class="principle-num">03</span>
+                        <h3>Simple is honest.</h3>
+                        <p>Complexity is where uncertainty, padding, and fear of commitment go to hide. Saying
+                            something plainly means standing behind it.</p>
+                    </li>
+                </ol>
+                <p class="philosophy-line reveal">I do the hard work so it looks easy. And I never make it easier
+                    than it really is.</p>
+            </div>
+        </section>
         <section class="off">
             <div class="container">
                 <div class="off-grid">

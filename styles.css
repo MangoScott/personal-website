@@ -4,7 +4,9 @@
     --text-color: #1a1a1a;
     --text-muted: #666;
     --surface-color: #f0f0f0;
-    --accent-color: #FF6B35;
+    /* One orange. Dark enough to read as small text (4.9:1 on the page
+       background) and to sit behind white button labels (5.2:1). */
+    --accent-color: #C2410C;
     --border-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -258,10 +260,11 @@ section p {
 }
 
 .card-image-wrapper {
-    width: 100%;
+    /* Runs to the card edge */
+    width: calc(100% + 48px);
+    margin: -24px -24px 20px;
     aspect-ratio: 16/9;
     overflow: hidden;
-    margin-bottom: 16px;
     background: var(--border-color);
 }
 
@@ -269,13 +272,6 @@ section p {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(100%);
-    transition: filter 0.4s ease, transform 0.4s ease;
-}
-
-.card:hover .card-image {
-    filter: grayscale(0%);
-    transform: scale(1.05);
 }
 
 .card h3 {
@@ -618,7 +614,7 @@ footer p {
 }
 
 .say-hello .btn-primary:hover {
-    background: #ff8c5a;
+    background: #9A3412;
 }
 
 .say-hello .btn-outline {
@@ -633,8 +629,9 @@ footer p {
 }
 
 /* Scroll reveal: elements fade up the first time they enter the viewport.
-   Children of a .stagger container arrive one after another. */
-.reveal {
+   Children of a .stagger container arrive one after another.
+   Scoped to .js (set in each page's head) so nothing is hidden if the script never runs. */
+.js .reveal {
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.7s ease, transform 0.7s ease;
